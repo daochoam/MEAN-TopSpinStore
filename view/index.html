@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TopSping Store</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <!-- Google Fotns Lobster-->
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'>
+    <link href='./Images/Ico.png' rel='icon'>
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Own Styles CSS -->
+    <link rel="stylesheet" href="./CSS/index.css">
+    <script src="./Components/Menu.js"></script>
+</head>
+<body>
+        <!--============= NAV-BAR MENU =============-->
+        <menu-component></menu-component>
+
+        <!--============= LOGIN FORM ===============-->
+        <div id="Login-Form">
+            <div class="info">
+                <fieldset>
+                    <div class="info_log container" style="width: 100%;">
+                        <div style="width: 100%;"><label for="uname"><b>Email:</b></label></div>
+                        <div style="width: 100%;"><input class="controls" type="text" name="Email" id="Login_Email"
+                                placeholder="Email" style="width: 100%;margin: 0%; padding: 1%;" required></div>
+    
+                        <div style="width: 100%;"><label for="uname"><b>Password:</b></label></div>
+                        <div style="width: 100%;"><input class="controls" type="password" name="password"
+                                id="Login_Password" placeholder="Pasword" style="width: 100%; margin: 0%; padding: 1%;"
+                                required></div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="button_login">
+                <fieldset>
+                    <div class="buttons_log container" style="width: 100%;">
+                        <div id="Login_Message" style="width: 100%; margin: 0%; padding: 1%;"></div>
+                        <div class="btn" id="btn-login" style="width: 100%;font-size: 100%;">Login</div>
+                        <div id="forgot_password" style="width: 100%;"><a href="#">Have you forgotten your password?</a>
+                        </div>
+                        <div id="btn_register" style="width: 100%;margin: 0%; padding: 1%;"><a href="#">Sign up</a></div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    <!-- jQuery -> biblioteca de JavaScript rica en funciones empleada para el recorrido y la manipulación de documentos HTML,
+        el manejo de eventos, la animación y Ajax (Asynchronous JavaScript And XML) sean mucho más simples con una API fácil de usar
+        que funciona en una multitud de navegadores. -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+        crossorigin="anonymous"></script>
+    <!-- Icon Login -->
+    <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+    <!-- Bootstrap CSS -->
+    <script src="./js/index.js" type="module"></script>
+</body>
+</html>
