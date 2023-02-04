@@ -1,1 +1,72 @@
-/* You can add global styles to this file, and also import other style files */
+/* =================================================================
+    * FONTS LIST*
+===================================================================*/
+/*Prosto One*/
+@import url('https://fonts.googleapis.com/css2?family=Prosto+One&display=swap');
+
+/* =================================================================
+    * CONFIGURATION *
+==================================================================*/
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =================================================================
+    * VARIABLES *
+==================================================================*/
+:root {
+    --font-Prosto: 'Prosto One', cursive;
+    --fondo: #f2f2f2;
+    --container-width: 1000px;
+    /* colors*/
+
+}
+
+/* =================================================================
+    * GENERAL STYLES *
+==================================================================*/
+body {
+    height: 100vh;
+    width: 100vw;
+    background: var(--fondo);
+    font-family: var(--fuente);
+    font-size: 18px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    margin-top: 0;
+}
+
+p {
+    line-height: 27px;
+}
+
+img {
+    vertical-align: text-top;
+    width: 100%;
+}
+
+.display-1{
+    font-weight: 700;
+    font-size: 64px;
+}
+
+.display-2{
+    font-weight: 700;
+    font-size: 54px;
+}
+
+.display-3{
+    font-weight: 700;
+    font-size: 44px;
+}
+
+.Title-1 {
+    margin: 2% auto;
+    padding: 0.5% auto;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.637);
+}
