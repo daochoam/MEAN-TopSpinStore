@@ -1,5 +1,15 @@
 import { Component } from '@angular/core';
 
+interface iPerson {
+  CC: number;
+  Name: string;
+  LastName: string;
+  Email: string;
+  Password: string;
+  Phone: number;
+  Address: string;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +17,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'frontend';
+
 }
