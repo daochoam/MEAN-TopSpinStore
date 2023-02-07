@@ -1,6 +1,5 @@
-# TopSpin Store
-El proyecto describe una aplicación WEB e-commerce de productos deportivos de tenis de mesa.
-## Tecnologías Empleadas
+# Backend
+## Tecnologies
 * HTML 5.
 * CSS 3.
 * OpenJDK 17.0.5 2022-10-18.
