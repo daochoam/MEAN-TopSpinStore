@@ -20,20 +20,24 @@ var ItemsSchema = new Schema({
         type: String,
         require: true
     },
+    Picture:{
+        type: String,
+        require: true,
+    },
+    Stock:{
+        type: Number,
+        require: true,
+        default: 0
+    },
     Price:{
         type: Number,
         require: true,
         default: 0,
     },
-    discount:{
+    Discount:{
         type: Number,
         require: false,
         default: 0,
-    },
-    Stock:{
-        type: Integer,
-        require: true,
-        default: 0
     },
     Description:{
         type: String,

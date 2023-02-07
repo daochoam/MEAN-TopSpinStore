@@ -1,17 +1,16 @@
-.Form {
+div.Form {
   position: absolute;
   right: 0px;
   top: 65px;
   width: 320px;
-  height: 265px;
+  height: 270px;
   background: var(--app-backgrond);
   border-radius: 0% 0% 0% 10%;
-  padding: 1%;
+  padding: 0.5%;
   z-index: 10;
   text-align: "start";
   text-indent: "0px";
-  display: "inline-block";
-
+  animation: open_slide 0.3s;
 }
 
 .btn-text{
@@ -19,34 +18,57 @@
   width: 100%;
   margin: 0%;
   padding: 1%;
-  color: aliceblue;
+  text-align: left;
+  justify-content: left;
+  background: none;
+  color: rgb(255, 255, 255);
+  border: none;
 }
 
 .btn-text:hover{
-  color:rgba(0, 0, 255, 0.969);
+  color:rgb(243, 11, 11);
+  cursor: pointer;
 }
 
-#login-form{
-  display: none;
-  position: fixed;
-  top: 55px;
-  right: 0%;
-  padding: 1%;
-  color: #fff;
-  background: #29292b;
-  cursor: pointer;
-  z-index: 10;
-  border-radius: 0% 0% 0% 10%;
-  overflow: hidden;
-  margin: 0.5% auto;
-  border: none;
-  animation-name: open_slide;
-  animation-duration: 0.8s;
+/* Add Zoom Animation */
+@keyframes open_slide {
+  from {
+      height: 0;
+  }
+
+  to {
+      height: 270px;
+  }
+
 }
 
 .info_log {
   margin: 0.5% auto;
   padding: 0.5% auto;
+}
+
+.modal-register .modal-content{
+  display:flex;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  max-height: 600px;
+  background-color: var(--app-backgrond);
+  color:#fff;
+  border-radius: 15px;
+  justify-content: center;
+  padding: 5% 5%;
+  animation: fly 0.8s;
+}
+
+@keyframes fly {
+  from {
+      transform: scale(0)
+  }
+
+  to {
+      transform: scale(1)
+  }
 }
 
 @media screen {

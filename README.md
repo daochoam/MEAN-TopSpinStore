@@ -32,10 +32,9 @@ This project includes @ng-bootstrap and ngx-bootstrap for working with modal dec
 * @ng-bootstrap: ^14.0.1
 * ngx-bootstrap: ^10.2.0
 
-1. Before running the `npm install` command at the shell from the `~.../frontend` directory, go to the `package.json` file and remove the build dependency `"@ng-bootstrap/ng-bootstrap": "^14.0.1"` included in the `devDependencies` section.
+1. Before running the `npm install` command at the shell from the `~.../frontend` directory, go to the `package.json` file and remove the development dependency `"@ng-bootstrap/ng-bootstrap": "^14.0.1"` included in the `devDependencies` section.
 
 2. Go to the project folder: `~.../frontend` from the terminal and run the `npm install` command.
 
-3. The project needs the dependency `@ng-bootstrap/ng-bootstrap` for its execution, for its installation it is necessary to install it bypassing the verification of the dependency tree that it needs, for this execute the following instruction from the project shell:
-
-`npm i -D @ng-bootstrap/ng-bootstrap --legacy-peer-deps`
+3. The project needs the `@ng-bootstrap/ng-bootstrap` development dependency to run; For its installation it is necessary to install it skipping the verification of the dependency tree that it needs. To do this, execute the following instruction from the project shell:
+    `npm i -D @ng-bootstrap/ng-bootstrap --legacy-peer-deps`

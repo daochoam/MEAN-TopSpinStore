@@ -7,7 +7,12 @@ import { Component,OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  ngOnInit(): void {
+  loginState:Boolean = false;
 
+    ngOnInit(): void {
+  }
+
+  diplayLogin():void{
+    this.loginState=!this.loginState
   }
 }

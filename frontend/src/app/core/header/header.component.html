@@ -27,13 +27,15 @@
           <a class="nav-link" routerLink="/tables" routerLinkActive="active-link">Tables/Nets</a>
         </li>
         <li class="nav-item login">
-          <a class="nav-link" routerLink="">Login</a>
+          <a class="nav-link" (click)="diplayLogin()">Login</a>
         </li>
       </ul>
       <div class="d-flex" role="login">
         <div id="Login_Success" style="color: #fff; font-size: 150%; font-family: 'Lobster'; margin: 1%"></div>
-        <app-ico-login class="btn-login"></app-ico-login>
+        <app-ico-login class="btn-login" (click)="diplayLogin()"></app-ico-login>
       </div>
     </div>
   </div>
 </nav>
+
+<app-login *ngIf=loginState></app-login>

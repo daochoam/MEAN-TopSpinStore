@@ -1,29 +1,7 @@
 /* =================================================================
     * REGISTER *
 ==================================================================*/
-.Form *{
-  font-family: var(--fuente);
-}
-
-/*=============  REGISTER-1  ============*/
-.Form .Register {
-  position: relative;
-  display:flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-  color: #fff;
-  background: #29292b;
-  border-radius: 15px;
-  margin: 1% auto;
-  padding: 0.5%;
-}
-
-.Form .Register .Reg-btns{
+.Reg-btns{
   position:relative;
   margin: 2%;
   padding: 2% auto;
@@ -32,9 +10,29 @@
   align-items: flex-end;
 }
 
+.Title-1 {
+  width:fit-content;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 4% auto;
+  padding: 1% auto;
+  border-bottom: 4px solid rgba(255, 255, 255, 0.637);
+}
+
+@keyframes fly {
+  from {
+      transform: scale(0)
+  }
+
+  to {
+      transform: scale(1)
+  }
+}
+
 /*=============  CLOSE BUTTON  ============*/
 
-.Form .Register .btn-shut {
+.btn-shut {
   position: absolute;
   right: 10px;
   top: 5px;

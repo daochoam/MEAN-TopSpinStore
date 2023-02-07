@@ -1,7 +1,7 @@
 var UsersModels = require(__dirname + '/../Models/UsersModels.js').users
 var UsersControllers = {}
 
-var RegValue = {
+var RegexValues = {
     // Capital Letter - No Acent:
     CapitaLetter: /[A-ZÑ]/g,
     // Lowercase Letter - No Acent:
@@ -14,6 +14,8 @@ var RegValue = {
     SpecialCharacters: /[!-/:-@\[-`\{-~¿¡°]/g,
     // Numbers:
     Numbers: /\d/g,
+    // Space Characters:
+    Spaces: /([\s]{1,})/g,
     // Multi-Space characters:
     MultiSpace: /[\s]{2,}/g,
 }
@@ -21,13 +23,13 @@ var RegValue = {
 var Form = {
     Name:{
         // Special Characters:
-        SpecialCharacters: /[!-/:-@\[-`\{-~¿¡°]/g,
+        SpecialCharacters: RegexValues.SpecialCharacters,
         // Word Characters
-        WordCharacters: /[A-ÿ]/g,
+        WordCharacters: RegexValues.WordCharacters,
         // Numbers:
-        Numbers: /\d/g,
+        Numbers: RegexValues.Numbers,
         // Multi-Space characters:
-        MultiSpace: /[\s]{2,}/g,
+        MultiSpace: RegexValues.MultiSpace,
     },
     Email: {
         // Check include one @.
@@ -39,246 +41,114 @@ var Form = {
         // Special Characters:
         SpecialCharacters: /[!-/:-@\[-`\{-~¿¡°]/g,
         // Space Characters:
-        Spaces: /([\s]{1,})/g,
-        // Init Special Characters:
+        Spaces: RegexValues.Spaces,
+        // Begin Special Characters:
         InitSCharacter: /^([.])/g,
         // Consecutive Special Characters:
         MultiSCharacter: /[_.-]{2,}/g,
         // Username don't finish dot character
         CharArroba: /([_.-])(?=@)/g
     },
+    Password: {
+        // Acent Characters:
+        AcentCharacters: RegexValues.AcentCharacters,
+        // Space Characters:
+        Spaces: RegexValues.Spaces,
+        // CapilalLetters:
+        CapitaLetter: RegexValues.CapitaLetter,
+        // LowercaseLetter:
+        LowercaseLetter: RegexValues.LowercaseLetter,
+        // Numbers:
+        Numbers: RegexValues.Numbers,
+        // Special Characters:
+        SpecialCharacters: RegexValues.SpecialCharacters,
+        // Word Characters:
+        InitSCharacter: /^([.])/g,
+        // Consecutive Special Characters:
+    }
 }
 
-UsersControllers.CreateUser = function (req, res) {
+/******************* LOGIN USER  ******************/
+UsersControllers.LoginUsers = function(req,res){
     var post = {
-        Code: req.body.Code,
-        Name: req.body.Name,
         Email: req.body.Email,
         Password: req.body.Password
     }
 
-    /*********************************************/
-    /*************  Check Code   ***************/
-    if (post.Code.trim() == "", post.Code.trim() == null || post.Code.trim() == undefined) {
-        res.send({ state: false, message: 'The ID field is required.' });
-        return false;
-    }
-
-    if (/[^\d]/.test(post.Code.trim()) == true) {
-        res.send({ state: false, message: 'The ID number must not contain non-numeric characters.' })
-        return false;
-    }
-
-    if (6 > post.Code.trim().length > 10) {
-        res.send({ state: false, message: 'The ID number must contain 6 to 10 digits.' })
-        return false;
-    }
-
-    /*********************************************/
-    /**************** Check Name  ****************/
+    /**********************************************/
+    /**************** Check Email  ****************/
     // This field is required.
-    if (post.Name.trim() == "" || post.Name.trim() == null || post.Name.trim() == undefined) {
-        res.send({ state: false, message: 'The name field is required.' });
-        return false;
-    }
-    // The field contain many spaces between names.
-    if (Form.Name.MultiSpace.test(post.Name.trim()) == true) {
-        res.send({ state: false, message: 'The name field contain many spaces between names.' })
-        return false;
-    }
-    // The field must not contain numbers.
-    if (Form.Name.Numbers.test(post.Name.trim()) == true) {
-        res.send({ state: false, message: 'The name must not contain numbers.' })
-        return false;
-    }
-    // The field must not contain name(s) of more than 15 characters.
-    if (Math.max(...post.Name.trim().split(' ').map(p => p.length)) > 15) {
-        res.send({ state: false, message: 'The name must not contain name(s) of more than 15 characters.' })
-        return false;
-    }
-    // The field must not contain name(s) of less than 3 characters.
-    if (Math.min(...post.Name.trim().split(' ').map(p => p.length)) < 3) {
-        res.send({ state: false, message: 'The name must not contain name(s) of less than 3 characters.' })
-        return false;
-    }
-    // The name must not contain special characters.
-    if (Form.Name.SpecialCharacters.test(post.Name.trim()) == true) {
-        res.send({ state: false, message: 'The name must not contain special characters.' });
-        return false;
-    }
-
-    /*********************************************/
-    /*************** Check Email  ****************/
     if (post.Email.trim() == "" || post.Email.trim() == null || post.Email.trim() == undefined) {
-        res.send({ state: false, message: 'The e-mail field is required.' });
-        return false;
-    }
+        res.send({ state: false, message: 'The e-mail field is required.' })
+        return false}
 
-    // The field contain spaces.
+    // The field contain between 6 to 30 characters..
     if (6 > post.Email.match(Form.Email.UserName).length > 30) {
         res.send({ state: false, message: 'The email username must contain between 6 to 30 characters.' })
-        return false;
-    }
+        return false}
 
-    // The field contain spaces.
+    // The field not must contain spaces.
     if (Form.Email.Spaces.test(post.Name.trim()) == true) {
         res.send({ state: false, message: 'The e-mail field not must contain spaces.' })
-        return false;
-    }
+        return false;}
 
     // The field must contain only one @ character.
     if (post.Email.match(Form.Email.Symbol).length != 1) {
         res.send({ state: false, message: 'The email must contain only one @ character.' })
-        return false;
-    }
+        return false;}
 
     // The field must not start with a special characters.
     if (Form.Email.InitSCharacter.test(post.Email.trim()) == true) {
-        res.send({ state: false, message: 'The email username must not start with a special character.' })
-    }
+        res.send({ state: false, message: 'The email username must not start with a special character.' })}
 
     // The field must not contain consecutive special characters.
     if (Form.Email.MultiSCharacter.test(post.Email.trim()) == true) {
-        res.send({ state: false, message: 'The email username must not contain consecutive special characters.' })
-    }
+        res.send({ state: false, message: 'The email username must not contain consecutive special characters.'})}
 
     // The field must not end with a period.
     if (Form.Email.CharArroba.test(post.Email.trim()) == true) {
-        res.send({ state: false, message: 'The email username must not end with a special character.' })
-    }
-
-    // The field must not contain.
-    if (Form.Email.UserName.test(post.Email.trim()) == false) {
-        res.send({ state: false, message: 'The email username is not correct.' })
-    }
-
-    /***************     Save    *****************/
-    UsersModels.CreateUser(post, function (Reply) {
-        if (Reply.state == true) {
-            res.json({ state: true, message: `User ${post.Name} has been successfully registered` })
-        } else {
-            res.json({ state: false, message: 'Error saving data' })
-        }
-    })
-}
-
-UsersControllers.LoadAll = function (_req, res) {
-    UsersModels.LoadAll(null, function (Reply) {
-        if (Reply.state == true) {
-            res.json({ state: true, message: 'The user data has been loaded correctly', data: Reply})
-        } else {
-            res.json({ state: false, message: 'There are no registered users' })
-        }
-    })
-}
-
-UsersControllers.LoadById = function (req, res) {
-    var post = {
-        Id: req.body.Id,
-    }
+        res.send({ state: false, message: 'The email username must not end with a special character.'})}
 
     /*********************************************/
-    /***************  Check Id   ***************/
-    if (post.Id.trim() == "", post.Id.trim() == null || post.Id.trim() == undefined) {
-        res.send({ state: false, message: 'The ID field is required.' });
-        return false;
-    }
+    /************** Check Password ***************/
+    if (post.Password.trim() == "" || post.Password.trim() == null || post.Password.trim() == undefined) {
+        res.send({ state: false, message: 'The e-mail field is required.' })
+        return false}
 
-    UsersModels.LoadById(post, function (Reply) {
-        if (Reply.state == true) {
-            res.json({ state: true, message: `The registered user with #Id ${post.Id} has been uploaded successfully`,data: Reply.data })
-        } else {
-            res.json({ state: false, message: `There is no user registered with the Id number ${post.Id}` })
-        }
-    })
+    // The field must contain at least 8 characters.
+    if (post.Password.length < 8) {
+        res.send({ state: false, message: 'The password must contain at least 8 characters.' })
+        return false}
 
-}
+    // The field contain spaces.
+    if (Form.Password.Spaces.test(post.Name.trim()) == true) {
+        res.send({ state: false, message: 'The password must not contain spaces.' })
+        return false}
 
-UsersControllers.UpdateById = function (req, res) {
-    var post = {
-        Id: req.body.Id,
-        Code: req.body.Code,
-        Name: req.body.Name
-    }
+    // 1 Number.
+    if (Form.Password.Numbers.test(post.Name.trim()) == false) {
+        res.send({ state: false, message: 'The password must contain at least 1 number.' })
+        return false}
 
-    /*********************************************/
-    /***************  Check Id   ***************/
-    if (post.Id.trim() == "", post.Id.trim() == null || post.Id.trim() == undefined) {
-        res.send({ state: false, message: 'The ID field is required.' });
-        return false;
-    }
+    // 1 Capital Letter.
+    if (Form.Password.CapitaLetter.test(post.Name.trim()) == false) {
+        res.send({ state: false, message: 'The password must contain at least 1 capital letter.' })
+        return false}
 
-        /*********************************************/
-    /*************  Check Code   ***************/
-    if (post.Code.trim() == "", post.Code.trim() == null || post.Code.trim() == undefined) {
-        res.send({ state: false, message: 'The ID field is required.' });
-        return false;
-    }
+    // 1 Lowercase Letter.
+    if (Form.Password.LowercaseLetter.test(post.Name.trim()) == false) {
+        res.send({ state: false, message: 'The password must contain at least 1 lowercase letter.' })
+        return false}
 
-    if (/[^\d]/.test(post.Code.trim()) == true) {
-        res.send({ state: false, message: 'The ID number must not contain non-numeric characters.' })
-        return false;
-    }
+    // 1 Special Character.
+    if (Form.Password.SpecialCharacters.test(post.Name.trim()) == false) {
+        res.send({ state: false, message: 'The password must contain at least 1 special character.' })
+        return false}
 
-    if (6 > post.Code.trim().length > 10) {
-        res.send({ state: false, message: 'The ID number must contain 6 to 10 digits.' })
-        return false;
-    }
-
-    /*********************************************/
-    /**************** Check Name  ****************/
-    // This field is required.
-    if (post.Name.trim() == "" || post.Name.trim() == null || post.Name.trim() == undefined) {
-        res.send({ state: false, message: 'The name field is required.' });
-        return false;
-    }
-    // The field contain many spaces between names.
-    if (Form.Name.MultiSpace.test(post.Name.trim()) == true) {
-        res.send({ state: false, message: 'The name field contain many spaces between names.' })
-        return false;
-    }
-    // The field must not contain numbers.
-    if (Form.Name.Numbers.test(post.Name.trim()) == true) {
-        res.send({ state: false, message: 'The name must not contain numbers.' })
-        return false;
-    }
-    // The field must not contain name(s) of more than 15 characters.
-    if (Math.max(...post.Name.trim().split(' ').map(p => p.length)) > 15) {
-        res.send({ state: false, message: 'The name must not contain name(s) of more than 15 characters.' })
-        return false;
-    }
-    // The field must not contain name(s) of less than 3 characters.
-    if (Math.min(...post.Name.trim().split(' ').map(p => p.length)) < 3) {
-        res.send({ state: false, message: 'The name must not contain name(s) of less than 3 characters.' })
-        return false;
-    }
-    // The name must not contain special characters.
-    if (Form.Name.SpecialCharacters.test(post.Name.trim()) == true) {
-        res.send({ state: false, message: 'The name must not contain special characters.' });
-        return false;
-    }
-
-    UsersModels.UpdateById(post, function (Reply) {
-        if (Reply.state == true) {
-            res.json({ state: true, message: `The registered user with #Id ${post.Id} has been updated successfully`})
-        } else {
-            res.json({ state: false, message: `There is no user registered with the Id number ${post.Id}` })
-        }
-    })
-}
-
-UsersControllers.DeleteById = function (req, res) {
-    var post = {
-        Id: req.body.Id,
-    }
-
-    UsersModels.DeleteById(post, function (Reply) {
-        if (Reply.state == true) {
-            res.json({ state: true, message: `The registered user with #Id ${post.Id} has been successfully deleted`})
-        } else {
-            res.json({ state: false, message: 'There was an error deleting the user' })
-        }
-    })
+    // The field contain acent characters.
+    if (RegexForm.Password.AcentCharacters.test(post.Name.trim()) == true) {
+        res.send({ state: false, message: 'The password must not contain acent characters.' })
+        return false}
 }
 
 module.exports.users = UsersControllers

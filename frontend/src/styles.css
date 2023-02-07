@@ -39,6 +39,12 @@ body {
     font-size: 18px;
 }
 
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
 h1,h2,h3,h4,h5,h6 {
     margin-top: 0;
 }
@@ -65,12 +71,6 @@ img {
 .display-3{
     font-weight: 700;
     font-size: 44px;
-}
-
-.Title-1 {
-    margin: 2% auto;
-    padding: 0.5% auto;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.637);
 }
 
 /* =================================================================
@@ -128,5 +128,5 @@ input.Input-2 {
 
 input.Input-2:focus{
   outline:        none;
-  transform: scale(1.02);
+  transform: scale(1.03);
 }

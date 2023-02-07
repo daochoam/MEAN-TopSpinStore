@@ -46,7 +46,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/' + config.bd, {useNewUrlParser:true
     }
 })
 
-require(__dirname + '/routes.js')
+app.use('/user', require(__dirname + '/api/Routes/UsersRoutes'))
+app.use('/items', require(__dirname + '/api/Routes/ItemsRoutes'))
 
 app.listen(config.puerto, function(){
     console.log('Servidor conectado por el puerto '+ config.puerto)
