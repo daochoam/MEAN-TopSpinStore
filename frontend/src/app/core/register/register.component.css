@@ -1,0 +1,66 @@
+/* =================================================================
+    * REGISTER *
+==================================================================*/
+.Form *{
+  font-family: var(--fuente);
+}
+
+/*=============  REGISTER-1  ============*/
+.Form .Register {
+  position: relative;
+  display:flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  color: #fff;
+  background: #29292b;
+  border-radius: 15px;
+  margin: 1% auto;
+  padding: 0.5%;
+}
+
+.Form .Register .Reg-btns{
+  position:relative;
+  margin: 2%;
+  padding: 2% auto;
+  justify-content: center;
+  display: flex;
+  align-items: flex-end;
+}
+
+/*=============  CLOSE BUTTON  ============*/
+
+.Form .Register .btn-shut {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
+.btn-shut{
+  color: rgb(228, 223, 223);
+  font-weight: bold;
+}
+
+.btn-shut:hover, .btn-shut:focus {
+  color: rgb(180, 0, 0);
+  cursor: pointer;
+}
+
+/*=============  ALERTS  ============*/
+.Alert{
+  width: 100%;
+  height: 10%;
+  font-size: 10px;
+  color: rgb(124, 252, 0)
+}
+
+.Warm{
+  width: 100%;
+  height: 10%;
+  font-size: 10px;
+  color: rgba(231, 16, 45, 0.959)
+}

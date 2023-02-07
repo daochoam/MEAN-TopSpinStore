@@ -25,3 +25,8 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Additional Dependencies
+This project includes @ng-bootstrap and ngx-bootstrap for working with modal declarations and other additional tools. @ng-bootstrap was included bypassing the dependency tree check, even though the @ng-boostrap docs say that @ng-boostrap 14.x.x can be used on angular-cli 15, some dependencies don't allow a clean install due to differences with their versioning.
+### @ng-bootstrap: ^14.0.1 --> npm i -D @ng-bootstrap/ng-bootstrap --legacy-peer-deps
+### ngx-bootstrap: ^10.2.0 --> ng add ngx-bootstrap

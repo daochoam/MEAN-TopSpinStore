@@ -1,1 +1,29 @@
-<p>login works!</p>
+<div class="Form">
+  <div class="info">
+      <fieldset>
+          <div class="info_log container" style="width: 100%;">
+            <input class="Input-2" type="text" name="Email" id="LogEmail" placeholder="Email" required/>
+            <div class="Warm" id="Email_Message" ></div>
+
+            <input class="Input-2" type="text" name="Password" id="LogPasword" placeholder="Password" required/>
+            <div class="Warm" id="Password_Message"></div>
+          </div>
+      </fieldset>
+  </div>
+  <div class="button_login">
+      <fieldset>
+          <div class="buttons_log container" style="width: 100%;">
+              <div id="Login_Message" style="width: 100%; margin: 0%; padding: 1%;"></div>
+              <div class="btn btn-2">Login</div>
+              <div id="forgot_password" style="width: 100%;"><a href="#">Have you forgotten your password?</a>
+              </div>
+              <div id="btn_register" style="width: 100%;margin: 0%; padding: 1%;"><a href="#">Sign up</a></div>
+          </div>
+      </fieldset>
+  </div>
+</div>
+
+<!-- NG-MODAL REGISTER -->
+<ng-template #register let-modal>
+  <app-register></app-register>
+</ng-template>

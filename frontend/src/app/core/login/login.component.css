@@ -1,0 +1,40 @@
+.Form {
+  position: absolute;
+  right: 0px;
+  top: 65px;
+  width: 300px;
+  height: 250px;
+  background: var(--app-backgrond);
+  text-align: "start";
+  text-indent: "0px";
+  margin-right: "0px";
+  margin-top: "0px";
+  margin-bottom: "0px";
+  display: "inline-block";
+  margin-left: "0px";
+}
+
+#login-form {
+  display: none;
+  position: fixed;
+  width: 320px;
+  height: auto;
+  top: 55px;
+  right: 0%;
+  padding: 1%;
+  color: #fff;
+  background: #29292b;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 0% 0% 0% 10%;
+  overflow: hidden;
+  margin: 0.5% auto;
+  border: none;
+  animation-name: open_slide;
+  animation-duration: 0.8s;
+}
+
+.info_log {
+  margin: 0.5% auto;
+  padding: 0.5% auto;
+}

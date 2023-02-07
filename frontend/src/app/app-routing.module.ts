@@ -18,7 +18,8 @@ const routes: Routes = [
   {path: 'rubbers', component: RubbersComponent,  pathMatch:'full'},
   {path: 'balls',   component: BladesComponent,   pathMatch:'full'},
   {path: 'tables',  component: TablesComponent,   pathMatch:'full'},
-  {path: '**',      component: Page404Component,   pathMatch:'full'}
+  {path: '**',      component: Page404Component}
+
 ];
 
 @NgModule({

@@ -19,11 +19,12 @@ import { HomeComponent } from './modules/home/home.component';
 import { Page404Component } from './modules/page404/page404.component';
 import { BtnSaveComponent } from './shared/btn-save/btn-save.component';
 import { IcoLoginComponent } from './shared/ico-login/ico-login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
-    // Project Pages
+    // Modules
     HomeComponent,
     UserComponent,
     AdminComponent,
@@ -32,18 +33,20 @@ import { IcoLoginComponent } from './shared/ico-login/ico-login.component';
     BallsComponent,
     TablesComponent,
     Page404Component,
-    // Project Componentes
+    // Cores
     FooterComponent,
     HeaderComponent,
     LoginComponent,
     RegisterComponent,
     PosterItemsComponent,
+    // shared
     BtnSaveComponent,
     IcoLoginComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
