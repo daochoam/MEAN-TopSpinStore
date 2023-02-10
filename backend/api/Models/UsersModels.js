@@ -36,11 +36,16 @@ var UsersSchema = new Schema({
         required: true,
         trim: true
     },
+    Buy:{
+        SKU: [codigoQuality],
+    },
     created_at:{
         type: Date,
         default: Date()
     }
 })
+//coleccion carrito de compra para cada user. Agregado db
+//https://www.youtube.com/watch?v=rg3RRDSzgcI&t=4s&ab_channel=Picandocodigo
 
 const UsersDB = mongoose.model('Users',UsersSchema)
 
@@ -52,6 +57,7 @@ UsersModels.RegisterUsers = function (post, callback) {
     instance.Name = post.Name
     instance.Email = post.Email
     instance.Password = post.Password
+    instance.Phone = post.Phone
     instance.save((err,__) =>{
         if(err){
             return callback({state:false,data:err})

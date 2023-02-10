@@ -31,18 +31,42 @@
 /* =================================================================
     * GENERAL STYLES *
 ==================================================================*/
+html {
+  min-height: 100%;
+  position: relative;
+}
+
 body {
     height: 100vh;
     width: 100vw;
     background: var(--fondo);
     font-family: var(--fuente);
     font-size: 18px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    /* Allow to pin the footer to the bottom of the page. */
+    padding-bottom: 3em 0;
+}
+
+body::-webkit-scrollbar {
+  width: 0.4em;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
 }
 
 footer {
-  position: absolute;
+  position:fixed;
   bottom: 0;
   width: 100%;
+  max-height: 30vh;
+  padding: 1em 0;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -129,4 +153,48 @@ input.Input-2 {
 input.Input-2:focus{
   outline:        none;
   transform: scale(1.03);
+}
+
+/* =================================================================
+    * ICONS FORMS *
+==================================================================*/
+/* Brand Colors and Palettes --> https://usbrandcolors.com/*/
+.fa:hover {
+  opacity: 1;
+  transform: scale(1.8);
+}
+
+.fa-facebook-f:hover{
+  color: #4267B2;
+}
+
+.fa-twitter:hover{
+  color: #1DA1F2;
+}
+
+.fa-instagram:hover{
+  border-radius: 40px;
+  color: #fff;
+  background: #d6249f;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+  box-shadow: 0px 3px 10px rgba(0,0,0,.1);
+}
+
+.fa-google:hover{
+  background: conic-gradient(from -45deg, #ea4335 110deg, #4285F4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.fa-linkedin:hover{
+  color: #fff;
+  background-color: #0288D1;
+  border-radius: 2px;
+}
+
+.fa-github:hover{
+  color: #fff;
+  background-color: #3876b4;
+  border-radius: 2px;
 }

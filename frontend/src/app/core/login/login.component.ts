@@ -1,20 +1,21 @@
-import { Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Person } from 'src/app/interfaces/person';
+import { Component, OnInit} from '@angular/core';
+import { SwitchService } from 'src/app/services/switch.service';
+
+declare var $:any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  RegisterState!: Boolean;
 
-  constructor(public ModaLogin:NgbModal){}
-
-  ngOnInit():void  {}
-
-  openRegister(register: any){
-    this.ModaLogin.open(register, {windowClass:'modal-register'});
+  constructor(private RegSwitch:SwitchService) {}
+  ngOnInit():void  {
+    this.RegSwitch.$LookUpRegister.subscribe((req)=>this.RegisterState =req)
   }
 
+  OpenRegister(): void {
+    this.RegisterState=true;
+  }
 }

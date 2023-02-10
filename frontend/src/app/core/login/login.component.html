@@ -13,12 +13,13 @@
         <div id="Login_Message" style="width: 100%; margin: 0%; padding: 1%;"></div>
         <div class="btn btn-2">Login</div>
           <label class="btn-text" id="ForgotPassword" outerLink="">Have you forgotten your password?</label>
-        <label class="btn-text" id="ButtonRegister" (click)="openRegister(register)">Sign up</label>
+        <label class="btn-text" id="ButtonRegister" (click)="OpenRegister()">Sign up</label>
     </div>
   </div>
 </div>
 
 <!-- NG-MODAL REGISTER -->
-<ng-template #register>
+<div *ngIf="RegisterState==true">
   <app-register></app-register>
-</ng-template>
+</div>
+

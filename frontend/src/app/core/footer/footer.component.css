@@ -1,7 +1,11 @@
 footer{
   background: var(--app-backgrond);
 }
-.fa:hover {
-  opacity: 0.9;
-  transform: scale(1.5);
+@media screen {
+  @media (max-width: 767px) {
+    footer {
+      display: none;
+    }
+  }
 }
+

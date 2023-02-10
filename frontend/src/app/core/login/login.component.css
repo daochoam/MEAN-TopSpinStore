@@ -1,16 +1,16 @@
-div.Form {
+.Form {
   position: absolute;
   right: 0px;
-  top: 65px;
-  width: 320px;
-  height: 270px;
+  top: 60px;
+  width: 300px;
+  height: 260px;
   background: var(--app-backgrond);
   border-radius: 0% 0% 0% 10%;
-  padding: 0.5%;
+  padding: 0%;
   z-index: 10;
   text-align: "start";
   text-indent: "0px";
-  animation: open_slide 0.3s;
+  animation: open_slide 0.2s;
 }
 
 .btn-text{
@@ -37,7 +37,7 @@ div.Form {
   }
 
   to {
-      height: 270px;
+      height: 260px;
   }
 
 }
@@ -45,30 +45,6 @@ div.Form {
 .info_log {
   margin: 0.5% auto;
   padding: 0.5% auto;
-}
-
-.modal-register .modal-content{
-  display:flex;
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  max-height: 600px;
-  background-color: var(--app-backgrond);
-  color:#fff;
-  border-radius: 15px;
-  justify-content: center;
-  padding: 5% 5%;
-  animation: fly 0.8s;
-}
-
-@keyframes fly {
-  from {
-      transform: scale(0)
-  }
-
-  to {
-      transform: scale(1)
-  }
 }
 
 @media screen {

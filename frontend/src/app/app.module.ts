@@ -20,6 +20,7 @@ import { Page404Component } from './modules/page404/page404.component';
 import { BtnSaveComponent } from './shared/btn-save/btn-save.component';
 import { IcoLoginComponent } from './shared/ico-login/ico-login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoggedInComponent } from './core/logged-in/logged-in.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PosterItemsComponent,
     // shared
     BtnSaveComponent,
-    IcoLoginComponent
+    IcoLoginComponent,
+    LoggedInComponent
   ],
   imports: [
     BrowserModule,

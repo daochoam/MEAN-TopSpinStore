@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,7 +6,6 @@ import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomeComponent {
 
-  constructor(private modal:NgbModal) {}
   ngOnInit() {}
 
 }

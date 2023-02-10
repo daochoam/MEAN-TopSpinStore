@@ -1,22 +1,47 @@
 import { Component,OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { LoginComponent } from '../login/login.component';
+import { SwitchService } from 'src/app/services/switch.service';
 
+declare var $:any;
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent implements OnInit {
-  constructor(public ModalReg:NgbModal){}
+  RegForms = [
+    {
+      Name:'Name',
+      Type:'text',
+      Field:'Name'},
+    {
+      Name:'Last Name',
+      Type:'text',
+      Field:'LastName'},
+    {
+      Name:'Email',
+      Type:'text',
+      Field:'Email'},
+    {
+      Name:'Password',
+      Type:'password',
+      Field:'Password'},
+    {
+      Name:'Confirm Password',
+      Type:'password',
+      Field:'ConfirmPassword'},
+  ]
+  constructor(private RegSwitch:SwitchService){  }
 
-  ngOnInit(){
-    this.ModalReg.open({
-      component: LoginComponent
-    });
-  }
-  close(){
-    this.ModalReg.dismissAll();
+  ngOnInit():void  {
   }
 
+
+  CloseRegister(): void {
+    this.RegSwitch.$LookUpRegister.emit(false)
+  }
+
+  Register(){
+    
+  }
 }

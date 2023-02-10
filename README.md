@@ -16,8 +16,9 @@ The project describes an e-commerce WEB application of table tennis sports produ
 * nodemon => 2.0.20.
 
 ### Installation:
-
-To install the project, go to the `~.../backend` directory from the shell and run the `npm install` command.
+To install the project:
+1. Install [Node.js](https://nodejs.org/en/) and [npm](https://docs.npmjs.com/cli/v6/commands/npm-install) package manager.
+2. Go to the `~.../backend` directory from the shell and run the `npm install` command.
 
 ## Frontend
 
@@ -28,13 +29,9 @@ To install the project, go to the `~.../backend` directory from the shell and ru
 * OpenJDK 11.0.17 2022-10-18.
 
 ### Installation:
-This project includes @ng-bootstrap and ngx-bootstrap for working with modal declarations and other additional tools. @ng-bootstrap was included bypassing the dependency tree check, even though the @ng-boostrap docs say that @ng-boostrap 14.x.x can be used on angular-cli 15.xx, some dependencies don't allow a clean install due to differences with their versioning.
-* @ng-bootstrap: ^14.0.1
-* ngx-bootstrap: ^10.2.0
+To install the frontend project, follow the steps below:
 
-1. Before running the `npm install` command at the shell from the `~.../frontend` directory, go to the `package.json` file and remove the development dependency `"@ng-bootstrap/ng-bootstrap": "^14.0.1"` included in the `devDependencies` section.
-
-2. Go to the project folder: `~.../frontend` from the terminal and run the `npm install` command.
-
-3. The project needs the `@ng-bootstrap/ng-bootstrap` development dependency to run; For its installation it is necessary to install it skipping the verification of the dependency tree that it needs. To do this, execute the following instruction from the project shell:
-    `npm i -D @ng-bootstrap/ng-bootstrap --legacy-peer-deps`
+1. Install [Node.js](https://nodejs.org/en/) and [npm](https://docs.npmjs.com/cli/v6/commands/npm-install) package manager.
+2. Intall [Angular CLI](https://github.com/angular/angular-cli).
+3. To install the project, go to the `~.../frontend` directory from the shell and run the `npm install` command.
+4. To run the project, go to the project directory `~.../frontend` from the shell and run the `ng serve` or `npm start` command.
