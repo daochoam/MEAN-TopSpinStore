@@ -1,16 +1,27 @@
-var express     = require('express')
-var bodyParser  = require('body-parser')
-var cors        = require('cors')
-var mongoose    = require('mongoose')
-global.config   = require(__dirname + '/config.js').config
+var express = require ('express')
+var cors = require('cors')
+var bodyparser = require('body-parser')
+const { config } = require('./config')
+const mongoose = require('mongoose')
 
-global.app      = express()
+global.app = express()
+global.config = require (__dirname + '/config.js').config
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+mongoose.set('strictQuery', false)
+mongoose.connect('mongodb://127.0.0.1:27017/' + config.db, {useNewUrlParser:true,useUnifiedTopology:true},(error,response) => {
+    if(error){
+        console.log(error)
+    }
+    else{
+    console.log('conexion a mongo correcta')
+    }
+})
+
+app.use(bodyparser.json())
+
+app.use(bodyparser.urlencoded({extended:true}))
 
 
-/*================== Enable headers and addresses =======================*/
 app.all('*',function(request,response,next){
     var whitelist = request.headers.origin;
 
@@ -22,33 +33,24 @@ app.all('*',function(request,response,next){
     next()
 })
 
-/*================== CORS configuration =======================*/
 app.use(cors({
-    origin:function(origin,callback) {
+    origin:function(origin,callback){
         console.log(origin)
         if(!origin) return callback(null,true)
-        
-        if(config.whitelist.indexOf(origin) === -1) {
-            return callback('error cors',false)
+
+        if(config.listablanca.indexOf(origin) === -1){
+            return callback('error de cors', false)
         }
         return callback(null,true)
     }
 }))
 
-/*================== MONGO DB configuration =======================*/
-mongoose.set('strictQuery', false)
-mongoose.connect('mongodb://127.0.0.1:27017/' + config.bd, {useNewUrlParser:true,useUnifiedTopology:true},(error,response) => {
-    if(error){
-        console.log(error)
-    }
-    else{
-    console.log('conexion a mongo correcta')
-    }
-})
-
-app.use('/user', require(__dirname + '/api/Routes/UsersRoutes'))
-app.use('/items', require(__dirname + '/api/Routes/ItemsRoutes'))
-
 app.listen(config.puerto, function(){
-    console.log('Servidor conectado por el puerto '+ config.puerto)
+    console.log('Servidor funcionando por el puerto ' + config.puerto)
 })
+
+
+
+
+require(__dirname + '/routes/routesusuarios.js')
+require(__dirname + '/routes/routesproductos.js')
