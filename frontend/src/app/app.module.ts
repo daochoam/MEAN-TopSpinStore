@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +22,7 @@ import { BtnSaveComponent } from './shared/btn-save/btn-save.component';
 import { IcoLoginComponent } from './shared/ico-login/ico-login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoggedInComponent } from './core/logged-in/logged-in.component';
+import { LocationComponent } from './shared/location/location.component';
 
 @NgModule({
   declarations: [
@@ -38,17 +40,19 @@ import { LoggedInComponent } from './core/logged-in/logged-in.component';
     FooterComponent,
     HeaderComponent,
     LoginComponent,
+    LoggedInComponent,
     RegisterComponent,
     PosterItemsComponent,
+    LocationComponent,
     // shared
     BtnSaveComponent,
     IcoLoginComponent,
-    LoggedInComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    GoogleMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

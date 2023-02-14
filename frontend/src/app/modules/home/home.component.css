@@ -11,14 +11,29 @@
   cursor: pointer;
 }
 
-.Title-2 {
+.Title {
   height: 8%;
   width: 100%;
+  color: var(--app-backgrond);
   font-family: 'Lobster';
   font-size: 1.5em;
+  font-weight: bold;
   justify-content: center;
   box-align: center;
   margin: 5% auto;
   padding: 0.5%;
   cursor: pointer;
+  transition: .1s ease-in-out all;
+}
+
+.Title:hover{
+  font-style: oblique;
+  transform: scale(1.1);
+  color: rgb(85, 4, 4);
+}
+
+.container{
+  position:relative;
+  top: 100px;
+  z-index: 0;
 }

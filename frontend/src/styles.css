@@ -31,10 +31,6 @@
 /* =================================================================
     * GENERAL STYLES *
 ==================================================================*/
-html {
-  min-height: 100%;
-  position: relative;
-}
 
 body {
     height: 100vh;
@@ -45,7 +41,9 @@ body {
     overflow-x: hidden;
     overflow-y: scroll;
     /* Allow to pin the footer to the bottom of the page. */
-    padding-bottom: 3em 0;
+    margin: 0;
+    margin-bottom: 30vh;
+
 }
 
 body::-webkit-scrollbar {
@@ -65,8 +63,17 @@ footer {
   position:fixed;
   bottom: 0;
   width: 100%;
+  color: rgba(155, 155, 155, 0.727);
   max-height: 30vh;
-  padding: 1em 0;
+  padding: 0;
+  z-index: 0;
+}
+
+footer a:hover, p:hover{
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  cursor:pointer;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -164,7 +171,7 @@ input.Input-2:focus{
   transform: scale(1.8);
 }
 
-.fa-facebook-f:hover{
+.fa-facebook:hover{
   color: #4267B2;
 }
 
@@ -173,7 +180,7 @@ input.Input-2:focus{
 }
 
 .fa-instagram:hover{
-  border-radius: 40px;
+  border-radius: 50%;
   color: #fff;
   background: #d6249f;
   background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
@@ -190,11 +197,22 @@ input.Input-2:focus{
 .fa-linkedin:hover{
   color: #fff;
   background-color: #0288D1;
-  border-radius: 2px;
+  border-radius: 15%;
 }
 
 .fa-github:hover{
   color: #fff;
   background-color: #3876b4;
-  border-radius: 2px;
+  border-radius: 50%;
 }
+
+.fa-whatsapp:hover{
+  color: #fff;
+  background-color: #25D366;
+  border-radius: 50%;
+}
+
+A:link {text-decoration: none; color: rgba(155, 155, 155, 0.727)}
+A:visited {color:white;  font-family: arial; text-decoration: none }
+A:hover { color: white; font-family: arial; text-decoration: none }
+*{outline:none !important;}*:focus {outline: none !important;}textarea:focus, input:focus{outline: none !important;}	a{text-decoration: none !important;outline: none !important;}

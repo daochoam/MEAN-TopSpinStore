@@ -1,6 +1,7 @@
 footer{
   background: var(--app-backgrond);
 }
+
 @media screen {
   @media (max-width: 767px) {
     footer {

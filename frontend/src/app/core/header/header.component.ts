@@ -17,6 +17,8 @@ export class HeaderComponent implements OnInit {
 
   loginState:Boolean = false;
 
+  constructor (){
+  }
     ngOnInit(): void {
   }
 
