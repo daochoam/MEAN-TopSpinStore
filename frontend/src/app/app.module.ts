@@ -47,6 +47,7 @@ import { LocationComponent } from './shared/location/location.component';
     // shared
     BtnSaveComponent,
     IcoLoginComponent,
+
   ],
   imports: [
     BrowserModule,

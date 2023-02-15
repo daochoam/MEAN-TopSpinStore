@@ -33,8 +33,9 @@
 ==================================================================*/
 
 body {
-    height: 100vh;
+    position: relative;
     width: 100vw;
+    min-height: 100vh;
     background: var(--fondo);
     font-family: var(--fuente);
     font-size: 18px;
@@ -42,7 +43,7 @@ body {
     overflow-y: scroll;
     /* Allow to pin the footer to the bottom of the page. */
     margin: 0;
-    margin-bottom: 30vh;
+    padding-bottom:20em;
 
 }
 
@@ -60,12 +61,11 @@ body::-webkit-scrollbar-thumb {
 }
 
 footer {
-  position:fixed;
+  position:absolute;
   bottom: 0;
   width: 100%;
   color: rgba(155, 155, 155, 0.727);
-  max-height: 30vh;
-  padding: 0;
+  padding: 1em 0;
   z-index: 0;
 }
 
@@ -166,7 +166,7 @@ input.Input-2:focus{
     * ICONS FORMS *
 ==================================================================*/
 /* Brand Colors and Palettes --> https://usbrandcolors.com/*/
-.fa:hover {
+.fa-brands:hover {
   opacity: 1;
   transform: scale(1.8);
 }
@@ -195,8 +195,8 @@ input.Input-2:focus{
   -webkit-text-fill-color: transparent;
 }
 .fa-linkedin:hover{
-  color: #fff;
-  background-color: #0288D1;
+  background: #fff;
+  color: #0288D1;
   border-radius: 15%;
 }
 

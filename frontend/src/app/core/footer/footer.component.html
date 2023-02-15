@@ -11,7 +11,7 @@
     <div>
       <span *ngFor="let item of SocialRed">
         <a [href]=item.Link class="me-4 text-reset" target="_blank">
-          <i class="fa fa-{{item.Name}}" [title]=item.Name></i>
+          <i class="fa-brands fa-{{item.Name}}" [title]=item.Name></i>
         </a>
       </span>
     </div>
@@ -82,6 +82,7 @@
       </div>
     </div>
   </section>
+  <app-location class="mapView" *ngIf="Maps"></app-location>
 </footer>
 
-<app-location *ngIf="Maps"></app-location>
+

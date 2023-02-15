@@ -3,11 +3,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark" >
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/home">
-      <a routerLink="/home" target="_blank"><img src="/assets/Icons/Icon.png" width="40" height="40" class="d-inline-block align-top"
+      <a routerLink="/home" target=""><img src="/assets/Icons/Icon.png" width="40" height="40" class="d-inline-block align-top"
         alt=""/></a>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon" (click)="NavShow()"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto" >
@@ -18,9 +18,10 @@
           <a class="nav-link" (click)="LoginShow()">Login</a>
         </li>
       </ul>
-      <div class="d-flex" role="login">
+      <div class="d-flex" title="login" role="login">
         <div id="Login_Success" style="color: #fff; font-size: 150%; font-family: 'Lobster'; margin: 1%"></div>
-        <app-ico-login class="btn-login" (click)="LoginShow()" (dblclick)="PrivateZone()"></app-ico-login>
+        <img class="Photo btn-login" (click)="LoginShow()" (dblclick)="PrivateZone()" src="/assets/Icons/avatar.svg">
+        <!-- <app-ico-login class="btn-login" (click)="LoginShow()" (dblclick)="PrivateZone()"></app-ico-login> -->
       </div>
     </div>
   </div>

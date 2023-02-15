@@ -10,26 +10,11 @@ declare var $:any;
 
 export class RegisterComponent implements OnInit {
   RegForms = [
-    {
-      Name:'Name',
-      Type:'text',
-      Field:'Name'},
-    {
-      Name:'Last Name',
-      Type:'text',
-      Field:'LastName'},
-    {
-      Name:'Email',
-      Type:'text',
-      Field:'Email'},
-    {
-      Name:'Password',
-      Type:'password',
-      Field:'Password'},
-    {
-      Name:'Confirm Password',
-      Type:'password',
-      Field:'ConfirmPassword'},
+    {Name:'CC',               Type:'text',     Field:'CC'},
+    {Name:'Name',             Type:'text',     Field:'Name'},
+    {Name:'Email',            Type:'text',     Field:'Email'},
+    {Name:'Password',         Type:'password', Field:'Password'},
+    {Name:'Confirm Password', Type:'password', Field:'ConfirmPassword'},
   ]
   constructor(private RegSwitch:SwitchService){  }
 
@@ -42,6 +27,6 @@ export class RegisterComponent implements OnInit {
   }
 
   Register(){
-    
+
   }
 }

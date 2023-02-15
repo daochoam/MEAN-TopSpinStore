@@ -9,4 +9,3 @@ import { GoogleMapsModule } from '@angular/google-maps';
 export class AppComponent {
   title = 'frontend';
 }
-

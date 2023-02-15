@@ -1,8 +1,21 @@
 <div class="Form">
   <div class="Form-Photo">
-      <div class="Top"><h3 class="Name">Daniel Ochoa</h3></div>
+      <div class="Top"><p class="Name">Daniel Ochoa</p></div>
       <img class="Photo" src="/assets/Icons/avatar.svg">
+      <div class="icon" title="Change picture"><i class="fa-solid fa-table-tennis-paddle-ball fa-lg"></i></div>
   </div>
-  <div class="Form-Info"></div>
-  <div class="Form-Btn"></div>
+  <div class="Set-user">
+    <div class="Fields" *ngFor="let item of SetUser">
+      <a [title] = item.Title><i class="fa-solid fa-{{item.Icon}} fa-lg"></i></a>
+    </div>
+  </div>
+  <div class="Form-Info">
+    <div class="container">
+      <div class="Fields" *ngFor="let item of LoggedForm">
+        <a [title] = item.Title><i class="fa-solid fa-{{item.Icon}} fa-lg"></i>
+        <label [id]= item.Id  title="Password"></label></a>
+      </div>
+    </div>
+  </div>
+    <div class="btn btn-1" title="Logout">Logout</div>
 </div>
