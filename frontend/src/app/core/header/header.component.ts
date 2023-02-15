@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
     {Name:'Rubbers',        Router:'/rubbers'},
     {Name:'Balls',          Router:'/balls'},
     {Name:'Tables & Nets',  Router:'/tables'},
+    {Name:'user',           Router:'/user'},
   ]
 
   constructor (){}

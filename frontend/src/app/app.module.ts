@@ -23,6 +23,7 @@ import { IcoLoginComponent } from './shared/ico-login/ico-login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoggedInComponent } from './core/logged-in/logged-in.component';
 import { LocationComponent } from './shared/location/location.component';
+import { MenuLateralComponent } from './core/menu-lateral/menu-lateral.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { LocationComponent } from './shared/location/location.component';
     RegisterComponent,
     PosterItemsComponent,
     LocationComponent,
+    MenuLateralComponent,
     // shared
     BtnSaveComponent,
     IcoLoginComponent,
