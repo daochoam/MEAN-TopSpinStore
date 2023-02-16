@@ -5,8 +5,8 @@
         <div id="Reg_Message" class="Alert"></div>
           <div class="container">
             <span *ngFor="let item of RegForms">
-              <input class="Input-2" type="{{item.Type}}" id="Reg{{item.Field}}" placeholder="{{item.Name}}" [(ngModel)]="item.Field" required/>
-              <div class="Warm" id="{{item.Field}}_Message"></div>
+              <input class="Input-2" type="{{item.Type}}" id="Reg{{item.Field}}" [(ngModel)]=item.Value placeholder="{{item.Name}}" required/>
+              <div class="Warm" id="{{item.Field}}Msn"></div>
             </span>
           </div>
           <div class="container Reg-btns">

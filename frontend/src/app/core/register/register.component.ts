@@ -10,24 +10,27 @@ declare var $:any;
 
 export class RegisterComponent implements OnInit {
   RegForms = [
-    {Name:'CC',               Type:'text',     Field:'CC'},
-    {Name:'Name',             Type:'text',     Field:'Name'},
-    {Name:'Email',            Type:'text',     Field:'Email'},
-    {Name:'Password',         Type:'password', Field:'Password'},
-    {Name:'Confirm Password', Type:'password', Field:'PasswordCheck'},
+    {Name:'CC',               Type:'text',      Value:"",  Field:'CC'},
+    {Name:'Name',             Type:'text',      Value:"", Field:'Name'},
+    {Name:'Email',            Type:'text',      Value:"", Field:'Email'},
+    {Name:'Password',         Type:'password',  Value:"", Field:'Password'},
+    {Name:'Confirm Password', Type:'password',  Value:"", Field:'PasswordCheck'},
   ]
 
   CC:number = 0
-  Name:string=''
-  Email:string=''
-  Password:string=''
-  PasswordCheck:string=''
+  Name:string=""
+  Email:string=""
+  Password:string=""
+  PasswordCheck:string=""
 
   constructor(private RegSwitch:SwitchService){
   }
 
 
   ngOnInit():void  {
+    this.CC= 0;
+    this.Name="";
+
   }
 
 
@@ -36,6 +39,6 @@ export class RegisterComponent implements OnInit {
   }
 
   Register(){
-
+    console.log(this.RegForms[0]["Value"])
   }
 }
