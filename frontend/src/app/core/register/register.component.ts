@@ -14,9 +14,18 @@ export class RegisterComponent implements OnInit {
     {Name:'Name',             Type:'text',     Field:'Name'},
     {Name:'Email',            Type:'text',     Field:'Email'},
     {Name:'Password',         Type:'password', Field:'Password'},
-    {Name:'Confirm Password', Type:'password', Field:'ConfirmPassword'},
+    {Name:'Confirm Password', Type:'password', Field:'PasswordCheck'},
   ]
-  constructor(private RegSwitch:SwitchService){  }
+
+  CC:number = 0
+  Name:string=''
+  Email:string=''
+  Password:string=''
+  PasswordCheck:string=''
+
+  constructor(private RegSwitch:SwitchService){
+  }
+
 
   ngOnInit():void  {
   }
