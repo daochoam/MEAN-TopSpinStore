@@ -24,6 +24,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoggedInComponent } from './core/logged-in/logged-in.component';
 import { LocationComponent } from './shared/location/location.component';
 import { MenuLateralComponent } from './core/menu-lateral/menu-lateral.component';
+import { ProductosComponent } from './modules/productos/productos.component';
+import { UsuariosComponent } from './modules/usuarios/usuarios.component';
+import { MensajesComponent } from './modules/mensajes/mensajes.component';
+import {HttpClient,HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,6 +42,8 @@ import { MenuLateralComponent } from './core/menu-lateral/menu-lateral.component
     BallsComponent,
     TablesComponent,
     Page404Component,
+    ProductosComponent,
+    
     // Cores
     FooterComponent,
     HeaderComponent,
@@ -48,14 +55,18 @@ import { MenuLateralComponent } from './core/menu-lateral/menu-lateral.component
     MenuLateralComponent,
     // shared
     BtnSaveComponent,
-    IcoLoginComponent,
+    IcoLoginComponent,    
+    UsuariosComponent,
+    MensajesComponent,
 
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
