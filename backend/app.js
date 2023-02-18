@@ -4,6 +4,9 @@ var bodyparser = require('body-parser')
 const { config } = require('./config')
 const mongoose = require('mongoose')
 
+
+
+global.sha256 = require('sha256')
 global.app = express()
 global.config = require (__dirname + '/config.js').config
 

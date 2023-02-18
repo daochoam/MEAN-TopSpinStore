@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   RegisterState!: Boolean;
 
   constructor(private RegSwitch:SwitchService) {}
+
   ngOnInit():void  {
     this.RegSwitch.$LookUpRegister.subscribe((req)=>this.RegisterState =req)
   }

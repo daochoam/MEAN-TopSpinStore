@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { SwitchService } from './switch.service';
 
-describe('SwitchService', () => {
-  let service: SwitchService;
+import { PetitionService } from './petition.service';
+
+describe('PetitionService', () => {
+  let service: PetitionService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SwitchService);
+    service = TestBed.inject(PetitionService);
   });
 
   it('should be created', () => {
