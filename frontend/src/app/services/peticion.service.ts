@@ -6,40 +6,29 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PeticionService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  public urlLocal:string = "https://localhost:3000"
+  public urlLocal: string = "http://localhost:3000"
 
-  Post(url:string,data:{}){
-
-  let promise = new Promise((resolve,reject) =>{
-
-    this.http.post(url,data)
-      .toPromise()
-      .then((res:any)=>{
-        resolve(res)
-      }
-      )
+  Post(url: string, data: {}) {
+    let promise = new Promise((resolve, reject) => {
+      this.http.post(url, data)
+        .toPromise()
+        .then((res: any) => {
+          resolve(res)
+        })
     })
-
-  return promise
-
+    return promise
   }
-  Get(url:string){
 
-    let promise = new Promise((resolve,reject) =>{
-  
+  Get(url: string) {
+    let promise = new Promise((resolve, reject) => {
       this.http.get(url)
         .toPromise()
-        .then((res:any)=>{
+        .then((res: any) => {
           resolve(res)
-        }
-        )
-      })
-  
+        })
+    })
     return promise
-
-  
-
-}
+  }
 }

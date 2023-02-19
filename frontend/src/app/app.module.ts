@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,7 +29,8 @@ import { MenuLateralComponent } from './core/menu-lateral/menu-lateral.component
 import { ProductosComponent } from './modules/productos/productos.component';
 import { UsuariosComponent } from './modules/usuarios/usuarios.component';
 import { MensajesComponent } from './modules/mensajes/mensajes.component';
-import {HttpClient,HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
+
+import { JumbotronComponent } from './core/jumbotron/jumbotron.component';
 
 
 @NgModule({
@@ -44,7 +46,7 @@ import {HttpClient,HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/htt
     TablesComponent,
     Page404Component,
     ProductosComponent,
-    
+
     // Cores
     FooterComponent,
     HeaderComponent,
@@ -56,9 +58,10 @@ import {HttpClient,HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/htt
     MenuLateralComponent,
     // shared
     BtnSaveComponent,
-    IcoLoginComponent,    
+    IcoLoginComponent,
     UsuariosComponent,
     MensajesComponent,
+    JumbotronComponent,
 
   ],
   imports: [

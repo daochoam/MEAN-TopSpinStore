@@ -1,0 +1,8 @@
+.jumbotron {
+  display: flex;
+  background-color: #d7d7d7;
+  color: #660d0de6;
+  padding: 2em 3em;
+  padding-bottom: 1em;
+  z-index: 0;
+}

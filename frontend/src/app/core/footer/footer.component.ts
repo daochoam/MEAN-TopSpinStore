@@ -1,6 +1,4 @@
 import { Component, Input} from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
-
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -34,4 +32,5 @@ export class FooterComponent {
   MapsView(View:boolean){
     this.Maps = View;
   }
+
 }

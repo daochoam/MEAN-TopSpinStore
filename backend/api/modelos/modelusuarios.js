@@ -4,8 +4,15 @@ const Schema = mongoose.Schema;
 
 var UsuariosSchema = new Schema({
     Name: String,
-    Cedula: Number,
-    Email: String,
+    LastName: String,
+    Cedula:{
+        type: String,
+        unique: true
+    },
+    Email: {
+        type: String,
+        unique: true
+    },
     Password: String,
 })
 

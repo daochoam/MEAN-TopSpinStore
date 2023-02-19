@@ -1,12 +1,15 @@
+.MenuView {
+  display: flex;
+  padding: 3em 4em;
+  z-index: 0;
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;
   padding: 0 4px;
 }
 
-.container{
-  z-index: 0;
-}
 
 .img-responsive {
   display: inline-flex;

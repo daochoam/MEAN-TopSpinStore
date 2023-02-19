@@ -1,12 +1,12 @@
 footer{
   background: var(--app-backgrond);
+  height: auto;
 }
 
-@media screen {
-  @media (max-width: 767px) {
-    footer {
-      display: none;
-    }
-  }
+.mapView{
+  position: fixed;
+  top: 10px;
+  right: 100px;
+
 }
 
