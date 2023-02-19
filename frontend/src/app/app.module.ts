@@ -29,6 +29,9 @@ import { ProductosComponent } from './modules/productos/productos.component';
 import { UsuariosComponent } from './modules/usuarios/usuarios.component';
 import { MensajesComponent } from './modules/mensajes/mensajes.component';
 import {HttpClient,HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
+import { SubirarchivosComponent } from './modules/subirarchivos/subirarchivos.component';
+import { DetallesComponent } from './modules/detalles/detalles.component';
+
 
 
 @NgModule({
@@ -59,6 +62,9 @@ import {HttpClient,HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/htt
     IcoLoginComponent,    
     UsuariosComponent,
     MensajesComponent,
+    SubirarchivosComponent,
+    DetallesComponent,
+ 
 
   ],
   imports: [

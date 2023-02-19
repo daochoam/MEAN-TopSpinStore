@@ -41,3 +41,34 @@
   top: 100px;
   z-index: 0;
 }
+.img.clmiproducto{
+  width: 100%;
+  height: 200px;
+  border-radius: 50%;
+  padding: 17px;
+  background: #ebebeb;
+
+}
+.itemproducto{
+  border: solid 1px #ebebeb;
+}
+.lbnombre{
+  font-style: italic;
+  font-weight: 600;
+  text-align: center;
+}
+.lbprecio{
+  font-style: italic;
+  font-weight: 600;
+  text-align: center;
+
+}
+.lbestado{
+  background: #29292b;
+  width: fit-content;
+  padding-left: 8px;
+  padding-right: 9px;
+  color: white;
+  border-radius: 7px;
+  margin-top: 6px;
+}
