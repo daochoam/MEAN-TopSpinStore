@@ -31,6 +31,9 @@ import { UsuariosComponent } from './modules/usuarios/usuarios.component';
 import { MensajesComponent } from './modules/mensajes/mensajes.component';
 
 import { JumbotronComponent } from './core/jumbotron/jumbotron.component';
+import { SubirarchivosComponent } from './modules/subirarchivos/subirarchivos.component';
+import { DetallesComponent } from './modules/detalles/detalles.component';
+
 
 
 @NgModule({
@@ -61,6 +64,9 @@ import { JumbotronComponent } from './core/jumbotron/jumbotron.component';
     IcoLoginComponent,
     UsuariosComponent,
     MensajesComponent,
+    SubirarchivosComponent,
+    DetallesComponent,
+
     JumbotronComponent,
 
   ],

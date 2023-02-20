@@ -21,6 +21,19 @@
         </div>
     </div>
 </div>
+<div class="misproductos">
+    <div class="container">
+        <div class="row">
+            <div routerLink="/detalles/{{item._id}}" class="itemproducto col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3" *ngFor="let item of listadatos">
+                <div class="lbestado">Nuevo</div>
+                <img src="http:localhost:3000/productos/{{item._id}}.png" class="clmiproducto">
+                <div class="lbnombre">{{item.nombre}}}</div>
+                <div class="lbprecio">{{item.precio | currency}}</div>
+            </div>
+        </div>
+    </div>
+
+</div>
 <!-- <app-logged-in></app-logged-in> -->
 
 <app-footer></app-footer>

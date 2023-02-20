@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MensajesService } from '../../services/mensajes.service';
 import { PeticionService } from '../../services/peticion.service';
  declare var $:any;
+ declare var swal:any;
+ 
+
 
 
 @Component({
@@ -11,11 +14,7 @@ import { PeticionService } from '../../services/peticion.service';
 })
 export class ProductosComponent implements OnInit{
    
-  codigo:string = "";
-  nombre:string = "";
-  fechav:string = "";
-  listadatos:any[]=[]
-  Id:string = ""
+ 
 
   constructor(private peticion:PeticionService, private msg:MensajesService){
 
@@ -24,6 +23,16 @@ export class ProductosComponent implements OnInit{
     this.CargarTodas()
       
   }
+  codigo:string = "";
+  nombre:string = "";
+  fechav:string = "";
+  precio:string = "";
+  categorias:string = "";
+  listadatos:any[]=[]
+  Id:string = ""
+
+  // destino:string = this.peticion-urlLocal
+  // path:string = '/subir/imagenproductos'
  
   OpenModal(){
     $('#modaldatos').modal('show')
@@ -33,6 +42,9 @@ export class ProductosComponent implements OnInit{
     this.codigo = ""
     this.nombre = ""
     this.fechav = ""
+    this.precio = "0"
+    this.categorias =""
+    this.Id     = ""
   }
 
   Guardar(){
@@ -43,7 +55,9 @@ export class ProductosComponent implements OnInit{
       payload:{
         codigo:  this.codigo,
         noombre: this.nombre,
-        fechav:  this.fechav
+        fechav:  this.fechav,
+        precio:  this.precio,
+        categorias:  this.categorias
       }
       
     }
@@ -88,6 +102,7 @@ export class ProductosComponent implements OnInit{
   CargarId(id:string){
     console.log(id)
     this.Id = id
+    //this.path = this.path + '/' + this.Id
 
     var post = {
       host:this.peticion.urlLocal,
@@ -106,6 +121,8 @@ export class ProductosComponent implements OnInit{
           this.codigo = res.data.codigo
           this.nombre = res.data.nombre
           this.fechav = res.data.fechav
+          this.precio = res.data.precio
+          this.categorias = res.data.categorias
           $('#modaldatos').modal('show')
         }
         else{
@@ -118,7 +135,7 @@ export class ProductosComponent implements OnInit{
 
   }
 
-  Actualizar(){
+  ActualizarId(){
     var post = {
       host:this.peticion.urlLocal,
       path:'/Productos/ActualizarId"',
@@ -126,7 +143,9 @@ export class ProductosComponent implements OnInit{
         id:this.Id,
         codigo:  this.codigo,
         noombre: this.nombre,
-        fechav:  this.fechav
+        fechav:  this.fechav,
+        precio:  this.precio,
+        categorias:  this.categorias
       }
       
     }
@@ -147,5 +166,47 @@ export class ProductosComponent implements OnInit{
     )
 
   }
+  Eliminar(){
 
+    swal({
+      title: "Esta seguro?",
+      text: "Desea eliminar este registro!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete:any) => {
+      if (willDelete) {
+
+        var post = {
+          host:this.peticion.urlLocal,
+          path:'/Productos/Eliminar"',
+          payload:{
+            id:this.Id        
+          }
+          
+        }
+    
+        this.peticion.Post(post.host + post.path, post.payload).then(
+          (res:any) => {
+    
+            if(res.state == true){
+              this.msg.load("success",res.mensaje, 5000)
+              $('#modaldatos').modal('hide')
+              this.CargarTodas()
+            }
+            else{
+              this.msg.load("danger",res.mensaje, 5000)
+    
+            }      
+        }
+        )
+      }
+              
+     
+    });
+
+
+
+}
 }
