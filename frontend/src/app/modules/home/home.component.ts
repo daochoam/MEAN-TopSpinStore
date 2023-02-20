@@ -7,31 +7,30 @@ import { PeticionService } from '../../services/peticion.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private peticion:PeticionService){}
-  listadatos:any[]=[]
- 
-  ngOnInit(): void {
+  constructor(private peticion: PeticionService) { }
+  listadatos: any[] = []
+
+  public ngOnInit(): void {
     this.CargarProductos()
-      
   }
 
-  CargarProductos(){
+  CargarProductos() {
 
     var post = {
-      host:this.peticion.urlLocal,
-      path:'/Productos/CargarTodas',
-      payload:{
-      
+      host: this.peticion.urlLocal,
+      path: '/Productos/CargarTodas',
+      payload: {
+
       }
-      
+
     }
 
     this.peticion.Post(post.host + post.path, post.payload).then(
-      (res:any) => {
+      (res: any) => {
 
         this.listadatos = res.data
- 
-    }
+
+      }
     )
 
   }

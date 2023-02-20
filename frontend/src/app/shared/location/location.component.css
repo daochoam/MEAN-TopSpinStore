@@ -1,4 +1,7 @@
 .gps-loc{
+  position: fixed;
+  bottom: 150px;
+  right: 500px;
   width:200;
   height:200;
 }

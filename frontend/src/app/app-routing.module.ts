@@ -6,12 +6,11 @@ import { BladesComponent } from './modules/blades/blades.component';
 import { HomeComponent } from './modules/home/home.component';
 import { Page404Component } from './modules/page404/page404.component';
 import { RubbersComponent } from './modules/rubbers/rubbers.component';
-import { TablesComponent } from './modules/tables/tables.component';
+import { TablesComponent } from './core/tables/tables.component';
 import { UserComponent } from './modules/user/user.component';
 import { ProductosComponent } from './modules/productos/productos.component';
-import { UsuariosComponent } from './modules/usuarios/usuarios.component';
-import { SubirarchivosComponent } from './modules/subirarchivos/subirarchivos.component';
-import { DetallesComponent } from './modules/detalles/detalles.component';
+import { SubirarchivosComponent } from './core/subirarchivos/subirarchivos.component';
+import { DetallesComponent } from './core/detalles/detalles.component';
 
 
 const routes: Routes = [
@@ -23,10 +22,9 @@ const routes: Routes = [
   {path: 'rubbers', component: RubbersComponent,  pathMatch:'full'},
   {path: 'balls',   component: BladesComponent,   pathMatch:'full'},
   {path: 'tables',  component: TablesComponent,   pathMatch:'full'},
-  {path: 'productos', component: ProductosComponent,pathMatch:'full'}, 
+  {path: 'productos', component: ProductosComponent,pathMatch:'full'},
   {path: 'subirarchivos', component: SubirarchivosComponent,pathMatch:'full'},
-  {path: 'detalles/:identificador', component: DetallesComponent,pathMatch:'full'},      
-  {path: 'usuarios',  component: UsuariosComponent, pathMatch:'full'},
+  {path: 'detalles/:identificador', component: DetallesComponent,pathMatch:'full'},
   {path: '**',      component: Page404Component}
 
 ];

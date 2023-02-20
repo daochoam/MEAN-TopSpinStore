@@ -1,5 +1,6 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
+import * as $ from "jquery";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,4 +9,6 @@ import { GoogleMapsModule } from '@angular/google-maps';
 
 export class AppComponent {
   title = 'frontend';
+
+
 }

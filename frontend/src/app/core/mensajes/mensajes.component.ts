@@ -7,9 +7,9 @@ import { MensajesService } from '../../services/mensajes.service';
   styleUrls: ['./mensajes.component.css']
 })
 export class MensajesComponent {
-  
+
   constructor(public msj:MensajesService){
-    
+
   }
 
 }
