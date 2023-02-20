@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
 
     }
 
-    this.peticion.Post(post.host + post.path, post.payload).then(
+    this.peticion.POST(post.host + post.path, post.payload).then(
       (res: any) => {
 
         this.listadatos = res.data

@@ -1,7 +1,9 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PeticionService } from 'src/app/services/peticion.service';
 import { SwitchService } from 'src/app/services/switch.service';
+import { ValidateUserService } from 'src/app/services/validate-user.service';
 
-declare var $:any;
+declare var $: any;
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -9,36 +11,39 @@ declare var $:any;
 })
 
 export class RegisterComponent implements OnInit {
-  RegForms = [
-    {Name:'CC',               Type:'text',      Value:"",  Field:'CC'},
-    {Name:'Name',             Type:'text',      Value:"", Field:'Name'},
-    {Name:'Email',            Type:'text',      Value:"", Field:'Email'},
-    {Name:'Password',         Type:'password',  Value:"", Field:'Password'},
-    {Name:'Confirm Password', Type:'password',  Value:"", Field:'PasswordCheck'},
-  ]
+  CC: number = 0
+  Name: string = ""
+  Email: string = ""
+  Password: string = ""
+  PasswordCheck: string = ""
 
-  CC:number = 0
-  Name:string=""
-  Email:string=""
-  Password:string=""
-  PasswordCheck:string=""
+  constructor(private RegSwitch: SwitchService, private Validate: ValidateUserService, private Peticion: PeticionService) { }
 
-  constructor(private RegSwitch:SwitchService){
-  }
-
-
-  ngOnInit():void  {
-    this.CC= 0;
-    this.Name="";
-
-  }
+  ngOnInit(): void { }
 
 
   CloseRegister(): void {
     this.RegSwitch.$LookUpRegister.emit(false)
   }
 
-  Register(){
-    console.log(this.RegForms[0]["Value"])
+  Register() {
+    var ValidateCC = this.Validate.ValidateCC(this.CC.toString())
+    var ValidateName = this.Validate.ValidateName(this.Name)
+    var ValidateEmail = this.Validate.ValidateEmail(this.Email)
+    var ValidatePassword = this.Validate.ValidatePassword(this.Password)
+    if (ValidateCC[0].state == false) {
+
+    }
+    else {
+      var Post = {
+        Host: this.Peticion.urlLocal,
+        Path: "/Users/Register",
+        Payload: {}
+      }
+      /* POST Petition User Register*/
+      this.Peticion.POST(Post.Host + Post.Path, Post.Payload).then((res: any) => {
+        console.log(res);
+      })
+    }
   }
 }

@@ -6,7 +6,7 @@ var UsuariosSchema = new Schema({
     Name: String,
     LastName: String,
     Cedula:{
-        type: String,
+        type: Number,
         unique: true
     },
     Email: {

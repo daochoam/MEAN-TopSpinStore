@@ -15,9 +15,9 @@ export class DetallesComponent implements OnInit{
   ngOnInit(): void {
 
     this.CargarId(this.actroute.snapshot.params["identificador"])
-     
+
   }
-  
+
   codigo:string = ""
   nombre:string = ""
   fechav:string = ""
@@ -33,12 +33,12 @@ export class DetallesComponent implements OnInit{
       path:'/Productos/CargarId',
       payload:{
         id:id
-        
+
       }
-      
+
     }
 
-    this.peticion.Post(post.host + post.path, post.payload).then(
+    this.peticion.POST(post.host + post.path, post.payload).then(
       (res:any) => {
 
         if(res.state == true){
@@ -47,15 +47,15 @@ export class DetallesComponent implements OnInit{
           this.fechav = res.data.fechav
           this.precio = res.data.precio
           this.categorias = res.data.categorias
-          
+
         }
         else{
           this.msg.load("danger",res.mensaje, 5000)
 
-        }      
+        }
     }
     )
-    
+
 
   }
 

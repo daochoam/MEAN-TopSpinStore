@@ -3,7 +3,7 @@ import { MensajesService } from '../../services/mensajes.service';
 import { PeticionService } from '../../services/peticion.service';
  declare var $:any;
  declare var swal:any;
- 
+
 
 
 
@@ -13,15 +13,15 @@ import { PeticionService } from '../../services/peticion.service';
   styleUrls: ['./productos.component.css']
 })
 export class ProductosComponent implements OnInit{
-   
- 
+
+
 
   constructor(private peticion:PeticionService, private msg:MensajesService){
 
   }
   ngOnInit(): void {
     this.CargarTodas()
-      
+
   }
   codigo:string = "";
   nombre:string = "";
@@ -33,7 +33,7 @@ export class ProductosComponent implements OnInit{
 
   // destino:string = this.peticion-urlLocal
   // path:string = '/subir/imagenproductos'
- 
+
   OpenModal(){
     $('#modaldatos').modal('show')
   }
@@ -59,10 +59,10 @@ export class ProductosComponent implements OnInit{
         precio:  this.precio,
         categorias:  this.categorias
       }
-      
+
     }
 
-    this.peticion.Post(post.host + post.path, post.payload).then(
+    this.peticion.POST(post.host + post.path, post.payload).then(
       (res:any) => {
 
         if(res.state == true){
@@ -73,7 +73,7 @@ export class ProductosComponent implements OnInit{
         else{
           this.msg.load("danger",res.mensaje, 5000)
 
-        }      
+        }
     }
     )
 
@@ -84,16 +84,16 @@ export class ProductosComponent implements OnInit{
       host:this.peticion.urlLocal,
       path:'/Productos/CargarTodas',
       payload:{
-      
+
       }
-      
+
     }
 
-    this.peticion.Post(post.host + post.path, post.payload).then(
+    this.peticion.POST(post.host + post.path, post.payload).then(
       (res:any) => {
 
         this.listadatos = res.data
- 
+
     }
     )
 
@@ -109,12 +109,12 @@ export class ProductosComponent implements OnInit{
       path:'/Productos/CargarId',
       payload:{
         id:this.Id
-        
+
       }
-      
+
     }
 
-    this.peticion.Post(post.host + post.path, post.payload).then(
+    this.peticion.POST(post.host + post.path, post.payload).then(
       (res:any) => {
 
         if(res.state == true){
@@ -128,10 +128,10 @@ export class ProductosComponent implements OnInit{
         else{
           this.msg.load("danger",res.mensaje, 5000)
 
-        }      
+        }
     }
     )
-    
+
 
   }
 
@@ -147,10 +147,10 @@ export class ProductosComponent implements OnInit{
         precio:  this.precio,
         categorias:  this.categorias
       }
-      
+
     }
 
-    this.peticion.Post(post.host + post.path, post.payload).then(
+    this.peticion.POST(post.host + post.path, post.payload).then(
       (res:any) => {
 
         if(res.state == true){
@@ -161,7 +161,7 @@ export class ProductosComponent implements OnInit{
         else{
           this.msg.load("danger",res.mensaje, 5000)
 
-        }      
+        }
     }
     )
 
@@ -182,14 +182,14 @@ export class ProductosComponent implements OnInit{
           host:this.peticion.urlLocal,
           path:'/Productos/Eliminar"',
           payload:{
-            id:this.Id        
+            id:this.Id
           }
-          
+
         }
-    
-        this.peticion.Post(post.host + post.path, post.payload).then(
+
+        this.peticion.POST(post.host + post.path, post.payload).then(
           (res:any) => {
-    
+
             if(res.state == true){
               this.msg.load("success",res.mensaje, 5000)
               $('#modaldatos').modal('hide')
@@ -197,13 +197,13 @@ export class ProductosComponent implements OnInit{
             }
             else{
               this.msg.load("danger",res.mensaje, 5000)
-    
-            }      
+
+            }
         }
         )
       }
-              
-     
+
+
     });
 
 

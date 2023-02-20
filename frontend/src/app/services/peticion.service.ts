@@ -10,7 +10,7 @@ export class PeticionService {
 
   public urlLocal: string = "http://localhost:3000"
 
-  Post(url: string, data: {}) {
+  POST(url: string, data: {}) {
     let promise = new Promise((resolve, reject) => {
       this.http.post(url, data)
         .toPromise()
@@ -21,7 +21,7 @@ export class PeticionService {
     return promise
   }
 
-  Get(url: string) {
+  GET(url: string) {
     let promise = new Promise((resolve, reject) => {
       this.http.get(url)
         .toPromise()

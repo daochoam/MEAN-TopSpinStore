@@ -2,8 +2,11 @@ var config = {}
 
 config.listablanca = [
     'http://127.0.0.1:5000',
-    'http://kit.fontawesome.com/',
+    'http://127.0.0.1:4200',
+    'http://localhost:5000',
     'http://localhost:4200',
+    'undefined',
+    'http://kit.fontawesome.com/',
 
 ]
 config.puerto = 3000
