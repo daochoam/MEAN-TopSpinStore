@@ -15,11 +15,11 @@
 .Form .Register {
   display:flex;
   position:fixed;
-  left: calc(50% - 180px);
-  bottom: calc(50% - 100px);
+  left: calc(50% - 160px);
+  top: calc(50% - 400px);
   flex-direction: column;
   width: 100%;
-  max-width: 360px;
+  max-width: 350px;
   height: auto;
   justify-content: center;
   align-items: center;
@@ -79,7 +79,8 @@
 
 .Warm{
   width: 100%;
-  height: 10%;
-  font-size: 10px;
-  color: rgba(231, 16, 45, 0.959)
+  height: auto;
+  font-size: 100%;
+  border-color: #fff;
+  color: rgba(225, 11, 40, 0.959)
 }

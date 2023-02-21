@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MensajesService } from '../../services/mensajes.service';
-import { PeticionService } from '../../services/peticion.service';
+import { MensajesService } from '../../services/Mensajes/mensajes.service';
+import { PeticionService } from '../../services/Peticion/peticion.service';
  declare var $:any;
  declare var swal:any;
 

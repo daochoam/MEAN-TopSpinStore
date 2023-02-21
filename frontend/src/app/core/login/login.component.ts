@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { SwitchService } from 'src/app/services/switch.service';
+import { SwitchService } from 'src/app/services/Switches/switch.service';
 
 declare var $:any;
 @Component({

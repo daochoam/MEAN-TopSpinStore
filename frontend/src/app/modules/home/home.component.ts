@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PeticionService } from '../../services/peticion.service';
+import { PeticionService } from '../../services/Peticion/peticion.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

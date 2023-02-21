@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PeticionService } from '../../services/peticion.service';
-import { MensajesService } from '../../services/mensajes.service';
+import { PeticionService } from '../../services/Peticion/peticion.service';
+import { MensajesService } from '../../services/Mensajes/mensajes.service';
 
 @Component({
   selector: 'app-detalles',

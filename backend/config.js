@@ -6,7 +6,6 @@ config.listablanca = [
     'http://localhost:5000',
     'http://localhost:4200',
     'undefined',
-    'http://kit.fontawesome.com/',
 
 ]
 config.puerto = 3000
