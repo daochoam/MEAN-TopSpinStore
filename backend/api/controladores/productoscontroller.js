@@ -1,121 +1,166 @@
 var ModelProductos = require(__dirname + '/../modelos/modelproductos.js').productos
 var ProductosController = {}
+//var trimStart = require('string.prototype.trimstart')
+//var trimEnd = require('string.prototype.trimend')
 
-
-ProductosController.Guardarp = function(request, response){
+ProductosController.Save = function(request, response){
     var post = {
-        codigo:request.body.codigo,
-        nombre:request.body.nombre,
-        fechav:request.body.fechav,
+        Codigo:request.body.Codigo.trimStart().trimEnd(),
+        Nombre:request.body.Nombre.trimStart().trimEnd(),
+        Cantidad:request.body.Cantidad.trimStart().trimEnd(),
+        Precio:request.body.Precio.trimStart().trimEnd()
     }
- 
-    if (post.codigo ==  "" || post.codigo == undefined || post.codigo == null){
+
+    if (post.Codigo ==  "" || post.Codigo == undefined || post.Codigo == null){
         response.json({state:false,mensaje:"El campo codigo es obligatorio"})
         return false
     }
     
-    if (post.nombre ==  "" || post.nombre == undefined || post.nombre == null){
+    if (post.Nombre ==  "" || post.Nombre == undefined || post.Nombre == null){
         response.json({state:false,mensaje:"El campo nombre es obligatorio"})
         return false
     }
 
-    if (post.fechav ==  "" || post.fechav == undefined || post.fechav == null){
-        response.json({state:false,mensaje:"El campo fecha de vencimiento es obligatorio"})
+    if (post.Cantidad ==  "" || post.Cantidad == undefined || post.Cantidad == null){
+        response.json({state:false,mensaje:"El campo cantidad es obligatorio"})
         return false
     }
 
-    ModelProductos.Guardarp(post, function(respuesta){
+    if( isNaN(post.Cantidad) ) {
+        response.json({state:false,mensaje:"El cantidad solo acepta valores numericos"})
+        return false;
+    }
+    if (post.Cantidad < 1){
+        response.json({state:false,mensaje:"El campo cantidad debe ser mayor a 0"})
+        return false
+    }
+
+    if (post.Precio ==  "" || post.Precio == undefined || post.Precio == null){
+        response.json({state:false,mensaje:"El campo precio es obligatorio"})
+        return false
+    }
+
+    if( isNaN(post.Precio) ) {
+        response.json({state:false,mensaje:"El campo Precio solo acepta valores numericos"})
+        return false;
+    }
+    if (post.Precio < 1){
+        response.json({state:false,mensaje:"El campo Precio debe ser mayor a 0 "})
+        return false
+    }
+
+    ModelProductos.Save(post, function(respuesta){
         console.log(respuesta)
         if(respuesta.state == true){
             response.json({state:true,mensaje:"Se guardo correctamente"})
         }
         else{
-            response.json({state:false,mensaje:"error al guardar"})
+            response.json({state:false,mensaje:"El codigo ya existe"})
         }
     })
 
 }
 
-ProductosController.CargarTodas = function(request, response){
-    ModelProductos.CargarTodas(null, function(respuesta){
+ProductosController.LoadAllProducts = function(request, response){
+    ModelProductos.LoadAllProducts(null, function(respuesta){
         response.json(respuesta)
     })  
 }
 
-ProductosController.CargarId = function(request, response){
+ProductosController.LoadByCode = function(request, response){
     var post = {
-        id:request.body.id,
-        
+        Codigo:request.body.Codigo.trimStart().trimEnd(),
     }
 
-    if (post.id ==  "" || post.id == undefined || post.id == null){
-        response.json({state:false,mensaje:"El campo id es obligatorio"})
+    if (post.Codigo ==  "" || post.Codigo == undefined || post.Codigo == null){
+        response.json({state:false,mensaje:"El campo codigo es obligatorio"})
         return false
     }
-    ModelProductos.CargarId(post,function(respuesta){
-        console.log(respuesta)
-        console.log(respuesta)
-        response.json(respuesta)
+
+    
+    ModelProductos.LoadByCode(post,function(respuesta){
+        if(respuesta.state == true){
+            response.json({respuesta,mensaje:"Se cargo correctamente"})
+        }
+        else{
+            response.json({state:false,mensaje:"El codigo no exixte"})
+        }
     })
 }
 
-ProductosController.ActualizarId = function(request, response){
+ProductosController.UpdateByCode = function(request, response){
     var post = {
-        id:request.body.id,
-        codigo:request.body.codigo,
-        nombre:request.body.nombre,
-        fechav:request.body.fechav,
+        Codigo:request.body.Codigo.trimStart().trimEnd(),
+        Nombre:request.body.Nombre.trimStart().trimEnd(),
+        Cantidad:request.body.Cantidad.trimStart().trimEnd(),
+        Precio:request.body.Precio.trimStart().trimEnd()
     }
 
-    if (post.id ==  "" || post.id == undefined || post.id == null){
-        response.json({state:false,mensaje:"El campo id es obligatorio"})
-        return false
-    }
-
-    if (post.codigo ==  "" || post.codigo == undefined || post.codigo == null){
+    if (post.Codigo ==  "" || post.Codigo == undefined || post.Codigo == null){
         response.json({state:false,mensaje:"El campo codigo es obligatorio"})
         return false
     }
     
-    if (post.nombre ==  "" || post.nombre == undefined || post.nombre == null){
+    if (post.Nombre ==  "" || post.Nombre == undefined || post.Nombre == null){
         response.json({state:false,mensaje:"El campo nombre es obligatorio"})
         return false
     }
 
-    if (post.fechav ==  "" || post.fechav == undefined || post.fechav == null){
-        response.json({state:false,mensaje:"El campo fecha de vencimiento es obligatorio"})
+    if (post.Cantidad ==  "" || post.Cantidad == undefined || post.Cantidad == null){
+        response.json({state:false,mensaje:"El campo cantidad es obligatorio"})
         return false
     }
 
-    ModelProductos.ActualizarId(post, function(respuesta){
+    if( isNaN(post.Cantidad) ) {
+        response.json({state:false,mensaje:"El cantidad solo acepta valores numericos"})
+        return false;
+    }
+    if (post.Cantidad < 1){
+        response.json({state:false,mensaje:"El campo cantidad debe ser mayor a 0"})
+        return false
+    }
+
+    if (post.Precio ==  "" || post.Precio == undefined || post.Precio == null){
+        response.json({state:false,mensaje:"El campo precio es obligatorio"})
+        return false
+    }
+
+    if( isNaN(post.Precio) ) {
+        response.json({state:false,mensaje:"El campo Precio solo acepta valores numericos"})
+        return false;
+    }
+    if (post.Precio < 1){
+        response.json({state:false,mensaje:"El campo Precio debe ser mayor a 0 "})
+        return false
+    }
+
+    ModelProductos.UpdateByCode(post, function(respuesta){
         console.log(respuesta)
         if(respuesta.state == true){
             response.json({state:true,mensaje:"se actualizó correctamente"})
         }
         else{
-            response.json({state:false,mensaje:"error al actualizar"})
+            response.json({state:false,mensaje:"El codigo no exixte"})
         }
     })
 
 }
 
-ProductosController.Eliminar = function(request, response){
+ProductosController.DeleteByCode = function(request, response){
     var post = {
-        id:request.body.id,
-        
+        Codigo:request.body.Codigo.trimStart().trimEnd(),
     }
-
-    if (post.id ==  "" || post.id == undefined || post.id == null){
-        response.json({state:false,mensaje:"El campo id es obligatorio"})
+    if (post.Codigo ==  "" || post.Codigo == undefined || post.Codigo == null){
+        response.json({state:false,mensaje:"El campo codigo es obligatorio"})
         return false
     }
-    ModelProductos.Eliminar(post, function(respuesta){
+    ModelProductos.DeleteByCode(post, function(respuesta){
         console.log(respuesta)
         if(respuesta.state == true){
             response.json({state:true,mensaje:"se eliminó correctamente"})
         }
         else{
-            response.json({state:false,mensaje:"error al eliminar"})
+            response.json({state:false,mensaje:"El codigo no existe"})
         }
     })
 }

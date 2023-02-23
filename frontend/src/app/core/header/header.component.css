@@ -1,4 +1,5 @@
 header{
+  position: relative;
   align-items: center;
   width: 100%;
   margin: 0;
@@ -8,6 +9,12 @@ header{
   color: azure;
   border: none;
   z-index: 1;
+}
+
+.Log{
+  position:absolute;
+  right: 0px;
+  top: 60px;
 }
 
 .btn-login {

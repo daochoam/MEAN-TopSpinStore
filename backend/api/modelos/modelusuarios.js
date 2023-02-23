@@ -1,19 +1,22 @@
 var ModelUsuarios = {}
+const { response } = require('express');
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
+//var trimStart = require('string.prototype.trimstart')
+//var trimEnd = require('string.prototype.trimend')
 
 var UsuariosSchema = new Schema({
-    Name: String,
-    LastName: String,
     Cedula:{
         type: Number,
         unique: true
     },
-    Email: {
+    Name: String,
+    Email:{
         type: String,
         unique: true
     },
     Password: String,
+    Rol:Number
 })
 
 const MyModel = mongoose.model('Users', UsuariosSchema)
@@ -21,8 +24,8 @@ const MyModel = mongoose.model('Users', UsuariosSchema)
 
 /*Guardar Usuarios*/
 ModelUsuarios.Register = function (post, callback) {
-    let minusculas = post.Email.toLowerCase();
-    MyModel.find({ Email: post.Email }, {}, (error, documentos) => {
+
+    MyModel.find({Email:post.Email.toLowerCase()}, {}, (error, documentos) => {
         if (documentos.length > 0) {
             return callback({ state: false, data: error })
         }
@@ -33,17 +36,18 @@ ModelUsuarios.Register = function (post, callback) {
             else {
                 const instancia = new MyModel
                 instancia.Cedula = parseInt(post.Cedula)
-                instancia.Name = post.Name
-                instancia.Email = minusculas
+                instancia.Name =  post.Name
+                instancia.Email = post.Email.toLowerCase()
                 instancia.Password = post.Password
+                instancia.Rol = '2'
                 instancia.save((error, creado) => {
-                    console.log(minusculas)
                     return callback({ state: true, creado })
                 })
             }
 
         })
     })
+    
 
 
 }
@@ -63,33 +67,39 @@ ModelUsuarios.LoadAllUsers = function (post, callback) {
 /*Listar Usuarios por email */
 ModelUsuarios.LoadByDocument = function (post, callback) {
     MyModel.find({ Cedula: post.Cedula }, {}, (error, documentos) => {
-        if (error) {
-            return callback({ state: false, data: error })
-        }
-        else {
-            return callback({ state: true, data: documentos })
+        if (documentos.length > 0) {
+            if (error) {
+                return callback({ state: false, data: error })
+            }
+            else {
+                return callback({ state: true, data: documentos })
+            }
+        } else {
+            return callback({ state: false })
         }
     })
 }
 
+
+
+
+
+
+
 /*Actualizar Usuarios por Email*/
 ModelUsuarios.UpdateByDocument = function (post, callback) {
-
-
     MyModel.find({ Cedula: post.Cedula }, {}, (error, documentos) => {
-
         if (error)
             return callback({ state: true, error })
         else {
             if (documentos.length > 0) {
-                MyModel.findOneAndUpdate(documentos[0].Cedula, {
-                    Name: post.Name,
-                    Email: post.Email,
-                    password: post.password,
-
+                MyModel.findByIdAndUpdate(documentos[0]._id, {
+                    Name: post.Name.trimStart().trimEnd(),
+                    Password: post.Password.trimStart().trimEnd(),
                 }, (error, usuariomodificado) => {
                     if (error) {
-                        return callback({ state: false, data: error })
+                        console.log(error)
+                        return callback({ state: false, mensaje: error })
                     }
                     else {
                         return callback({ state: true })
@@ -97,12 +107,11 @@ ModelUsuarios.UpdateByDocument = function (post, callback) {
                 })
             }
             else {
-                return callback({ state: false, mensaje: 'La Cedula no existe' })
+                return callback({ state: false })
             }
         }  // return callback({cantidad:documentos.length})
     })
-}
-
+}    
 /*Eliminar Usuarios por Cedula*/
 ModelUsuarios.DeleteByDocument = function (post, callback) {
     MyModel.find({ Cedula: post.Cedula }, {}, (error, documentos) => {
@@ -125,28 +134,22 @@ ModelUsuarios.DeleteByDocument = function (post, callback) {
 }
 
 /*Login Usuarios */
-ModelUsuarios.Login = function (post, callback) {
-    MyModel.find({ Email: post.Email }, {}, (error, documentos) => {
 
-        if (documentos.length < 1)
-        return callback({ state: true, mensaje:'El email no exixte' })
+    
+        
+ModelUsuarios.Login = function (post, callback) {
+    MyModel.find({Email:post.Email,Password:post.Password}, {Name:1, Rol:1}, (error, documentos) => {
+        if (error) {
+            return callback({ state: false, mensaje: error })
+        }
         else {
-            if (documentos.length > 0) {
-            MyModel.find({ Email: post.Email, Password: post.Password }, {}, (error, documentos) => {
-                if (error) {
-                    return callback({ state: false, mensaje: error })
-                }
-                else {
-                    if (documentos.length == 1) {
-                        return callback({ state: true, mensaje: 'Bienvenido: ' + documentos[0].Name })
-                    }
-                    else {
-                        return callback({ state: false, mensaje: 'El usuario o el password son incorrectos' })
-                    }
-                }
-            
-            })
-        }}
+            if (documentos.length == 0) {
+                return callback({ state: false, mensaje:"Datos invalidos"})
+            }
+            else {
+                return callback({ state: true, data:documentos})
+            }
+        }
     })
 }
 module.exports.usuarios = ModelUsuarios

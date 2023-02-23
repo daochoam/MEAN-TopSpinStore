@@ -1,23 +1,25 @@
 .ventanaflotante {
-    position: absolute;
-    background: whitesmoke;
-    top: 35px;
-    left: 191px;
-    width: calc(100% - 175px);
-    height: calc(100vh - 35px);
+  position: absolute;
+  background: whitesmoke;
+  top: 40px;
+  left: 185px;
+  width: calc(100% - 175px);
+  height: calc(100vh - 35px);
+  padding: 10px 10px 10px 10px;
 }
+
 .new {
-    width: 50px;
-    height: 50pxpx;
-    background: #29292b;
-    text-align: center;
-    padding-top: 13px;
-    border-radius: 50%;
-    color: white;
-    position: absolute;
-    bottom: 14px;
-    right: 13px;
-    cursor: pointer;
+  width: 50px;
+  height: 50px;
+  background: #29292b;
+  text-align: center;
+  padding-top: 13px;
+  border-radius: 50%;
+  color: white;
+  position: absolute;
+  bottom: 32px;
+  right: 30px;
+  cursor: pointer;
 }
 .imgproductos{
     width: 60px;

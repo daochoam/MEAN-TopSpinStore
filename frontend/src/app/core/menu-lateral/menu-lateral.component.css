@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 .nav{
     width: 300px;
-   
+
 }
 
 .nav__link{
@@ -24,16 +24,8 @@
 
 ul, li {
   list-style: none;
-  
- 
-}
-.list{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    border-radius: 0 16px 16px 0;
+
+
 }
 
 #menulateral {
@@ -46,6 +38,14 @@ ul, li {
   cursor: pointer;
 }
 
+.list{
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 0 16px 16px 0;
+}
 
 .datosinformativo {
   background: #29292b;
@@ -73,7 +73,7 @@ ul, li {
       cursor: pointer;
   }
 
- 
+
   .item {
     position: relative;
     margin: 0 25%;

@@ -19,7 +19,7 @@
   top: calc(50% - 400px);
   flex-direction: column;
   width: 100%;
-  max-width: 350px;
+  max-width: 370px;
   height: auto;
   justify-content: center;
   align-items: center;
@@ -80,7 +80,7 @@
 .Warm{
   width: 100%;
   height: auto;
-  font-size: 100%;
+  font-size: 110%;
   border-color: #fff;
-  color: rgba(225, 11, 40, 0.959)
+  color: rgb(225, 75, 75)
 }

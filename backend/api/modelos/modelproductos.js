@@ -3,30 +3,39 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 var ProductosSchema = new Schema({
-    codigo:String,
-    nombre:String,
-    fechav:String,
+    Codigo:{
+        type:String,
+        unique:true
+    },
+    Nombre: String,
+    Cantidad:Number,
+    Precio:Number,
     })
 
 const MyModel = mongoose.model('Products', ProductosSchema)
 
 
-ModelProductos.Guardarp = function(post, callback){
-    const instancia = new MyModel
-    instancia.codigo = post.codigo
-    instancia.nombre = post.nombre
-    instancia.fechav = post.fechav
-    instancia.save((error,creado) => {
-        if (error){
-            return callback({state:false,data:error})
-        }
-        else{
-            return callback({state:true})
+ModelProductos.Save = function (post, callback) {
+    MyModel.find({ Codigo: post.Codigo }, {}, (error, documentos) => {
+        if (documentos.length > 0) {
+            return callback({ state: false, data: error })
+        } else {
+
+            const instancia = new MyModel
+            instancia.Codigo = post.Codigo
+            instancia.Nombre = post.Nombre
+            instancia.Cantidad = parseInt(post.Cantidad)
+            instancia.Precio = parseInt(post.Precio)
+            instancia.save((error, creado) => {
+                return callback({ state: true, creado })
+            })
         }
     })
 }
 
-ModelProductos.CargarTodas = function(post, callback){
+
+
+ModelProductos.LoadAllProducts = function(post, callback){
     MyModel.find({},{},(error, documentos)=> {
         if (error){
             return callback({state:false,data:error})
@@ -37,43 +46,61 @@ ModelProductos.CargarTodas = function(post, callback){
     })
 }
 
-ModelProductos.CargarId = function(post, callback){
-    MyModel.findById(post.id,{},(error,documentos)=>{
-        if (error){
-            return callback({state:false,data:error})
+ModelProductos.LoadByCode = function(post, callback){
+    MyModel.find({Codigo:post.Codigo }, {}, (error, documentos) => {
+        if (documentos.length > 0) {
+            if (error) {
+                return callback({ state: false, data: error })
+            }
+            else {
+                return callback({ state: true, data: documentos })
+            }
+        } else {
+            return callback({ state: false })
         }
-        else{
-            return callback({state:true,data:documentos})
-        }    
     })
 }
 
-ModelProductos.ActualizarId = function(post, callback){
-    MyModel.findByIdAndUpdate(post.id,{
-        codigo:post.codigo,
-        nombre:post.nombre,
-        fechav:post.fechav,
-    },(error, modificado)=>{
-        if (error){
-
-            return callback({state:false,data:error})
-          
-        }
-        else{
-            return callback({state:true})
-        }  
-
+ModelProductos.UpdateByCode = function(post, callback){
+    MyModel.find({ Codigo: post.Codigo }, {}, (error, documentos) => {
+            if (documentos.length > 0) {
+                MyModel.findByIdAndUpdate(documentos[0]._id, {
+                    Nombre: post.Nombre.trimStart().trimEnd(),
+                    Cantidad:post.Cantidad.trimStart().trimEnd(),
+                    Precio: post.Precio.trimStart().trimEnd()    
+                }, (error, usuariomodificado) => {
+                    if (error) {
+                        console.log(error)
+                        return callback({ state: false, mensaje: error })
+                    }
+                    else {
+                        return callback({ state: true })
+                    }
+                })
+            }
+            else {
+                return callback({ state: false })
+            }
+          // return callback({cantidad:documentos.length})
     })
 }
 
-ModelProductos.Eliminar = function(post, callback){
-    MyModel.findByIdAndDelete(post.id,(error, eliminado)=>{
-        if (error){
-            return callback({state:false,data:error})
+ModelProductos.DeleteByCode = function(post, callback){
+    MyModel.find({ Codigo: post.Codigo }, {}, (error, documentos) => {
+        if (documentos.length == 0)
+            return callback({ state: false, error })
+        else {
+            {
+                MyModel.findOneAndDelete(post.Cedula, (error, eliminado) => {
+                    if (error) {
+                        return callback({ state: false, data: error })
+                    }
+                    else {
+                        return callback({ state: true })
+                    }
+                })
+            }
         }
-        else{
-            return callback({state:true})
-        }      
     })
 }
 

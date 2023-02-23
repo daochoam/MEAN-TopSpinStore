@@ -1,20 +1,25 @@
 var ModelUsuarios = require(__dirname + '/../modelos/modelusuarios.js').usuarios
 var UsuariosController = {}
 const emailValidator = require ('email-validator')
+//var trimStart = require('string.prototype.trimstart')
+//var trimEnd = require('string.prototype.trimend')
+
+
 
 UsuariosController.Register = function(request, response){
     console.log('conexion')
     var post = {
         
-        Cedula:request.body.Cedula,
-        Name:request.body.Name,
-        Email:request.body.Email,
-        Password:sha256(request.body.Password + config.Clave),
+        Cedula:request.body.Cedula.trimStart().trimEnd(),
+        Name:request.body.Name.trimStart().trimEnd(),
+        Email:request.body.Email.trimStart().trimEnd(),
+        Password:sha256(request.body.Password + config.Clave).trimStart().trimEnd(),
 
     }
     /*Validacion campo cedula */   
     
-    if (post.Cedula == "" || post.Cedula==null || post.Cedula == undefined ){
+
+    if (post.Cedula == "" || post.Cedula==null || post.Cedula == undefined){
         response.json({state:false,mensaje:"El campo cedula es obligatorio"})
         return false
     }
@@ -22,7 +27,6 @@ UsuariosController.Register = function(request, response){
         response.json({state:false,mensaje:"El campo cedula solo acepta valores numericos"})
         return false;
     }
-
     if (post.Cedula.length < 8){
         response.json({state:false,mensaje:"El campo cedula debe ser superior a 7 digitos"})
         return false
@@ -33,8 +37,10 @@ UsuariosController.Register = function(request, response){
         return false
     }
 
+
     /*Validacion campo nombre */   
     
+   
     if (post.Name == "" || post.Name==null || post.Name == undefined ){
         response.json({state:false,mensaje:"El campo nombre es obligatorio"})
         return false
@@ -51,7 +57,7 @@ UsuariosController.Register = function(request, response){
 
     /*Validacion campo email */   
 
-    if (post.Email == "" || post.Email==null || post.Email == undefined ){
+    if (post.Email == "" || post.Email==null || post.Email == undefined){
         response.json({state:false,mensaje:"El campo email es obligatorio"})
         return false
     }
@@ -63,7 +69,7 @@ UsuariosController.Register = function(request, response){
 
     /*Validacion campo password */   
 
-    if (post.Password == "" || post.Password==null || post.Password == undefined ){
+    if (post.Password == "" || post.Password==null || post.Password == undefined){
         response.json({state:false,mensaje:"El campo password es obligatorio"})
         return false
     }
@@ -95,31 +101,48 @@ UsuariosController.LoadAllUsers = function(request, response){
 UsuariosController.LoadByDocument = function(request, response){
     console.log('conexion')
     var post = {
-        Cedula:request.body.Cedula,
-        
+        Cedula:request.body.Cedula.trimStart().trimEnd(),
     }
 
-    if (post.Cedula ==  "" || post.Cedula == undefined || post.Cedula == null){
+    if (post.Cedula == "" || post.Cedula==null || post.Cedula == undefined){
         response.json({state:false,mensaje:"El campo cedula es obligatorio"})
         return false
     }
+    if( isNaN(post.Cedula) ) {
+        response.json({state:false,mensaje:"El campo cedula solo acepta valores numericos"})
+        return false;
+    }
+
+    if (post.Cedula.length < 8){
+        response.json({state:false,mensaje:"El campo cedula debe ser superior a 7 digitos"})
+        return false
+    }
+
+    if (post.Cedula.length > 12){
+        response.json({state:false,mensaje:"El campo cedula no debe ser superior a 12 digitos"})
+        return false
+    }
     ModelUsuarios.LoadByDocument(post,function(respuesta){
-        response.json(respuesta)
+        if(respuesta.state == true){
+            response.json({respuesta,mensaje:"Se cargo correctamente"})
+        }
+        else{
+            response.json({state:false,mensaje:"El documento no exixte"})
+        }
     })
 }
 
 UsuariosController.UpdateByDocument = function(request, response){
     var post = {
-        Cedula:request.body.Cedula,
-        Name:request.body.Name,
-        Email:request.body.Email,
-        Password:sha256(request.body.Password + config.Clave),
+        Cedula:request.body.Cedula.trimStart().trimEnd(),
+        Name:request.body.Name.trimStart().trimEnd(),
+        Password:sha256(request.body.Password + config.Clave).trimStart().trimEnd(),
         
     }
     
     /*Validacion campo cedula */
 
-    if (post.Cedula == "" || post.Cedula==null || post.Cedula == undefined ){
+    if (post.Cedula == "" || post.Cedula==null || post.Cedula == undefined){
         response.json({state:false,mensaje:"El campo cedula es obligatorio"})
         return false
     }
@@ -140,7 +163,7 @@ UsuariosController.UpdateByDocument = function(request, response){
 
     /*Validacion campo nombre */   
     
-    if (post.Name == "" || post.Name==null || post.Name == undefined ){
+    if (post.Name == "" || post.Name==null || post.Name == undefined){
         response.json({state:false,mensaje:"El campo nombre es obligatorio"})
         return false
     }
@@ -154,21 +177,10 @@ UsuariosController.UpdateByDocument = function(request, response){
         return false
     }
 
-    /*Validacion campo email */   
-
-    if (post.Email == "" || post.Email==null || post.Email == undefined ){
-        response.json({state:false,mensaje:"El campo email es obligatorio"})
-        return false
-    }
-
-    if(emailValidator.validate(post.Email)==false){
-        response.json({state:false,mensaje:"El campo Email no es correcto"})
-        return false    
-    }
-
+    
     /*Validacion campo password */   
 
-    if (post.Password == "" || post.Password==null || post.Password == undefined ){
+    if (post.Password == "" || post.Password==null || post.Password == undefined){
         response.json({state:false,mensaje:"El campo password es obligatorio"})
         return false
     }
@@ -193,7 +205,7 @@ UsuariosController.UpdateByDocument = function(request, response){
 
 UsuariosController.DeleteByDocument = function(request, response){
     var post = {
-        Cedula:request.body.Cedula,
+        Cedula:request.body.Cedula.trimStart().trimEnd(),
         
     }
 
@@ -237,7 +249,7 @@ UsuariosController.Login = function(request, response){
 
     /*Validacion campo email */   
 
-    if (post.Email == "" || post.Email==null || post.Email == undefined ){
+    if (post.Email == "" || post.Email==null || post.Email == undefined){
         response.json({state:false,mensaje:"El campo email es obligatorio"})
         return false
     }
@@ -247,19 +259,19 @@ UsuariosController.Login = function(request, response){
         return false    
     }
 
-    /*Validacion campo password */   
-
-    if (post.Password == "" || post.Password==null || post.Password == undefined ){
-        response.json({state:false,mensaje:"El campo password es obligatorio"})
-        return false
-    }
-    if (post.Password.length < 6){
-        response.json({state:false,mensaje:"El campo password debe ser superior a 6 caracteres"})
-        return false
-    }
-    
     ModelUsuarios.Login(post, function(respuesta){
-    response.json(respuesta) 
+        console.log(respuesta)
+        if(respuesta.state == true){
+
+            request.session.Name = respuesta.data[0].Name
+            request.session.Rol = respuesta.data[0].Rol
+            request.session._id = respuesta.data[0]._id
+           
+
+            response.json({state:true,mensaje:"Bienvenido"})
+        }else{
+            response.json({state:false,mensaje:"Usuario o password invalido"})
+        }
     })
 }
 

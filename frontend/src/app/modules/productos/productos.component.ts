@@ -27,15 +27,20 @@ export class ProductosComponent implements OnInit{
   nombre:string = "";
   fechav:string = "";
   precio:string = "";
+  cantidad:string ="";
   categorias:string = "";
   listadatos:any[]=[]
   Id:string = ""
 
   // destino:string = this.peticion-urlLocal
-  // path:string = '/subir/imagenproductos'
+  path:string = '/subir/imagenproductos'
 
   OpenModal(){
     $('#modaldatos').modal('show')
+  }
+
+  CloseModal(){
+    $('#modaldatos').modal('hide')
   }
 
   Nuevo(){
@@ -43,6 +48,7 @@ export class ProductosComponent implements OnInit{
     this.nombre = ""
     this.fechav = ""
     this.precio = "0"
+    this.cantidad=""
     this.categorias =""
     this.Id     = ""
   }
@@ -51,13 +57,14 @@ export class ProductosComponent implements OnInit{
 
     var post = {
       host:this.peticion.urlLocal,
-      path:'/Productos/Guardar',
+      path:'/Products/Save',
       payload:{
-        codigo:  this.codigo,
-        noombre: this.nombre,
-        fechav:  this.fechav,
-        precio:  this.precio,
-        categorias:  this.categorias
+        Codigo:  this.codigo,
+        Nombre:  this.nombre,
+        //fechav:  this.fechav,
+        Precio:  this.precio,
+        Cantidad:  this.cantidad,
+        //categorias:  this.categorias
       }
 
     }
@@ -82,7 +89,7 @@ export class ProductosComponent implements OnInit{
 
     var post = {
       host:this.peticion.urlLocal,
-      path:'/Productos/CargarTodas',
+      path:'/Products/LoadAllProducts',
       payload:{
 
       }
@@ -101,14 +108,14 @@ export class ProductosComponent implements OnInit{
 
   CargarId(id:string){
     console.log(id)
-    this.Id = id
+    this.codigo = id
     //this.path = this.path + '/' + this.Id
 
     var post = {
       host:this.peticion.urlLocal,
-      path:'/Productos/CargarId',
+      path:'/Products/LoadByCode',
       payload:{
-        id:this.Id
+        Codigo :this.codigo
 
       }
 
@@ -116,13 +123,14 @@ export class ProductosComponent implements OnInit{
 
     this.peticion.POST(post.host + post.path, post.payload).then(
       (res:any) => {
-
+        //res.respuesta
         if(res.state == true){
-          this.codigo = res.data.codigo
-          this.nombre = res.data.nombre
-          this.fechav = res.data.fechav
-          this.precio = res.data.precio
-          this.categorias = res.data.categorias
+          this.codigo = res.data.Codigo //res.respuesta.data
+          this.nombre = res.data.Nombre
+          //this.fechav = res.data.fechav
+          this.cantidad = res.data.Cantidad
+          this.precio = res.data.Precio
+          //this.categorias = res.data.categorias
           $('#modaldatos').modal('show')
         }
         else{
@@ -138,14 +146,15 @@ export class ProductosComponent implements OnInit{
   ActualizarId(){
     var post = {
       host:this.peticion.urlLocal,
-      path:'/Productos/ActualizarId"',
+      path:'/Products/UpdateByCode',
       payload:{
-        id:this.Id,
-        codigo:  this.codigo,
-        noombre: this.nombre,
-        fechav:  this.fechav,
-        precio:  this.precio,
-        categorias:  this.categorias
+        //id:this.Id,
+        Codigo:  this.codigo,
+        Nombre: this.nombre,
+        //fechav:  this.fechav,
+        Precio:  this.precio,
+        Cantidad: this.cantidad,
+        //categorias:  this.categorias
       }
 
     }
@@ -180,7 +189,7 @@ export class ProductosComponent implements OnInit{
 
         var post = {
           host:this.peticion.urlLocal,
-          path:'/Productos/Eliminar"',
+          path:'/Products/DeleteByCode',
           payload:{
             id:this.Id
           }

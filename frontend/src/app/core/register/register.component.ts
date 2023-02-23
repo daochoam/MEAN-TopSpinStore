@@ -45,6 +45,8 @@ export class RegisterComponent implements OnInit {
   /* BUTTON CLOSER REGISTER */
   CloseRegister(): void {
     this.RegSwitch.$LookUpRegister.emit(false)
+    this.ClearFields()
+    this.msn_Register = ""
   }
 
   /* BUTTON REGISTER */
@@ -81,6 +83,8 @@ export class RegisterComponent implements OnInit {
       else { this.msn_ConfirmPassword = "" }
     }
     else {
+      /** CLEAR FIELDS **/
+      this.ClearFields();
       var Post = {
         Host: this.Peticion.urlLocal,
         Path: "/Users/Register",
@@ -95,8 +99,6 @@ export class RegisterComponent implements OnInit {
       this.Peticion.POST(Post.Host + Post.Path, Post.Payload).then((Response: any) => {
         if (Response.state == true) {
           this.msn_Register = "User Registered Successfully"
-          /** CLEAR FIELDS **/
-          this.ClearFields();
         }
         else {
           this.msn_Register = "User Registered Successfully"

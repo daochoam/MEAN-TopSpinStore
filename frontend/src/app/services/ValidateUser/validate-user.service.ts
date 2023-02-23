@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-type Name = 'Name'|'Lastname'
+type Name = 'Name' | 'Lastname'
 
 @Injectable({
   providedIn: 'root'
@@ -25,30 +25,34 @@ export class ValidateUserService {
       MultiSpace: /[\s]{2,}/,
     },
     Email: {
+      // Check Email Address: (Gmail rules) + include dash, underscore.
+      Pattern: /^((?!^[._-])(?![-_.]{2,})[a-zñ0-9._-]){5,30}[a-z0-9]+@(([\w-]+\.)+[\w-]{2,4})$/,
       // Check include one @.
       Symbol: /@/,
-      // MailUserNameM (Gmail rules): Gmail!! does not include dash, underscore.
-      UserName: /^((?!^[._-])(?![._-]{2,})[a-z0-9._-](?![._-])){6,30}(?=@)/,
+      // MailUserNameM (Gmail rules): Gmail!! + include dash, underscore.
+      UserName: /^((?!^[._-])(?![-_.]{2,})[a-zñ0-9._-][a-zñ0-9]{5,29})(?=@)/,
       // MailDomain: Check the email domain structure.
       Domain: /(?<=@)(([\w-]+\.)+[\w-]{2,4})$/,
       // Special Characters:
-      SpecialCharacters: /[!-,\/:-?\[-\^`\{-~¿¡°]/,
+      SpecialCharacters: /([!-,\/:-@\[-\^`\{-~¿¡°])(?=@)/,
       // Space Characters:
       Spaces: /([\s]{1,})/,
       // Init Special Characters:
       InitSCharacter: /^([!-/:-@\[-`\{-~¿¡°])/,
       // Consecutive Special Characters:
       MultiSCharacter: /[_.-]{2,}/,
-      // Username don't finish dot character
-      CharArroba: /([!-/:-@\[-`\{-~¿¡°])(?=@)/,
+      // Username don't finish special character
+      CharArroba: /([ -/:-@\[-`\{-~¿¡°])(?=@)/, // /[\x20-\x2f\x3a-\x40\x5b-\x60\x7b-\x81](?=@)/  <-- HEXA
       // Acent Characters:
-      AcentCharacters: /[À-ÿ]/
+      AcentCharacters: /[À-ÆÈ-ÏÒ-ÖÙ-Ýà-æè-ïò-öù-ýÿ]/
     },
     Password: {
+      // Check Password:
+      Pattern: /^[A-Za-z!-/:-@\[-`\{-~Ññ¿¡°\d]{8,32}$/,
       // Space Characters:
       Spaces: /([\s]{1,})/,
       // Acent Characters:
-      AcentCharacters: /[À-ÿ]/,
+      AcentCharacters: /[À-ÆÈ-ÏÒ-ÖÙ-Ýà-æè-ïò-öù-ýÿ]/,
       // Capital Letter - No Acent:
       CapitaLetter: /[A-ZÑ]/,
       // Lowercase Letter - No Acent:
@@ -97,7 +101,7 @@ export class ValidateUserService {
     }
     else {
       if (!this.Form.CC.Numbers.test(Id.trim()) == true) {
-        msn += "The ID number mustn't contain non-numeric characters."
+        msn += "The ID number contain non-numeric characters."
       }
 
       if (this.Form.CC.Numbers.test(Id.trim()) == true && (8 > Id.trim().length || Id.trim().length > 12)) {
@@ -122,7 +126,7 @@ export class ValidateUserService {
    * state: false (error) || true (success)
    * message: "<error description>" (state:false) || "" (state:true)
    */
-  ValidateName(Name: string, Type:Name= 'Name'): [{ state: boolean, message: string }] {
+  ValidateName(Name: string, Type: Name = 'Name'): [{ state: boolean, message: string }] {
     var msn: string = ""
 
     // This field is required.
@@ -186,7 +190,7 @@ export class ValidateUserService {
     else {
       // Only the use of '._-@' is supported..
       if (this.Form.Email.SpecialCharacters.test(Email.trim()) == true) {
-        msn += "Email only supports '._-@' characters."
+        msn += "The username email only supports '._-' characters."
       }
 
       // The email must contain @ symbol.
@@ -218,9 +222,7 @@ export class ValidateUserService {
         if (msn != "") { msn += "\n" }
         msn += "The Email musn't end with special characters."
       }
-
     }
-
     if (msn == "") {
       return [{ state: true, message: msn }]
     } else {
@@ -248,6 +250,12 @@ export class ValidateUserService {
       // The field contain spaces.
       if (this.Form.Password.Spaces.test(Password.trim()) == true) {
         msn += "The Password musn't contain spaces.";
+      }
+
+      // The field contain acent characters.
+      if (8 > Password.trim().length || Password.trim().length > 20) {
+        if (msn != "") { msn += "\n" }
+        msn += "The Password mustn contain 8 to 20 characters.";
       }
 
       // The field contain acent characters.
