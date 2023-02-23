@@ -108,14 +108,14 @@ export class ProductosComponent implements OnInit{
 
   CargarId(id:string){
     console.log(id)
-    this.codigo = id
+    this.Id = id
     //this.path = this.path + '/' + this.Id
 
     var post = {
       host:this.peticion.urlLocal,
       path:'/Products/LoadByCode',
       payload:{
-        Codigo :this.codigo
+        Codigo :this.Id
 
       }
 

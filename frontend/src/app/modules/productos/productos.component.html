@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of listadatos" (click)="CargarId(item.Codigo)">
+      <tr *ngFor="let item of listadatos" (click)="CargarId(item._Id)">
         <td>{{item.Codigo}}</td>
         <td>{{item.Nombre}}</td>
         <!-- <td>{{item.fechav}}</td> -->
