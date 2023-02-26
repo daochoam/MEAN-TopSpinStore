@@ -1,0 +1,86 @@
+<div class="ventanaflotante">
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Codigo</th>
+        <th scope="col">Nombre</th>
+        <!-- <th scope="col">Fecha Vencimiento</th> -->
+        <th scope="col">Precio</th>
+        <th scope="col">Cantidad</th>
+        <!-- <th scope="col">Categorias</th> -->
+        <!-- <th scope="col">Imagen</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of ListaDatos" (click)="CargaPorId(item._id)">
+        <td>{{item.Codigo}}</td>
+        <td>{{item.Nombre}}</td>
+        <!-- <td>{{item.fechav}}</td> -->
+        <td>{{item.Precio | currency}}</td>
+        <td>{{item.Cantidad}}</td>
+        <!-- <td>{{item.categorias}</td> -->
+        <!-- <td><img src="http:localhost:3000/productos/{{item._id}}.png" + class="imgproductos"></td> -->
+      </tr>
+
+    </tbody>
+  </table>
+
+    <div class="new" (click)="OpenModal()">
+        <i class="fa-sharp fa-regular fa-plus fa-lg"></i>
+    </div>
+</div>
+<div class="modal fade" id="modaldatos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-body">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Productos</h5>
+          <button type="button" class="close" aria-label="Close" title="Close" (click)="CloseModal()">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="modal-body">
+              <div class="form-group col-12 col-md-4">
+                <label for="recipient-name" class="col-form-label" >Codigo</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="Codigo" placeholder="Codigo">
+              </div>
+              <div class="form-group col-12 col-md-8">
+                <label for="message-text" class="col-form-label">Nombre</label>
+                <input class="form-control" id="message-text"[(ngModel)]="Nombre">
+              </div>
+              <!-- <div class="form-group col-12 col-md-4">
+                  <label for="message-text" class="col-form-label">Fecha Vencimiento</label>
+                  <input class="form-control" id="message-text" [(ngModel)]="fechav">
+                </div> -->
+                <div class="form-group col-12 col-md-4">
+                  <label for="message-text" class="col-form-label">Precio</label>
+                  <input class="form-control" id="message-text" [(ngModel)]="Precio">
+                </div>
+                <div class="form-group col-12 col-md-4">
+                  <label for="message-text" class="col-form-label">Cantidad</label>
+                  <input class="form-control" id="message-text" [(ngModel)]="Cantidad">
+                </div>
+                <!-- <div class="form-group col-12 col-md-8">
+                  <label for="message-text" class="col-form-label">Categorias</label>
+                  <input class="form-control" id="message-text" [(ngModel)]="categorias">
+                </div> -->
+                <!-- <div class="col-12" *ngIf="Id != ''">
+                  <app-subirarchivos [urldestino]="destino" [path]="path" [inputName]="userFile"> </app-subirarchivos>
+                </div> -->
+
+          </div>
+
+        </div>
+
+        </div>
+        <div class="modal-footer">
+         <button *ngIf="Id === ''"  type="button" class="btn btn-primary" (click)="Guardar()">Guardar</button>
+         <button *ngIf="Id !== ''"  type="button" class="btn btn-primary" (click)="ActualizarId()">Actualizar</button>
+         <button *ngIf="Id !== ''"  type="button" class="btn btn-danger" (click)="Eliminar()">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

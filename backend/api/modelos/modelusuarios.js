@@ -81,11 +81,6 @@ ModelUsuarios.LoadByDocument = function (post, callback) {
 }
 
 
-
-
-
-
-
 /*Actualizar Usuarios por Email*/
 ModelUsuarios.UpdateByDocument = function (post, callback) {
     MyModel.find({ Cedula: post.Cedula }, {}, (error, documentos) => {

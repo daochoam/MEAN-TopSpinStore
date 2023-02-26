@@ -82,10 +82,10 @@ UsuariosController.Register = function(request, response){
     ModelUsuarios.Register(post, function(respuesta){
         console.log(respuesta)
         if(respuesta.state == true){
-            response.json({state:true,mensaje:"Se guardo correctamente"})
+            response.json({state:true,mensaje:"You have been successfully Registered"})
         }
         else{
-            response.json({state:false,mensaje:"El correo o cedula ya existe"})
+            response.json({state:false,mensaje:"The Cedula or Email is already Registered"})
         }
         
     })
@@ -236,7 +236,7 @@ UsuariosController.DeleteByDocument = function(request, response){
             response.json({state:true,mensaje:"se eliminó correctamente"})
         }
         else{
-            response.json({state:false,mensaje:"La cedula no exixte"})
+            response.json({state:false,mensaje:"La cedula no existe"})
         }
     })
 }
@@ -262,15 +262,12 @@ UsuariosController.Login = function(request, response){
     ModelUsuarios.Login(post, function(respuesta){
         console.log(respuesta)
         if(respuesta.state == true){
-
+            request.session._id = respuesta.data[0]._id
             request.session.Name = respuesta.data[0].Name
             request.session.Rol = respuesta.data[0].Rol
-            request.session._id = respuesta.data[0]._id
-           
-
-            response.json({state:true,mensaje:"Bienvenido"})
+            response.json({state:true,mensaje:"Welcome"})
         }else{
-            response.json({state:false,mensaje:"Usuario o password invalido"})
+            response.json({state:false,mensaje:"Invalid email or password"})
         }
     })
 }

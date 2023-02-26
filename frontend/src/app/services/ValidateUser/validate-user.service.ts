@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 type Name = 'Name' | 'Lastname'
+type Validate = 'Save' | 'Load'
 
 @Injectable({
   providedIn: 'root'
@@ -26,21 +27,23 @@ export class ValidateUserService {
     },
     Email: {
       // Check Email Address: (Gmail rules) + include dash, underscore.
-      Pattern: /^((?!^[._-])(?![-_.]{2,})[a-zñ0-9._-]){5,30}[a-z0-9]+@(([\w-]+\.)+[\w-]{2,4})$/,
+      Pattern: /^((?!^[._-])(?![-_.]{2,})[a-zñ0-9._-]){5,29}[a-zñ0-9]+@(([\w-]+\.)+[\w-]{2,4})$/,
       // Check include one @.
       Symbol: /@/,
       // MailUserNameM (Gmail rules): Gmail!! + include dash, underscore.
-      UserName: /^((?!^[._-])(?![-_.]{2,})[a-zñ0-9._-][a-zñ0-9]{5,29})(?=@)/,
+      UserName: /^((?!^[._-])(?![-_.]{2,})[a-zñ0-9._-]){5,29}[a-zñ0-9](?=@)/,
       // MailDomain: Check the email domain structure.
       Domain: /(?<=@)(([\w-]+\.)+[\w-]{2,4})$/,
       // Special Characters:
       SpecialCharacters: /([!-,\/:-@\[-\^`\{-~¿¡°])(?=@)/,
       // Space Characters:
-      Spaces: /([\s]{1,})/,
+      Spaces: /\s+/,
       // Init Special Characters:
       InitSCharacter: /^([!-/:-@\[-`\{-~¿¡°])/,
       // Consecutive Special Characters:
       MultiSCharacter: /[_.-]{2,}/,
+      // Capital Letter - No Acent:
+      CapitaLetter: /[A-ZÑ]/,
       // Username don't finish special character
       CharArroba: /([ -/:-@\[-`\{-~¿¡°])(?=@)/, // /[\x20-\x2f\x3a-\x40\x5b-\x60\x7b-\x81](?=@)/  <-- HEXA
       // Acent Characters:
@@ -50,7 +53,7 @@ export class ValidateUserService {
       // Check Password:
       Pattern: /^[A-Za-z!-/:-@\[-`\{-~Ññ¿¡°\d]{8,32}$/,
       // Space Characters:
-      Spaces: /([\s]{1,})/,
+      Spaces: /\s+/,
       // Acent Characters:
       AcentCharacters: /[À-ÆÈ-ÏÒ-ÖÙ-Ýà-æè-ïò-öù-ýÿ]/,
       // Capital Letter - No Acent:
@@ -89,7 +92,7 @@ export class ValidateUserService {
    * state: false (error) || true (success)
    * message: "<error description>" (state:false) || "" (state:true)
    */
-  ValidateCC(Id: string | number): [{ state: boolean, message: string }] {
+  ValidateCC(Id: string | number): { state: boolean, message: string } {
     var msn: string = ""
 
     if (typeof (Id) == "number") {
@@ -110,9 +113,9 @@ export class ValidateUserService {
       }
     }
     if (msn == "") {
-      return [{ state: true, message: msn }]
+      return { state: true, message: msn }
     } else {
-      return [{ state: false, message: msn }]
+      return { state: false, message: msn }
     }
   }
 
@@ -126,7 +129,7 @@ export class ValidateUserService {
    * state: false (error) || true (success)
    * message: "<error description>" (state:false) || "" (state:true)
    */
-  ValidateName(Name: string, Type: Name = 'Name'): [{ state: boolean, message: string }] {
+  ValidateName(Name: string, Type: Name = 'Name'): { state: boolean, message: string } {
     var msn: string = ""
 
     // This field is required.
@@ -165,9 +168,9 @@ export class ValidateUserService {
     }
 
     if (msn == "") {
-      return [{ state: true, message: msn }]
+      return { state: true, message: msn }
     } else {
-      return [{ state: false, message: msn }]
+      return { state: false, message: msn }
     }
   }
 
@@ -176,11 +179,12 @@ export class ValidateUserService {
   /*****************************************************************************************
    * ValidateEmail: Validate email field
    * @param Email string
-   * @returns [{ state: boolean, message: string }]
+   * @param Validate 'save' || 'load' (default)
+   * @returns { state: boolean, message: string }
    * state: false (error) || true (success)
    * message: "<error description>" (state:false) || "" (state:true)
    */
-  ValidateEmail(Email: string): [{ state: boolean, message: string }] {
+  ValidateEmail(Email: string, Validate: Validate = 'Load'): { state: boolean, message: string } {
     var msn: string = ""
 
     // This field is required.
@@ -188,45 +192,56 @@ export class ValidateUserService {
       msn += 'The Email is required.'
     }
     else {
-      // Only the use of '._-@' is supported..
-      if (this.Form.Email.SpecialCharacters.test(Email.trim()) == true) {
-        msn += "The username email only supports '._-' characters."
+      if (Validate == 'Load') {
+        if (this.Form.Email.Pattern.test(Email.trim()) == false) {
+          msn += "The Email entered is invalid."
+        }
       }
+      else if (Validate == 'Save') {
+        // The email must contain @ symbol.
+        if (Email.match(this.Form.Email.Symbol)?.length != 1) {
+          if (msn != "") { msn += "\n" }
+          msn += "The Email must contain one @ symbol."
+        }
 
-      // The email must contain @ symbol.
-      if (Email.match(this.Form.Email.Symbol)?.length != 1) {
-        if (msn != "") { msn += "\n" }
-        msn += "The Email must contain one @ symbol."
-      }
+        // Only the use of '._-@' is supported..
+        if (this.Form.Email.SpecialCharacters.test(Email.trim()) == true) {
+          msn += "The username email only supports '._-' characters."
+        }
 
-      // The email contain spaces.
-      if (this.Form.Email.Spaces.test(Email.trim()) == true) {
-        if (msn != "") { msn += "\n" }
-        msn += "The Email musn't contain spaces."
-      }
+        // The email contain spaces.
+        if (this.Form.Email.Spaces.test(Email.trim()) == true) {
+          if (msn != "") { msn += "\n" }
+          msn += "The Email musn't contain spaces."
+        }
 
-      // The email must not start with a special characters.
-      if (this.Form.Email.InitSCharacter.test(Email.trim()) == true) {
-        if (msn != "") { msn += "\n" }
-        msn += "The Email musn't start with a special character."
-      }
+        // Only the use of '._-@' is supported..
+        if (this.Form.Email.CapitaLetter.test(Email.trim()) == true) {
+          msn += "The mustn't contain capital letters."
+        }
 
-      // The email must not start with a special characters.
-      if (this.Form.Email.MultiSCharacter.test(Email.trim()) == true) {
-        if (msn != "") { msn += "\n" }
-        msn += "The Email musn't contain consecutive special characters."
-      }
+        // The email must not start with a special characters.
+        if (this.Form.Email.InitSCharacter.test(Email.trim()) == true) {
+          if (msn != "") { msn += "\n" }
+          msn += "The Email musn't start with a special character."
+        }
 
-      // The email must not end with a period.
-      if (this.Form.Email.CharArroba.test(Email.trim()) == true) {
-        if (msn != "") { msn += "\n" }
-        msn += "The Email musn't end with special characters."
-      }
-    }
+        // The email must not end with a period.
+        if (this.Form.Email.CharArroba.test(Email.trim()) == true) {
+          if (msn != "") { msn += "\n" }
+          msn += "The Email musn't end with special characters."
+        }
+
+        // The email must not start with a special characters.
+        if (this.Form.Email.MultiSCharacter.test(Email.trim()) == true) {
+          if (msn != "") { msn += "\n" }
+          msn += "The Email musn't contain consecutive special characters."
+        }
+      }}
     if (msn == "") {
-      return [{ state: true, message: msn }]
+      return { state: true, message: msn }
     } else {
-      return [{ state: false, message: msn }]
+      return { state: false, message: msn }
     }
   }
 
@@ -235,11 +250,12 @@ export class ValidateUserService {
   /*****************************************************************************************
    * ValidatePassword: validate Password field
    * @param Password string
-   * @returns [{ state: boolean, message: string }]
+   * @param Validate 'save' || 'load' (default)
+   * @returns { state: boolean, message: string }
    * state: false (error) || true (success)
    * message: "<error description>" (state:false) || "" (state:true)
    */
-  ValidatePassword(Password: string): [{ state: boolean, message: string }] {
+  ValidatePassword(Password: string, Validate:Validate = 'Load'): { state: boolean, message: string } {
     var msn: string = ""
 
     // This field is required.
@@ -247,15 +263,21 @@ export class ValidateUserService {
       msn += "The Password is required."
     }
     else {
+      if (Validate=='Load'){
+        if (this.Form.Password.Pattern.test(Password.trim()) == false) {
+          msn += "The Password entered is invalid.";
+        }
+      }
+      else if (Validate=='Save'){
       // The field contain spaces.
       if (this.Form.Password.Spaces.test(Password.trim()) == true) {
-        msn += "The Password musn't contain spaces.";
+        msn += "The Password mustn't contain spaces.";
       }
 
       // The field contain acent characters.
       if (8 > Password.trim().length || Password.trim().length > 20) {
         if (msn != "") { msn += "\n" }
-        msn += "The Password mustn contain 8 to 20 characters.";
+        msn += "The Password mustn't contain 8 to 20 characters.";
       }
 
       // The field contain acent characters.
@@ -287,12 +309,12 @@ export class ValidateUserService {
         if (msn != "") { msn += "\n" }
         msn += "The Password must contain at least 1 special character."
       }
-    }
+    }}
 
     if (msn == "") {
-      return [{ state: true, message: msn }]
+      return { state: true, message: msn }
     } else {
-      return [{ state: false, message: msn }]
+      return { state: false, message: msn }
     }
   }
 
@@ -302,19 +324,19 @@ export class ValidateUserService {
    * ValidateConfirmPassword: Validate Password field == ConfirmPassword field.
    * @param ConfirmPassword string
    * @param Password string
-   * @returns [{ state: boolean, message: string }]
+   * @returns { state: boolean, message: string }
    * state: false (error) || true (success)
    * message: "<error description>" (state:false) || "" (state:true)
    */
-  ValidateConfirmPassword(ConfirmPassword: string, Password: string): [{ state: boolean, message: string }] {
+  ValidateConfirmPassword(ConfirmPassword: string, Password: string): { state: boolean, message: string } {
     // This field is required.
     if (ConfirmPassword.trim() == "" || ConfirmPassword.trim() == null || ConfirmPassword.trim() == undefined) {
-      return [{ state: false, message: "Retype your Password." }]
+      return { state: false, message: "Retype your Password." }
     }
     else if (ConfirmPassword != Password) {
-      return [{ state: false, message: "Passwords did not match" }]
+      return { state: false, message: "Passwords did not match" }
     } else {
-      return [{ state: true, message: "" }]
+      return { state: true, message: "" }
     }
   }
 
@@ -323,11 +345,11 @@ export class ValidateUserService {
   /*************************************************************************************
    * ValidatePhone: Validate Phone Colombia.
    * @param Phone string | number
-   * @returns [{ state: boolean, message: string }]
+   * @returns { state: boolean, message: string }
    * state: false (error) || true (success)
    * message: "<error description>" (state:false) || "" (state:true)
    */
-  ValidatePhone(Phone: string | number): [{ state: boolean, message: string }] {
+  ValidatePhone(Phone: string | number): { state: boolean, message: string } {
     var msn: string = ""
 
     if (typeof (Phone) == "number") {
@@ -355,9 +377,9 @@ export class ValidateUserService {
     }
 
     if (msn == "") {
-      return [{ state: true, message: msn }]
+      return { state: true, message: msn }
     } else {
-      return [{ state: false, message: msn }]
+      return { state: false, message: msn }
     }
   }
 
@@ -366,11 +388,11 @@ export class ValidateUserService {
   /*************************************************************************************
    * ValidateMaritalS: Validate MaritalS.
    * @param MaritalS string
-   * @returns [{ state: boolean, message: string }]
+   * @returns { state: boolean, message: string }
    * state: false (error) || true (success)
    * message: "<error description>" (state:false) || "" (state:true)
    */
-  ValidateMaritalS(MaritalS: string): [{ state: boolean, message: string }] {
+  ValidateMaritalS(MaritalS: string): { state: boolean, message: string } {
     var msn: string = ""
 
     if (MaritalS.trim() == "" || MaritalS.trim() == null || MaritalS.trim() == undefined) {
@@ -408,9 +430,9 @@ export class ValidateUserService {
     }
 
     if (msn == "") {
-      return [{ state: true, message: msn }]
+      return { state: true, message: msn }
     } else {
-      return [{ state: false, message: msn }]
+      return { state: false, message: msn }
     }
   }
 

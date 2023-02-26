@@ -15,7 +15,7 @@ app.post("/Users/Register",function(request, response){
     UsuariosController.Register(request, response)
 })
 
-app.post("/Users/LoadAllUsers", validarSesion , function(request, response){
+app.post("/Users/LoadAllUsers" , function(request, response){
     UsuariosController.LoadAllUsers(request, response)
 })
 

@@ -2,6 +2,23 @@
 
 The project describes an e-commerce WEB application of table tennis sports products.
 
+### Update 26/02/23:
++ Back -> Created Products By Id, Correction Load, Created Load Category
++ Create Service Request Product
++ Create Service Request Users
++ Create Service ValidateUsers
++ Create Service ValidateProducts (in Construction)
++ Create Service Messages (Unified Yefferson Mensajes)
++ Create Interface Store
+* Order Project
+>>> Products -> Page to show the products in their different categories
+>>> Admin -> Private Zone Admin -> AdminUsers AdminProducts AdminAdmins (No create)
+>>>>>>> AdminProducts 100% functional
+>>> Users -> Private Zone Users (in Construction)
+- Delete Empty Components
+
+Note: Do not create components in the src/app/modules folder, or add them to app routing if they are not project pages.
+
 ## Backend
 
 ### Technologies:
@@ -35,3 +52,5 @@ To install the frontend project, follow the steps below:
 2. Intall [Angular CLI](https://github.com/angular/angular-cli).
 3. To install the project, go to the `~.../frontend` directory from the shell and run the `npm install` command.
 4. To run the project, go to the project directory `~.../frontend` from the shell and run the `ng serve` or `npm start` command.
+
+

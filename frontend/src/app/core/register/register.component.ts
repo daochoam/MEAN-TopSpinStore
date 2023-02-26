@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PeticionService } from 'src/app/services/Peticion/peticion.service';
+import { RequestUsersService } from 'src/app/services/RequestUsers/request-users.service';
 import { SwitchService } from 'src/app/services/Switches/switch.service';
 import { ValidateUserService } from 'src/app/services/ValidateUser/validate-user.service';
+import Swal from 'sweetalert2';
 
 declare var $: any;
 @Component({
@@ -30,7 +32,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     // Services Calls
     private RegSwitch: SwitchService,
-    private Peticion: PeticionService,
+    private RequestUsers: RequestUsersService,
     private Validate: ValidateUserService,
   ) { }
 
@@ -53,59 +55,27 @@ export class RegisterComponent implements OnInit {
   Register() {
     var CheckCC = this.Validate.ValidateCC(this.CC)
     var CheckName = this.Validate.ValidateName(this.Name)
-    var CheckEmail = this.Validate.ValidateEmail(this.Email)
-    var CheckPassword = this.Validate.ValidatePassword(this.Password)
+    var CheckEmail = this.Validate.ValidateEmail(this.Email, 'Save')
+    var CheckPassword = this.Validate.ValidatePassword(this.Password, 'Save')
     var CheckConfirmPassword = this.Validate.ValidateConfirmPassword(this.ConfirmPassword, this.Password)
-    if (CheckCC[0].state == false
-      || CheckName[0].state == false
-      || CheckEmail[0].state == false
-      || CheckPassword[0].state == false
-      || CheckConfirmPassword[0].state == false) {
-      if (CheckCC[0].state == false) {
-        this.msn_CC = CheckCC[0].message
-      }
-      else { this.msn_CC = "" }
-      if (CheckName[0].state == false) {
-        this.msn_Name = CheckName[0].message
-      }
-      else { this.msn_Name = "" }
-      if (CheckEmail[0].state == false) {
-        this.msn_Email = CheckEmail[0].message
-      }
-      else { this.msn_Email = "" }
-      if (CheckPassword[0].state == false) {
-        this.msn_Password = CheckPassword[0].message
-      }
-      else { this.msn_Password = "" }
-      if (CheckConfirmPassword[0].state == false) {
-        this.msn_ConfirmPassword = CheckConfirmPassword[0].message
-      }
-      else { this.msn_ConfirmPassword = "" }
+    if (CheckCC.state == false || CheckName.state == false || CheckEmail.state == false
+      || CheckPassword.state == false || CheckConfirmPassword.state == false) {
+      if (CheckCC.state == false) { this.msn_CC = CheckCC.message } else { this.msn_CC = "" }
+      if (CheckName.state == false) { this.msn_Name = CheckName.message } else { this.msn_Name = "" }
+      if (CheckEmail.state == false) { this.msn_Email = CheckEmail.message } else { this.msn_Email = "" }
+      if (CheckPassword.state == false) { this.msn_Password = CheckPassword.message } else { this.msn_Password = "" }
+      if (CheckConfirmPassword.state == false) { this.msn_ConfirmPassword = CheckConfirmPassword.message } else { this.msn_ConfirmPassword = "" }
     }
     else {
+      this.RequestUsers.RegisterUsers({
+        Cedula: this.CC,
+        Name: this.Name,
+        Email: this.Email,
+        Password: this.Password
+      })
       /** CLEAR FIELDS **/
       this.ClearFields();
-      var Post = {
-        Host: this.Peticion.urlLocal,
-        Path: "/Users/Register",
-        Payload: {
-          Cedula: this.CC,
-          Name: this.Name,
-          Email: this.Email,
-          Password: this.Password
-        }
-      }
-      /* POST Petition User Register*/
-      this.Peticion.POST(Post.Host + Post.Path, Post.Payload).then((Response: any) => {
-        if (Response.state == true) {
-          this.msn_Register = "User Registered Successfully"
-        }
-        else {
-          this.msn_Register = "User Registered Successfully"
-        }
-      })
-      /****** CLEAR FIELDS *********/
-
+      this.RegSwitch.$LookUpRegister.emit(false)
     }
   }
 }

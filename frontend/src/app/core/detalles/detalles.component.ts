@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MessagesService } from 'src/app/services/Messages/messages.service';
 import { PeticionService } from '../../services/Peticion/peticion.service';
-import { MensajesService } from '../../services/Mensajes/mensajes.service';
 
 @Component({
   selector: 'app-detalles',
@@ -10,8 +10,9 @@ import { MensajesService } from '../../services/Mensajes/mensajes.service';
 })
 export class DetallesComponent implements OnInit{
 
-
-  constructor(private actroute:ActivatedRoute, private peticion:PeticionService, private msg:MensajesService){}
+  constructor(private actroute:ActivatedRoute,
+              private peticion:PeticionService,
+              private msg:MessagesService){}
   ngOnInit(): void {
 
     this.CargarId(this.actroute.snapshot.params["identificador"])
@@ -21,7 +22,7 @@ export class DetallesComponent implements OnInit{
   codigo:string = ""
   nombre:string = ""
   fechav:string = ""
-  precio:string = "0"
+  precio:string = ""
   categorias:string =""
   Id:string =""
 

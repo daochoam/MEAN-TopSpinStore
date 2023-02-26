@@ -60,20 +60,11 @@ body::-webkit-scrollbar-thumb {
   outline: 1px solid slategrey;
 }
 
-footer {
-  align-self: flex-end;
-  height: auto;
-  width: 100%;
-  color: rgba(155, 155, 155, 0.727);
-  background: var(--app-backgrond);
-}
-
-footer a:hover,
-footer p:hover {
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
-  text-decoration: none;
-  cursor: pointer;
+.content{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  min-height: calc(100vh - 340px);
 }
 
 h1,h2,h3,h4,h5,h6 {

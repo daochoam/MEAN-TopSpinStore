@@ -33,8 +33,6 @@ ModelProductos.Save = function (post, callback) {
     })
 }
 
-
-
 ModelProductos.LoadAllProducts = function(post, callback){
     MyModel.find({},{},(error, documentos)=> {
         if (error){
@@ -44,6 +42,16 @@ ModelProductos.LoadAllProducts = function(post, callback){
             return callback({state:true,data:documentos})
         }
     })
+}
+
+ModelProductos.LoadById = function(post, callback){
+    MyModel.findById(post.Id, {}, (error, documentos) => {
+            if(error){
+                return callback({state:false,data:error})
+            }else{
+                return callback({state:true,data:documentos })
+            }
+        })
 }
 
 ModelProductos.LoadByCode = function(post, callback){
@@ -57,6 +65,37 @@ ModelProductos.LoadByCode = function(post, callback){
             }
         } else {
             return callback({ state: false })
+        }
+    })
+}
+
+ModelProductos.LoadByCategory = function(post, callback){
+    MyModel.find({Categoria:post.Categoria }, {}, (error, documentos) => {
+        if (documentos.length > 0) {
+            if (error) {
+                return callback({ state: false, data: error })
+            }
+            else {
+                return callback({ state: true, data: documentos })
+            }
+        } else {
+            return callback({ state: false })
+        }
+    })
+}
+
+ModelProductos.UpdateById = function(post, callback){
+    MyModel.findByIdAndUpdate(post.Id,{
+        Nombre: post.Nombre.trimStart().trimEnd(),
+        Cantidad:post.Cantidad.trimStart().trimEnd(),
+        Precio: post.Precio.trimStart().trimEnd()  
+    },(err,doc)=>{
+        if (err) {
+            console.log(err)
+            return callback({ state: false, mensaje: err })
+        }
+        else {
+            return callback({ state: true })
         }
     })
 }
@@ -82,6 +121,17 @@ ModelProductos.UpdateByCode = function(post, callback){
                 return callback({ state: false })
             }
           // return callback({cantidad:documentos.length})
+    })
+}
+
+ModelProductos.DeleteById = function(post, callback){
+    MyModel.findByIdAndDelete(post.Id,(error, eliminado) => {
+        if (error) {
+            return callback({ state: false, data: error })
+        }
+        else {
+            return callback({ state: true })
+        }
     })
 }
 

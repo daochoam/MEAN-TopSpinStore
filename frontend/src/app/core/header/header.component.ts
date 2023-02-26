@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
+import { SwitchService } from 'src/app/services/Switches/switch.service';
 
-declare var $: any;
+type MenuHeader = 'Home' | 'Blades' | 'Rubbers' | 'Balls' | 'Tables & Nets' | 'Admin'
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -9,17 +10,21 @@ declare var $: any;
 export class HeaderComponent implements OnInit {
   loginState:Boolean = false;
 
-  HeaderMenu = [
+  HeaderMenu:Array<{ Name:MenuHeader, Router:string }> = [
     {Name:'Home',           Router:'/home'},
-    {Name:'Blades',         Router:'/blades'},
-    {Name:'Rubbers',        Router:'/rubbers'},
-    {Name:'Balls',          Router:'/balls'},
-    {Name:'Tables & Nets',  Router:'/tables'},
-    {Name:'user',           Router:'/user'},
+    {Name:'Blades',         Router:'/products'},
+    {Name:'Rubbers',        Router:'/products'},
+    {Name:'Balls',          Router:'/products'},
+    {Name:'Tables & Nets',  Router:'/products'},
+    {Name:'Admin',          Router:'/admin'}
   ]
 
-  constructor (){}
-    ngOnInit(): void {}
+  constructor (private LookMenu:SwitchService){}
+  ngOnInit(): void {}
+
+  ActiveMenu(Menu:MenuHeader='Home'){
+
+  }
 
   /* Hide dropdown when another dropdown is activated */
   LoginShow():void{
