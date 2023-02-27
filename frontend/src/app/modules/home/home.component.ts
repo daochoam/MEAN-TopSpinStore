@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PeticionService } from '../../services/Peticion/peticion.service';
+import { RequestProductsService } from 'src/app/services/RequestProducts/request-products.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,32 +7,13 @@ import { PeticionService } from '../../services/Peticion/peticion.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private peticion: PeticionService) { }
-  listadatos: any[] = []
+  constructor(private RequestProducts:RequestProductsService) { }
+  ListaDatos: any[] = []
 
   public ngOnInit(): void {
-    this.CargarProductos()
+    this.RequestProducts.LoadAllProducts().then((Response: any) => {
+        this.ListaDatos = Response.data
+      })
   }
-
-  CargarProductos() {
-
-    var post = {
-      host: this.peticion.urlLocal,
-      path: '/Productos/CargarTodas',
-      payload: {
-
-      }
-
-    }
-
-    this.peticion.POST(post.host + post.path, post.payload).then(
-      (res: any) => {
-
-        this.listadatos = res.data
-
-      }
-    )
-
-  }
-
 }
+

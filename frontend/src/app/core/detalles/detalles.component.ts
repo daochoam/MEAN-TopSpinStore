@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MessagesService } from 'src/app/services/Messages/messages.service';
 import { PeticionService } from '../../services/Peticion/peticion.service';
-
+import { RequestProductsService } from 'src/app/services/RequestProducts/request-products.service';
 @Component({
   selector: 'app-detalles',
   templateUrl: './detalles.component.html',
@@ -11,7 +11,7 @@ import { PeticionService } from '../../services/Peticion/peticion.service';
 export class DetallesComponent implements OnInit{
 
   constructor(private actroute:ActivatedRoute,
-              private peticion:PeticionService,
+              private RequestProduct:RequestProductsService,
               private msg:MessagesService){}
   ngOnInit(): void {
 
@@ -29,19 +29,8 @@ export class DetallesComponent implements OnInit{
   CargarId(id:string){
     this.Id =id
 
-    var post = {
-      host:this.peticion.urlLocal,
-      path:'/Productos/CargarId',
-      payload:{
-        id:id
-
-      }
-
-    }
-
-    this.peticion.POST(post.host + post.path, post.payload).then(
+    this.RequestProduct.LoadById(id).then(
       (res:any) => {
-
         if(res.state == true){
           this.codigo = res.data.codigo
           this.nombre = res.data.nombre

@@ -85,10 +85,10 @@ ModelProductos.LoadByCategory = function(post, callback){
 }
 
 ModelProductos.UpdateById = function(post, callback){
-    MyModel.findByIdAndUpdate(post.Id,{
+    MyModel.findByIdAndUpdate(post._id,{
         Nombre: post.Nombre.trimStart().trimEnd(),
-        Cantidad:post.Cantidad.trimStart().trimEnd(),
-        Precio: post.Precio.trimStart().trimEnd()  
+        Cantidad:parseInt(post.Cantidad),
+        Precio: parseInt(post.Cantidad) 
     },(err,doc)=>{
         if (err) {
             console.log(err)

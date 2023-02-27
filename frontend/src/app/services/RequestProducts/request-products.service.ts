@@ -104,6 +104,7 @@ export class RequestProductsService {
     }
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
+
   DeleteByCode(Codigo: string) {
     var Post = {
       Host: this.Peticion.urlLocal,

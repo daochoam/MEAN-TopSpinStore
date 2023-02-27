@@ -131,14 +131,14 @@ ProductosController.LoadByCategory = function(request, response){
 
 ProductosController.UpdateById = function(request, response){
     var post = {
-        Id:request.body.Id.trimStart().trimEnd(),
+        _id:request.body._id.trimStart().trimEnd(),
         Codigo:request.body.Codigo.trimStart().trimEnd(),
         Nombre:request.body.Nombre.trimStart().trimEnd(),
         Cantidad:request.body.Cantidad.trimStart().trimEnd(),
         Precio:request.body.Precio.trimStart().trimEnd()
     }
 
-    if (post.Id ==  "" || post.Id == undefined || post.Id == null){
+    if (post._id ==  "" || post._id == undefined || post._id == null){
         response.json({state:false,mensaje:"El campo codigo es obligatorio"})
         return false
     }

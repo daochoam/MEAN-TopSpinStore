@@ -43,7 +43,6 @@ export class AdminProductsComponent implements OnInit {
   }
 
   Nuevo() {
-    console.log(this.ListaDatos)
     this.Codigo = ""
     this.Nombre = ""
     this.FechaV = ""
@@ -86,8 +85,8 @@ export class AdminProductsComponent implements OnInit {
       _id: this.Id,
       Codigo: this.Codigo,
       Nombre: this.Nombre,
-      Precio: this.Precio,
-      Cantidad: this.Cantidad,
+      Precio: this.Precio.toString(),
+      Cantidad: this.Cantidad.toString(),
     }).then(()=>{
       this.RequestProduct.LoadAllProducts().then((res: any) => { this.ListaDatos = res.data })
     })
@@ -95,7 +94,7 @@ export class AdminProductsComponent implements OnInit {
 
   Eliminar() {
       this.Message.MessageDelete().then((willDelete) => {
-        if (willDelete) {
+        if (willDelete.isConfirmed) {
           this.Message.MessageOne(
             'Deleted!',
             'The product has been successfully removed.',
