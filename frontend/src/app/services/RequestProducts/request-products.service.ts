@@ -68,6 +68,7 @@ export class RequestProductsService {
       Path: '/Products/UpdateById',
       Payload: Payload
     }
+    console.log(Payload)
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload).then((Response: any) => {
       if (Response.state == true) {
         this.msg.load("success", Response.mensaje, 5000)
@@ -100,7 +101,7 @@ export class RequestProductsService {
     var Post = {
       Host: this.Peticion.urlLocal,
       Path: '/Products/DeleteById',
-      Payload: { Id: Id }
+      Payload: { _id: Id }
     }
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }

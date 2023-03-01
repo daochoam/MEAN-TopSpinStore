@@ -135,7 +135,8 @@ ProductosController.UpdateById = function(request, response){
         Codigo:request.body.Codigo.trimStart().trimEnd(),
         Nombre:request.body.Nombre.trimStart().trimEnd(),
         Cantidad:request.body.Cantidad.trimStart().trimEnd(),
-        Precio:request.body.Precio.trimStart().trimEnd()
+        Precio:request.body.Precio.trimStart().trimEnd(),
+        Categoria:request.body.Categoria?.trimStart().trimEnd()
     }
 
     if (post._id ==  "" || post._id == undefined || post._id == null){
@@ -166,12 +167,10 @@ ProductosController.UpdateById = function(request, response){
         response.json({state:false,mensaje:"El campo cantidad debe ser mayor a 0"})
         return false
     }
-
     if (post.Precio ==  "" || post.Precio == undefined || post.Precio == null){
         response.json({state:false,mensaje:"El campo precio es obligatorio"})
         return false
     }
-
     if( isNaN(post.Precio) ) {
         response.json({state:false,mensaje:"El campo Precio solo acepta valores numericos"})
         return false;
@@ -180,7 +179,7 @@ ProductosController.UpdateById = function(request, response){
         response.json({state:false,mensaje:"El campo Precio debe ser mayor a 0 "})
         return false
     }
-
+    console.log(post)
     ModelProductos.UpdateById(post, function(respuesta){
         console.log(respuesta)
         if(respuesta.state == true){
@@ -253,9 +252,9 @@ ProductosController.UpdateByCode = function(request, response){
 
 ProductosController.DeleteById = function(request, response){
     var post = {
-        Id:request.body.Id.trimStart().trimEnd(),
+        _id:request.body._id.trimStart().trimEnd(),
     }
-    if (post.Id ==  "" || post.Id == undefined || post.Id == null){
+    if (post._id ==  "" || post._id == undefined || post._id == null){
         response.json({state:false,mensaje:"El campo codigo es obligatorio"})
         return false
     }

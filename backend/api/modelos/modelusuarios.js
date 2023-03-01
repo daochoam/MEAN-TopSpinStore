@@ -6,25 +6,28 @@ const Schema = mongoose.Schema;
 //var trimEnd = require('string.prototype.trimend')
 
 var UsuariosSchema = new Schema({
+    Rol:Number,
     Cedula:{
         type: Number,
         unique: true
     },
     Name: String,
+    LastName: String,
     Email:{
         type: String,
         unique: true
     },
     Password: String,
-    Rol:Number
+    Age: Number,
+    Phone: Number,
+    Address: String,
+    Credicards: []
 })
 
 const MyModel = mongoose.model('Users', UsuariosSchema)
 
-
-/*Guardar Usuarios*/
+/**********  Registrar Usuarios  ************/
 ModelUsuarios.Register = function (post, callback) {
-
     MyModel.find({Email:post.Email.toLowerCase()}, {}, (error, documentos) => {
         if (documentos.length > 0) {
             return callback({ state: false, data: error })
@@ -47,9 +50,23 @@ ModelUsuarios.Register = function (post, callback) {
 
         })
     })
-    
+}
 
-
+/**********  Login Usuarios  ************/
+ModelUsuarios.Login = function (post, callback) {
+    MyModel.find({Email:post.Email,Password:post.Password}, {Name:1, Rol:1}, (error, documentos) => {
+        if (error) {
+            return callback({ state: false, mensaje: error })
+        }
+        else {
+            if (documentos.length == 0) {
+                return callback({ state: false, mensaje:"Datos invalidos"})
+            }
+            else {
+                return callback({ state: true, data:documentos})
+            }
+        }
+    })
 }
 
 /*Listar todos los Usuarios*/
@@ -63,8 +80,18 @@ ModelUsuarios.LoadAllUsers = function (post, callback) {
         }
     })
 }
+/**********   Listar Usuarios por Id  **************/
+ModelUsuarios.LoadById = function(post,callback) {
+    MyModel.findById(post._id,{},(error, documentos) =>{
+        if(error){
+            return callback({state:false, data:error})
+        }else{
+            return callback({state:true, data:documentos})
+        }
+    })
+}
 
-/*Listar Usuarios por email */
+/**********  Listar Usuarios por Document  ************/
 ModelUsuarios.LoadByDocument = function (post, callback) {
     MyModel.find({ Cedula: post.Cedula }, {}, (error, documentos) => {
         if (documentos.length > 0) {
@@ -79,7 +106,6 @@ ModelUsuarios.LoadByDocument = function (post, callback) {
         }
     })
 }
-
 
 /*Actualizar Usuarios por Email*/
 ModelUsuarios.UpdateByDocument = function (post, callback) {
@@ -106,7 +132,29 @@ ModelUsuarios.UpdateByDocument = function (post, callback) {
             }
         }  // return callback({cantidad:documentos.length})
     })
-}    
+}
+
+ModelUsuarios.UpdateById = function(post, callback){
+    MyModel.findByIdAndUpdate(post._id,{
+        Rol: parseInt(post.Rol),
+        Cedula: parseInt(post.Cedula),
+        Name: post.Name,
+        LastName: post.LastName,
+        Email: post.Email.toLowerCase(),
+        Age: parseInt(post.Age),
+        Phone: parseInt(post.Phone),
+        Address: post.Address,
+    },(err,doc)=>{
+        if (err) {
+            console.log(err)
+            return callback({ state: false, mensaje: err })
+        }
+        else {
+            return callback({ state: true })
+        }
+    })
+}
+
 /*Eliminar Usuarios por Cedula*/
 ModelUsuarios.DeleteByDocument = function (post, callback) {
     MyModel.find({ Cedula: post.Cedula }, {}, (error, documentos) => {
@@ -128,23 +176,4 @@ ModelUsuarios.DeleteByDocument = function (post, callback) {
     })
 }
 
-/*Login Usuarios */
-
-    
-        
-ModelUsuarios.Login = function (post, callback) {
-    MyModel.find({Email:post.Email,Password:post.Password}, {Name:1, Rol:1}, (error, documentos) => {
-        if (error) {
-            return callback({ state: false, mensaje: error })
-        }
-        else {
-            if (documentos.length == 0) {
-                return callback({ state: false, mensaje:"Datos invalidos"})
-            }
-            else {
-                return callback({ state: true, data:documentos})
-            }
-        }
-    })
-}
 module.exports.usuarios = ModelUsuarios

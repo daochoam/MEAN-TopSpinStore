@@ -15,6 +15,10 @@ app.post("/Users/Register",function(request, response){
     UsuariosController.Register(request, response)
 })
 
+app.post("/Users/Save",function(request, response){
+    UsuariosController.Save(request, response)
+})
+
 app.post("/Users/LoadAllUsers" , function(request, response){
     UsuariosController.LoadAllUsers(request, response)
 })
@@ -23,8 +27,16 @@ app.post("/Users/LoadByDocument", function(request, response){
     UsuariosController.LoadByDocument (request, response)
 })
 
+app.post("/Users/LoadById", function(request, response){
+    UsuariosController.LoadById (request, response)
+})
+
 app.post("/Users/UpdateByDocument", function(request, response){
     UsuariosController.UpdateByDocument(request, response)
+})
+
+app.post("/Users/UpdateById", function(request, response){
+    UsuariosController.UpdateById(request, response)
 })
 
 app.post("/Users/DeleteByDocument", function(request, response){

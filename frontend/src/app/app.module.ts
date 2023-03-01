@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorInterceptor } from './Interceptors/interceptor.interceptor';
 
+// Angular Material
+import {MatSelectModule} from '@angular/material/select';
+
 // Modules Components
 import { HomeComponent } from './modules/home/home.component';
 import { ProductsComponent } from './modules/products/products.component';
@@ -64,7 +67,8 @@ import { LocationComponent } from './core/location/location.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     GoogleMapsModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

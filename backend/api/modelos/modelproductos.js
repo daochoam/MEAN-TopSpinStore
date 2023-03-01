@@ -10,6 +10,14 @@ var ProductosSchema = new Schema({
     Nombre: String,
     Cantidad:Number,
     Precio:Number,
+    Categoria:String,
+    Categoria:String,
+    Color:String,
+    Descripcion:String,
+    created_at:{
+        type: Date,
+        default: Date("<YYYY-mm-dd THH:MM:ss>")
+    }
     })
 
 const MyModel = mongoose.model('Products', ProductosSchema)
@@ -88,7 +96,8 @@ ModelProductos.UpdateById = function(post, callback){
     MyModel.findByIdAndUpdate(post._id,{
         Nombre: post.Nombre.trimStart().trimEnd(),
         Cantidad:parseInt(post.Cantidad),
-        Precio: parseInt(post.Cantidad) 
+        Precio: parseInt(post.Cantidad),
+        Categoria: post.Categoria
     },(err,doc)=>{
         if (err) {
             console.log(err)
@@ -125,7 +134,7 @@ ModelProductos.UpdateByCode = function(post, callback){
 }
 
 ModelProductos.DeleteById = function(post, callback){
-    MyModel.findByIdAndDelete(post.Id,(error, eliminado) => {
+    MyModel.findByIdAndDelete(post._id,(error, eliminado) => {
         if (error) {
             return callback({ state: false, data: error })
         }

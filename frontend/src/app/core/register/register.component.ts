@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PeticionService } from 'src/app/services/Peticion/peticion.service';
 import { RequestUsersService } from 'src/app/services/RequestUsers/request-users.service';
 import { SwitchService } from 'src/app/services/Switches/switch.service';
 import { ValidateUserService } from 'src/app/services/ValidateUser/validate-user.service';
-import Swal from 'sweetalert2';
+
+import { NamesFormat } from 'src/app/interfaces/store-interfaces';
 
 declare var $: any;
 @Component({
@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
     else {
       this.RequestUsers.RegisterUsers({
         Cedula: this.CC,
-        Name: this.Name,
+        Name: NamesFormat(this.Name),
         Email: this.Email,
         Password: this.Password
       })
