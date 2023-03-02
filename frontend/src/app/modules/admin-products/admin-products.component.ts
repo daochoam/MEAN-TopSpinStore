@@ -75,14 +75,14 @@ export class AdminProductsComponent implements OnInit {
   CargaPorId(Id: string) {
     this.Id = Id
     this.RequestProduct.LoadById(Id)
-      .then((Response: any) => {
+      .then((Response: any | JSON) => {
         if (Response.state == true) {
           this.Codigo = Response.data.Codigo
           this.Nombre = Response.data.Nombre
           this.Cantidad = Response.data.Cantidad
           this.Precio = Response.data.Precio
-          this.Categoria = Response.data.Categoria
-          //this.Descripcion = Response.data.Descripcion
+          if(Response.data.Categoria != undefined) {this.Categoria = Response.data.Categoria}
+          if(Response.data.Descripcion != undefined) {this.Descripcion = Response.data.Descripcion}
           $('#modaldatos').modal('show')
         } else {
           this.Message.load("danger", Response.data.mensaje, 5000)
@@ -90,6 +90,11 @@ export class AdminProductsComponent implements OnInit {
       })
   }
 
+  nullValue(value: any) {
+    if(value.data.Codigo != undefined) {}
+
+
+  }
   /*************** BUTTON GUARDAR *****************/
   Guardar() {
     this.RequestProduct.ProductSave({
@@ -97,6 +102,7 @@ export class AdminProductsComponent implements OnInit {
       Nombre: NamesFormat(this.Nombre),
       Precio: this.Precio,
       Cantidad: this.Cantidad,
+      Categoria: this.Categoria,
       Descripcion: this.Descripcion,
     }).then(() => {
       this.RequestProduct.LoadAllProducts().then((res: any) => { this.ListaDatos = res.data })

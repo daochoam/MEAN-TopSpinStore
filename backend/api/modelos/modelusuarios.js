@@ -9,24 +9,30 @@ var UsuariosSchema = new Schema({
     Rol:Number,
     Cedula:{
         type: Number,
-        unique: true
+        unique: true,
+        require: true
     },
-    Name: String,
+    Name: {
+        type: String,
+        require: true
+    },
     LastName: String,
     Email:{
         type: String,
-        unique: true
+        unique: true,
+        require: true
     },
     Password: String,
-    Age: Number,
-    Phone: Number,
+    Age: Number | null,
+    Phone: Number | null,
     Address: String,
     Credicards: []
 })
 
 const MyModel = mongoose.model('Users', UsuariosSchema)
 
-/**********  Registrar Usuarios  ************/
+/**************************************************************/
+/******************           CREATE         ******************/
 ModelUsuarios.Register = function (post, callback) {
     MyModel.find({Email:post.Email.toLowerCase()}, {}, (error, documentos) => {
         if (documentos.length > 0) {
@@ -52,7 +58,8 @@ ModelUsuarios.Register = function (post, callback) {
     })
 }
 
-/**********  Login Usuarios  ************/
+/**************************************************************/
+/******************           READ           ******************/
 ModelUsuarios.Login = function (post, callback) {
     MyModel.find({Email:post.Email,Password:post.Password}, {Name:1, Rol:1}, (error, documentos) => {
         if (error) {
@@ -107,7 +114,8 @@ ModelUsuarios.LoadByDocument = function (post, callback) {
     })
 }
 
-/*Actualizar Usuarios por Email*/
+/***************************************************************/
+/******************        UPDATE             ******************/
 ModelUsuarios.UpdateByDocument = function (post, callback) {
     MyModel.find({ Cedula: post.Cedula }, {}, (error, documentos) => {
         if (error)
@@ -134,7 +142,9 @@ ModelUsuarios.UpdateByDocument = function (post, callback) {
     })
 }
 
+/*Actualizar Usuarios por Id*/
 ModelUsuarios.UpdateById = function(post, callback){
+    console.log(post.Age)
     MyModel.findByIdAndUpdate(post._id,{
         Rol: parseInt(post.Rol),
         Cedula: parseInt(post.Cedula),
@@ -155,7 +165,8 @@ ModelUsuarios.UpdateById = function(post, callback){
     })
 }
 
-/*Eliminar Usuarios por Cedula*/
+/***************************************************************/
+/******************         DELETE            ******************/
 ModelUsuarios.DeleteByDocument = function (post, callback) {
     MyModel.find({ Cedula: post.Cedula }, {}, (error, documentos) => {
         if (documentos.length == 0)
@@ -172,6 +183,17 @@ ModelUsuarios.DeleteByDocument = function (post, callback) {
                     }
                 })
             }
+        }
+    })
+}
+
+ModelUsuarios.DeleteById = function(post, callback){
+    MyModel.findByIdAndDelete(post._id,(error, eliminado) => {
+        if (error) {
+            return callback({ state: false, data: error })
+        }
+        else {
+            return callback({ state: true })
         }
     })
 }

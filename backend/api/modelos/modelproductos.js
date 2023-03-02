@@ -5,11 +5,21 @@ const Schema = mongoose.Schema;
 var ProductosSchema = new Schema({
     Codigo:{
         type:String,
-        unique:true
+        unique:true,
+        require:true
     },
-    Nombre: String,
-    Cantidad:Number,
-    Precio:Number,
+    Nombre: {
+        type:String,
+        require:true
+    },
+    Cantidad:{
+        type:Number,
+        require:true
+    },
+    Precio: {
+        type:Number,
+        require:true
+    },
     Categoria:String,
     Categoria:String,
     Color:String,
@@ -22,7 +32,8 @@ var ProductosSchema = new Schema({
 
 const MyModel = mongoose.model('Products', ProductosSchema)
 
-
+/**************************************************************/
+/******************           CREATE         ******************/
 ModelProductos.Save = function (post, callback) {
     MyModel.find({ Codigo: post.Codigo }, {}, (error, documentos) => {
         if (documentos.length > 0) {
@@ -41,6 +52,8 @@ ModelProductos.Save = function (post, callback) {
     })
 }
 
+/**************************************************************/
+/******************           READ           ******************/
 ModelProductos.LoadAllProducts = function(post, callback){
     MyModel.find({},{},(error, documentos)=> {
         if (error){
@@ -92,6 +105,8 @@ ModelProductos.LoadByCategory = function(post, callback){
     })
 }
 
+/**************************************************************/
+/******************        UPDATE            ******************/
 ModelProductos.UpdateById = function(post, callback){
     MyModel.findByIdAndUpdate(post._id,{
         Nombre: post.Nombre.trimStart().trimEnd(),
@@ -133,6 +148,8 @@ ModelProductos.UpdateByCode = function(post, callback){
     })
 }
 
+/***************************************************************/
+/******************         DELETE            ******************/
 ModelProductos.DeleteById = function(post, callback){
     MyModel.findByIdAndDelete(post._id,(error, eliminado) => {
         if (error) {

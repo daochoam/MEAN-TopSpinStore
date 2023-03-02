@@ -3,12 +3,17 @@ var ProductosController = {}
 //var trimStart = require('string.prototype.trimstart')
 //var trimEnd = require('string.prototype.trimend')
 
+/**************************************************************/
+/******************           CREATE         ******************/
+/******************            Save          ******************/
 ProductosController.Save = function(request, response){
     var post = {
         Codigo:request.body.Codigo.trimStart().trimEnd(),
         Nombre:request.body.Nombre.trimStart().trimEnd(),
         Cantidad:request.body.Cantidad.trimStart().trimEnd(),
-        Precio:request.body.Precio.trimStart().trimEnd()
+        Precio:request.body.Precio.trimStart().trimEnd(),
+        Categoria:request.body.Categoria,
+        Descripcion:request.body.Descripcion
     }
 
     if (post.Codigo ==  "" || post.Codigo == undefined || post.Codigo == null){
@@ -48,9 +53,8 @@ ProductosController.Save = function(request, response){
         response.json({state:false,mensaje:"El campo Precio debe ser mayor a 0 "})
         return false
     }
-
+    console.log(post)
     ModelProductos.Save(post, function(respuesta){
-        console.log(respuesta)
         if(respuesta.state == true){
             response.json({state:true,mensaje:"Se guardo correctamente"})
         }
@@ -61,6 +65,9 @@ ProductosController.Save = function(request, response){
 
 }
 
+/**************************************************************/
+/******************           READ           ******************/
+/******************    Load All Products     ******************/
 ProductosController.LoadAllProducts = function(request, response){
     ModelProductos.LoadAllProducts(null, function(respuesta){
         response.json(respuesta)
@@ -79,6 +86,7 @@ ProductosController.LoadById = function(request, response){
     
     ModelProductos.LoadById(post,function(respuesta){
         if(respuesta.state == true){
+            console.log(respuesta.data)
             response.json({state:respuesta.state ,data:respuesta.data})
         }
         else{
@@ -129,6 +137,9 @@ ProductosController.LoadByCategory = function(request, response){
     })
 }
 
+/**************************************************************/
+/******************        UPDATE            ******************/
+/******************     Update By Id         ******************/
 ProductosController.UpdateById = function(request, response){
     var post = {
         _id:request.body._id.trimStart().trimEnd(),
@@ -136,7 +147,7 @@ ProductosController.UpdateById = function(request, response){
         Nombre:request.body.Nombre.trimStart().trimEnd(),
         Cantidad:request.body.Cantidad.trimStart().trimEnd(),
         Precio:request.body.Precio.trimStart().trimEnd(),
-        Categoria:request.body.Categoria?.trimStart().trimEnd()
+        Categoria:request.body.Categoria.trimStart().trimEnd()
     }
 
     if (post._id ==  "" || post._id == undefined || post._id == null){
@@ -250,6 +261,9 @@ ProductosController.UpdateByCode = function(request, response){
 
 }
 
+/***************************************************************/
+/******************         DELETE            ******************/
+/******************   Delete Products By Id   ******************/
 ProductosController.DeleteById = function(request, response){
     var post = {
         _id:request.body._id.trimStart().trimEnd(),

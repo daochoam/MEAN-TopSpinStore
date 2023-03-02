@@ -20,7 +20,7 @@
       <tr *ngFor="let item of ListaDatos" (click)="CargaPorId(item._id)">
         <!-- <td><img src="http:localhost:3000/productos/{{item._id}}.png" + class="imgproductos"></td>  Roles[1].name-->
         <td>{{item.Cedula}}</td>
-        <td>{{item.Rol}}</td>
+        <td>{{Roles[item.Rol!-1].name}}</td>
         <td>{{item.Name}}</td>
         <td>{{item.LastName}}</td>
         <td>{{item.Email}}</td>

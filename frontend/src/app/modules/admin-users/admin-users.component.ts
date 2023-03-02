@@ -54,6 +54,7 @@ export class AdminUsersComponent implements OnInit {
 
   /*************** BUTTON NUEVO *****************/
   New() {
+    this.Id = ""
     this.Rol = 2
     this.Cedula = ""
     this.Name = ""
@@ -63,7 +64,6 @@ export class AdminUsersComponent implements OnInit {
     this.MaritalStatus = ''
     this.Phone = ""
     this.Address = ""
-    this.Id = ""
   }
 
   CargaPorId(Id: string) {
@@ -71,14 +71,16 @@ export class AdminUsersComponent implements OnInit {
     this.RequestUser.LoadById(Id)
       .then((Response: any) => {
         if (Response.state == true) {
-          this.Rol = Response.data.Rol,
-            this.Cedula = Response.data.Cedula,
-            this.Name = Response.data.Name,
-            this.LastName = Response.data.LastName,
-            this.Email = Response.data.Email,
-            this.Age = Response.data.Age,
-            this.Phone = Response.data.Phone,
-            this.Address = Response.data.Address,
+          /******  Required Fields  ******/
+            this.Rol = Response.data.Rol
+            this.Cedula = Response.data.Cedula
+            this.Name = Response.data.Name
+            this.Email = Response.data.Email
+          /******  Optional Fields  ******/
+            if(Response.data.LastName != undefined) {this.LastName = Response.data.LastName}
+            if(Response.data.Age != undefined) {this.Age = Response.data.Age}
+            if(Response.data.Phone != undefined) {this.Phone = Response.data.Phone}
+            if(Response.data.Address != undefined) {this.Address = Response.data.Address}
             $('#modaldatos').modal('show')
         } else {
           this.Message.load("danger", Response.data.mensaje, 5000)
@@ -100,7 +102,6 @@ export class AdminUsersComponent implements OnInit {
 
   /*************** BUTTON ACTUALIZAR *****************/
   Actualizar() {
-    console.log("Actualizar")
     this.RequestUser.UpdateById({
       _id: this.Id,
       Rol: this.Rol,

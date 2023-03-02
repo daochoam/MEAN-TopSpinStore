@@ -4,6 +4,9 @@ const emailValidator = require('email-validator')
 //var trimStart = require('string.prototype.trimstart')
 //var trimEnd = require('string.prototype.trimend')
 
+/**************************************************************/
+/******************           CREATE         ******************/
+/******************          Save Users      ******************/
 UsuariosController.Save = function(request, response){
     var post = {
         Cedula:request.body.Cedula.trimStart().trimEnd(),
@@ -71,6 +74,7 @@ UsuariosController.Save = function(request, response){
 
 }
 
+/******************     Registro      ******************/
 UsuariosController.Register = function (request, response) {
     console.log('conexion')
     var post = {
@@ -151,6 +155,9 @@ UsuariosController.Register = function (request, response) {
     })
 }
 
+/**************************************************************/
+/******************           READ           ******************/
+/******************          Login           ******************/
 UsuariosController.Login = function (request, response) {
     var post = {
         Email: request.body.Email,
@@ -181,12 +188,14 @@ UsuariosController.Login = function (request, response) {
     })
 }
 
+/******************       Load All User      ******************/
 UsuariosController.LoadAllUsers = function (request, response) {
     ModelUsuarios.LoadAllUsers(null, function (respuesta) {
         response.json(respuesta)
     })
 }
 
+/******************     Load Users By Id    ******************/
 UsuariosController.LoadById = function (request, response) {
     console.log('conexion')
     var post = {
@@ -208,6 +217,7 @@ UsuariosController.LoadById = function (request, response) {
     })
 }
 
+/****************** Load Users By Document  ******************/
 UsuariosController.LoadByDocument = function (request, response) {
     console.log('conexion')
     var post = {
@@ -249,6 +259,9 @@ UsuariosController.LoadByDocument = function (request, response) {
     })
 }
 
+/**************************************************************/
+/******************        UPDATE            ******************/
+/****************** Update Users By Document ******************/
 UsuariosController.UpdateByDocument = function (request, response) {
     var post = {
         Cedula: request.body.Cedula.trimStart().trimEnd(),
@@ -306,6 +319,7 @@ UsuariosController.UpdateByDocument = function (request, response) {
     })
 }
 
+/****************** Update Users By Id ******************/
 UsuariosController.UpdateById = function (request, response) {
     var post = {
         _id: request.body._id,
@@ -335,7 +349,29 @@ UsuariosController.UpdateById = function (request, response) {
     })
 }
 
+/***************************************************************/
+/******************         DELETE            ******************/
+/******************   Delete Users By Id     *******************/
+UsuariosController.DeleteById = function(request, response){
+    var post = {
+        _id:request.body._id.trimStart().trimEnd(),
+    }
+    if (post._id ==  "" || post._id == undefined || post._id == null){
+        response.json({state:false,mensaje:"El campo codigo es obligatorio"})
+        return false
+    }
 
+    ModelUsuarios.DeleteById(post, function(respuesta){
+
+        console.log(respuesta)
+        if(respuesta.state == true){
+            response.json({state:true,mensaje:`The product has been successfully deleted`})
+        }
+        else{
+            response.json({state:false,mensaje:"El codigo no existe"})
+        }
+    })
+}
 
 UsuariosController.DeleteByDocument = function (request, response) {
     var post = {

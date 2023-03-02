@@ -24,6 +24,7 @@ export class RequestProductsService {
       Path: '/Products/Save',
       Payload: Payload,
     }
+    console.log(Post.Payload)
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload).then((Response: any) => {
       if (Response.state == true) {
         this.msg.load("success", Response.mensaje, 5000)
