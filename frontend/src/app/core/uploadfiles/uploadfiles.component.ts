@@ -1,7 +1,7 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { event } from 'jquery';
-import { UploadfilesService } from '../../services/Files/uploadfiles.service';
+import { UploadfilesService } from '../../services/UploadFiles/uploadfiles.service';
 
 @Component({
   selector: 'app-uploadfiles',
