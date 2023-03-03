@@ -32,8 +32,6 @@ import { MensajesComponent } from './core/mensajes/mensajes.component';
 import { JumbotronComponent } from './core/jumbotron/jumbotron.component';
 import { DetallesComponent } from './core/detalles/detalles.component';
 import { LocationComponent } from './core/location/location.component';
-import { MenuAdminComponent } from './core/menu-admin/menu-admin.component';
-import { MenuUsersComponent } from './core/menu-users/menu-users.component';
 import { AdminCategoryComponent } from './modules/admin-category/admin-category.component';
 import { UploadfilesComponent } from './core/uploadfiles/uploadfiles.component';
 
@@ -60,8 +58,6 @@ import { UploadfilesComponent } from './core/uploadfiles/uploadfiles.component';
     MenuLateralComponent,
     MensajesComponent,
     DetallesComponent,
-    MenuAdminComponent,
-    MenuUsersComponent,
     AdminCategoryComponent,
     UploadfilesComponent,
 

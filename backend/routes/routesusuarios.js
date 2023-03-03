@@ -61,17 +61,17 @@ app.post("/Users/MenuRol", validarSesion, function (request, response) {
     if (request.session.Rol == 1) {
         response.json({
             state: true, datos: [
-                { nombre: '', destino: '/admin' },
-                { nombre: 'Users', destino: 'users' },
-                { nombre: 'Products', destino: 'product' },
-                { nombre: 'Category', destino: 'category' }
+                { nombre: 'Admin',    destino: 'admin',    color: 'primary' },
+                { nombre: 'Users',    destino: 'users',    icon: "user"},
+                { nombre: 'Category', destino: 'category', icon: "pen"},
+                { nombre: 'Products', destino: 'product',  icon: "shop" }
             ]
         })
     }
     else {
         response.json({
             state: true, datos: [
-                { nombre: 'Dashboard', destino: '/users' },
+                { nombre: '', destino: 'users' },
             ]
         })
     }

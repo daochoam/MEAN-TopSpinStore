@@ -21,20 +21,17 @@ export class DetallesComponent implements OnInit{
 
   codigo:string = ""
   nombre:string = ""
-  fechav:string = ""
   precio:string = ""
   categorias:string =""
   Id:string =""
 
   CargarId(id:string){
     this.Id =id
-
     this.RequestProduct.LoadById(id).then(
       (res:any) => {
         if(res.state == true){
           this.codigo = res.data.codigo
           this.nombre = res.data.nombre
-          this.fechav = res.data.fechav
           this.precio = res.data.precio
           this.categorias = res.data.categorias
 

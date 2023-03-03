@@ -8,7 +8,7 @@ export class UploadfilesService {
 
   constructor(private http: HttpClient) { }
 
-  upload(file: File,url:string,inputName:string){
+  upload(file: File, url:string, inputName: string){
 
     const formData = new FormData();
     formData.append(inputName,file)

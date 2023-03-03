@@ -120,10 +120,19 @@
       </div>
       <!-- BUTTONS MODAL -->
       <div class="modal-footer">
-        <button *ngIf="Id === ''" type="button" class="btn btn-primary" title="Save" (click)="Save()"> Save </button>
+        <button *ngIf="Id === ''" type="button" class="btn btn-primary" title="Save" (click)="Save()">
+          <i class="fa-solid fa-floppy-disk"></i>
+          Save
+        </button>
         <div class="row btn-ud" *ngIf="Id !== ''">
-          <button type="button" class="btn btn-primary" title="Update" (click)="UpdateById()"> Update </button>
-          <button type="button" class="btn btn-danger" title="Delete" (click)="DeleteById()"> Delete </button>
+          <button type="button" class="btn btn-primary" title="Update" (click)="UpdateById()">
+            <i class="fa-sharp fa-solid fa-highlighter"></i>
+            Update
+          </button>
+          <button type="button" class="btn btn-danger" title="Delete" (click)="DeleteById()">
+            <i class="fa-solid fa-trash" fa-md></i>
+            Delete
+          </button>
         </div>
       </div>
 

@@ -18,39 +18,39 @@ export class UploadfilesComponent implements OnInit{
     console.log(this.inputName)
   }
 
-  selectedFiles:any
-  archivoselecionado:any
-  progress:number = 0
-  filename:string = ""
-  message = ""
-  estado:boolean = false
+  SelectedFiles:any
+  ArchivoSelecionado:any
+  Progress:number = 0
+  FileName:string = ""
+  Message = ""
+  State:boolean = false
 
   @Input() urldestino:string = ""
   @Input() path:string = ""
   @Input() inputName:string = ""
 
   selectfile(event:any){
-    this.selectedFiles = event.target.files
-    this.filename = this.selectedFiles[0].name
+    this.SelectedFiles = event.target.files
+    this.FileName = this.SelectedFiles[0].name
   }
 
   upload(){
-    this.message = ""
-    this.progress = 0
-    this.archivoselecionado = this.selectedFiles.item(0)
+    this.Message = ""
+    this.Progress = 0
+    this.ArchivoSelecionado = this.SelectedFiles.item(0)
 
-    this.UploadService.upload(this.archivoselecionado,this.urldestino + this.path,this.inputName).subscribe(
+    this.UploadService.upload(this.ArchivoSelecionado,this.urldestino + this.path,this.inputName).subscribe(
       (event:any) =>{
 
         if(event.type == HttpEventType.UploadProgress){
-          this.progress = Math.round(100 * event.loadedn / event.total)
+          this.Progress = Math.round(100 * event.loadedn / event.total)
 
         }
         else if(event instanceof HttpResponse){
-            this.message = event.body
-            this.estado = event.body.state
+            this.Message = event.body
+            this.State = event.body.state
             if(event.body.state == false){
-              this.filename = ""
+              this.FileName = ""
             }
 
         }
@@ -59,6 +59,6 @@ export class UploadfilesComponent implements OnInit{
     )
 
   }
-  
+
 
 }
