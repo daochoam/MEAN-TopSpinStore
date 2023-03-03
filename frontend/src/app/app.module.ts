@@ -33,6 +33,7 @@ import { MensajesComponent } from './core/mensajes/mensajes.component';
 import { JumbotronComponent } from './core/jumbotron/jumbotron.component';
 import { DetallesComponent } from './core/detalles/detalles.component';
 import { LocationComponent } from './core/location/location.component';
+import { UploadfilesComponent } from './core/uploadfiles/uploadfiles.component';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { LocationComponent } from './core/location/location.component';
     MenuLateralComponent,
     MensajesComponent,
     DetallesComponent,
+    UploadfilesComponent,
 
   ],
   imports: [

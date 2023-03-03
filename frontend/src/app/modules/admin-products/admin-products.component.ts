@@ -5,6 +5,7 @@ import { MessagesService } from 'src/app/services/Messages/messages.service';
 import { RequestProductsService } from 'src/app/services/RequestProducts/request-products.service';
 
 import { Products, categoryProducts, NamesFormat } from 'src/app/interfaces/store-interfaces';
+import { PeticionService } from '../../services/Peticion/peticion.service';
 
 declare var $: any;
 const numCharacters: number = 300
@@ -37,14 +38,17 @@ export class AdminProductsComponent implements OnInit {
   ];
 
   constructor(private RequestProduct: RequestProductsService,
-              private Message: MessagesService,) { }
+              private Message: MessagesService,
+              private Peticion: PeticionService) { }
+
+ destino:string = this.Peticion.urlLocal
+  path:string = '/imagenproductos'//nombre opcional            
 
   ngOnInit(): void {
     this.RequestProduct.LoadAllProducts().then((res: any) => { this.ListaDatos = res.data })
   }
 
-  // destino:string = this.peticion-urlLocal
-  //path:string = '/subir/imagenproductos'
+ 
 
   /*************** MODAL *****************/
   OpenModal() {
@@ -73,6 +77,8 @@ export class AdminProductsComponent implements OnInit {
 
   /*************** CARGAR DATOS *****************/
   CargaPorId(Id: string) {
+
+    this.path = this.path + '/' + this.Id //Concatena el Id para 
     this.Id = Id
     this.RequestProduct.LoadById(Id)
       .then((Response: any | JSON) => {

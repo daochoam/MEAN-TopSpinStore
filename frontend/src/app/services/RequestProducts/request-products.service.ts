@@ -12,9 +12,12 @@ declare var swal: any;
 
 export class RequestProductsService {
 
+ 
   constructor(private Peticion: PeticionService, private msg: MessagesService) {
 
   }
+  destino:string = this.Peticion.urlLocal
+  path:string = '/imagenproductos'//nombre opcional 
   ngOnInit(): void {
   }
 
@@ -64,7 +67,8 @@ export class RequestProductsService {
   }
 
   UpdateById(Payload: Products) {
-    var Post = {
+
+     var Post = {
       Host: this.Peticion.urlLocal,
       Path: '/Products/UpdateById',
       Payload: Payload
