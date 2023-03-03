@@ -19,18 +19,10 @@ export class RequestUsersService {
       Path: '/Users/Save',
       Payload: Payload,
     }
-    return this.Peticion.POST(Post.Host + Post.Path, Post.Payload).then((Response: any) => {
-      if (Response.state == true) {
-        this.Message.load("success", Response.mensaje, 5000)
-        $('#modaldatos').modal('hide')
-      }
-      else {
-        this.Message.load("danger", Response.mensaje, 5000)
-      }
-    })
+    return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
-  RegisterUsers(Payload: {Cedula: string, Name: string, Email: string, Password: string}) {
+  RegisterUsers(Payload: { Cedula: string, Name: string, Email: string, Password: string }) {
     var Post = {
       Host: this.Peticion.urlLocal,
       Path: '/Users/Register',
@@ -46,6 +38,15 @@ export class RequestUsersService {
   }
 
   /*********************************  LOAD USERS  **********************************/
+  Login(Payload: { Email: string, Password: string }) {
+    var Post = {
+      Host: this.Peticion.urlLocal,
+      Path: "/Users/Login",
+      Payload: Payload
+    }
+    return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
+  }
+
   LoadAllUsers() {
     var Post = {
       Host: this.Peticion.urlLocal,
@@ -80,16 +81,7 @@ export class RequestUsersService {
       Path: '/Users/UpdateById',
       Payload: Payload
     }
-    console.log(Post.Payload)
-    return this.Peticion.POST(Post.Host + Post.Path, Post.Payload).then((Response: any) => {
-      if (Response.state == true) {
-        this.Message.load("success", Response.mensaje, 5000)
-        $('#modaldatos').modal('hide')
-      }
-      else {
-        this.Message.load("danger", Response.mensaje, 5000)
-      }
-    })
+    return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
   UpdateByDocument(Payload: Users) {
@@ -126,6 +118,36 @@ export class RequestUsersService {
       Payload: { Cedula: Cedula }
     }
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
+  }
+
+  /*********************************  ViewCookie USERS  **********************************/
+  ViewCookie() {
+    var Post = {
+      Host: this.Peticion.urlLocal,
+      Path: "/Users/ViewCookie",
+      Payload: { }
+    }
+    return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
+  }
+
+  /*********************************  USERS NAVIGATION  **********************************/
+  NavigatePermit(){
+    var Post = {
+      Host:this.Peticion.urlLocal,
+      Path:"/Users/MenuRol",
+      Payload:{}
+    }
+    return this.Peticion.POST(Post.Host + Post.Path,Post.Payload)
+  }
+
+  /*********************************  CLOSE SESSION  **********************************/
+  CloseSession(){
+    var post = {
+      host:this.Peticion.urlLocal,
+      path:"/CloseSession",
+      payload:{}
+    }
+    return this.Peticion.POST(post.host + post.path,post.payload)
   }
 }
 

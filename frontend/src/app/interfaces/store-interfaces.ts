@@ -1,10 +1,15 @@
-export type categoryProducts = 'Blades' | 'Rubbers' | 'Balls' | 'Tables' | 'Nets' | ''
 export type maritalStatus = 'Soltero(a)' | 'Casado(a)' | 'Separado(a)' | 'Divorciado(a)' | 'Union Libre' | 'Viudo(a)' | ''
+
+export interface Category {
+  _id?: any;
+  Code: string;
+  Name: string;
+}
 
 export interface Users {
   _id?: any;
   Cedula: string;
-  Rol?: number;
+  Rol: number;
   Name: string;
   LastName?: string;
   Email: string;
@@ -17,11 +22,13 @@ export interface Users {
 
 export interface Products {
   _id?: any;
-  Codigo: string;
+  SKU: string;
   Nombre: string;
   Precio: string | number;
   Cantidad: string | number;
-  Categoria?: categoryProducts;
+  Poster?: string;
+  Categoria?: string;
+  Color?: string;
   Descripcion?: string;
   FechaV?: string;
 }
@@ -37,3 +44,12 @@ export function NamesFormat(word: string | undefined) {
     return word_split.map(p => p[0].toUpperCase() + p.slice(1).toLowerCase()).join(' ')
   }
 }
+/*
+export function DescendingOrder(value:any, order:any){
+  return value.sort((x:any,y:any) => x.order-y.order)
+}
+
+export function AscendingOrder(value:any){
+  return value.sort((x:any,y:any) => y.Code-x.Code)
+}
+*/

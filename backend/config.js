@@ -11,5 +11,8 @@ config.listablanca = [
 config.puerto = 3000
 config.db = "topspinstore"
 config.Clave = 'TopSpinStore'
+config.tiemposession=(60000 * 30)
+config.claveoculta='TopSpinStore'
+config.cookiename='finalcookie'
 
 module.exports.config = config

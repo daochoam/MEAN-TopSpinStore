@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { RequestUsersService } from 'src/app/services/RequestUsers/request-users.service';
 
 
 @Component({
@@ -8,25 +9,30 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu-lateral.component.css']
 })
 export class MenuLateralComponent {
+  DatosMenu: any[] = [];
 
-  constructor(private router:Router){
+  constructor(private router: Router,
+    private RequestUser: RequestUsersService) {
 
   }
-  datosmenu = [
-
-    
-    
-    {nombre:'Usuarios', destino:'/usuarios'},
-    {nombre:'productos', destino:'/productos'},
-    {nombre:'servicios', destino:'/servicios'}
+  AdminMenu = [
+    { nombre: 'Users', destino: 'users', icon: "user" },
+    { nombre: 'Categories', destino: 'category', icon: "truck" },
+    { nombre: 'Products', destino: 'products', icon: "shop" },
   ]
 
-  CerrarSesion(){
-    this.router.navigate(['/'])
-
+  LoadMenuBackend() {
+    this.RequestUser.NavigatePermit().then(
+      (respuesta: any) => {
+        this.DatosMenu = respuesta.datos
+      })
   }
 
-  
-  
+  CerrarSesion() {
+    this.RequestUser.CloseSession().then(
+      (respuesta: any) => {
+        this.router.navigate(['/'])
+      })
+  }
 
 }

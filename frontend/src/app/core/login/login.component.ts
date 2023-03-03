@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessagesService } from 'src/app/services/Messages/messages.service';
 import { RequestUsersService } from 'src/app/services/RequestUsers/request-users.service';
 import { SwitchService } from 'src/app/services/Switches/switch.service';
 import { ValidateUserService } from 'src/app/services/ValidateUser/validate-user.service';
@@ -24,9 +25,10 @@ export class LoginComponent implements OnInit {
 
   constructor(
     // Services Calls
-    private router:Router,
+    private router: Router,
     private RegSwitch: SwitchService,
     private RequestUsers: RequestUsersService,
+    private Messages: MessagesService,
     private Validate: ValidateUserService,
   ) { }
 
@@ -43,7 +45,7 @@ export class LoginComponent implements OnInit {
   /* CLEAR FIELDS */
   ClearFields(): void {
     this.Email = "", this.Password = "",
-    this.msn_Email = "", this.msn_Password = ""
+      this.msn_Email = "", this.msn_Password = ""
   }
 
   Login() {
@@ -52,8 +54,26 @@ export class LoginComponent implements OnInit {
     var CheckPassword = this.Validate.ValidatePassword(this.Password)
     if (CheckEmail.state == false || CheckPassword.state == false) {
       if (CheckEmail.state == false) { this.msn_Email = CheckEmail.message } else { this.msn_Email = "" }
-      if (CheckPassword.state == false) { this.msn_Password = CheckPassword.message } else { this.msn_Password = "" }}
-    this.RequestUsers.LoadAllUsers().then((Users:any) => {console.log(Users.data)});
+      if (CheckPassword.state == false) { this.msn_Password = CheckPassword.message } else { this.msn_Password = "" }
     }
-
+    else {
+      this.RequestUsers.Login({ Email: this.Email, Password: this.Password }).then((respuesta: any) => {
+        if (respuesta.state == true) {
+          this.Messages.load('success', respuesta.mensaje, 5000)
+          this.router.navigate(['/admin'])
+        }
+        else {
+          this.Messages.load('danger', respuesta.mensaje, 5000)
+        }
+      })
+    }
   }
+
+  VerCookies() {
+    this.RequestUsers.ViewCookie().then(
+      (respuesta: any) => {
+        console.log(respuesta)
+      }
+    )
+  }
+}

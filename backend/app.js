@@ -3,8 +3,8 @@ var cors = require('cors')
 var bodyparser = require('body-parser')
 const { config } = require('./config')
 const mongoose = require('mongoose')
-
-
+const { name } = require('ejs')
+const MongoStore = require('connect-mongo')
 
 global.sha256 = require('sha256')
 global.app = express()
@@ -36,6 +36,18 @@ app.all('*',function(request,response,next){
     next()
 })
 
+var session = require('express-session')({
+    secret:config.claveoculta,
+    resave:true,
+    saveUninitialized:true,
+    cookie:{path:'/',httpOnly:true,maxAge:config.tiemposession},
+    name:config.cookiename,
+    rolling:true,
+    store: MongoStore.create({mongoUrl:'mongodb://127.0.0.1:27017/' + config.db +'cookie'})
+})
+
+app.use(session);
+
 app.use(cors({
     origin:function(origin,callback){
         console.log(origin)
@@ -52,8 +64,6 @@ app.listen(config.puerto, function(){
     console.log('Servidor funcionando por el puerto ' + config.puerto)
 })
 
-
-
-
 require(__dirname + '/routes/routesusuarios.js')
 require(__dirname + '/routes/routesproductos.js')
+require(__dirname + '/routes/routescategory.js')

@@ -9,9 +9,14 @@ const emailValidator = require('email-validator')
 /******************          Save Users      ******************/
 UsuariosController.Save = function(request, response){
     var post = {
-        Cedula:request.body.Cedula.trimStart().trimEnd(),
-        Name:request.body.Name.trimStart().trimEnd(),
-        Email:request.body.Email.trimStart().trimEnd(),
+        Rol: request.body.Rol,
+        Cedula: request.body.Cedula,
+        Name: request.body.Name.trim(),
+        LastName: request.body.LastName.trim(),
+        Email: request.body.Email.trim(),
+        Age: request.body.Age,
+        Phone: request.body.Phone,
+        Address: request.body.Address.trim(),
     }
 
     /*Validacion campo cedula */
@@ -63,12 +68,11 @@ UsuariosController.Save = function(request, response){
     }
 
     ModelUsuarios.Save(post, function(respuesta){
-        console.log(respuesta)
         if(respuesta.state == true){
-            response.json({state:true,mensaje:"Se guardo correctamente"})
+            response.json({state:true,mensaje:respuesta.message})
         }
         else{
-            response.json({state:false,mensaje:"El codigo ya existe"})
+            response.json({state:false,mensaje:respuesta.message})
         }
     })
 

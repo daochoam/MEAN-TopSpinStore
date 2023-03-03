@@ -9,34 +9,29 @@
             <a routerLink="/home" target=""><img src="/assets/Icons/Icon.png" width="40" height="40" class="d-inline-block align-top"
                 alt=""/></a>
         </div>
-        <ul class="list">
+        <ul class="list" *ngFor="let item of AdminMenu">
             <li class="list__item">
                 <div class="list__button">
-                    <a routerLink="users" target="" class="nav__link">
-                        <i class="fa-sharp fa-solid fa-user"></i>
-                        Usuarios
+                    <a [class]=item.nombre [routerLink]=item.destino routerLinkActive="Active-link" class="nav__link">
+                        <i class="fa-solid fa-{{item.icon}} fa-lg"></i>
+                        {{item.nombre}}
                     </a>
                 </div>
             </li>
-
-            <li class="list__item">
-                <div class="list__button">
-                  <a routerLink="product" target=""class="nav__link">
-                    <i class="fa-solid fa-shop fa-lg"></i>
-                    Productos
-                  </a>
-                </div>
-            </li>
-            <li class="list__item">
-                <div class="list__button">
-                    <a routerLink="/servicios" target="" class="nav__link">
-                        <i class="fa-sharp fa-solid fa-truck"></i>
-                        Servicios
-                    </a>
-                </div>
-            </li>
-
         </ul>
     </div>
+  </nav>
 
 
+    <nav class="nav">
+      <div id="menulateral">
+          <div class="logo">
+              <a routerLink="/home" target=""><img src="/assets/Icons/Icon.png" width="40" height="40" class="d-inline-block align-top"
+                  alt=""/></a>
+          </div>
+          <div class="item" *ngFor="let item of DatosMenu">
+              <div class="label" routerLink={{item.destino}}>{{item.nombre}}</div>
+          </div>
+
+      </div>
+    </nav>

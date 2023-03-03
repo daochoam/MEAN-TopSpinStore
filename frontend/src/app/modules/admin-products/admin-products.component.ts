@@ -4,7 +4,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MessagesService } from 'src/app/services/Messages/messages.service';
 import { RequestProductsService } from 'src/app/services/RequestProducts/request-products.service';
 
-import { Products, categoryProducts, NamesFormat } from 'src/app/interfaces/store-interfaces';
+import { Products, Category, NamesFormat } from 'src/app/interfaces/store-interfaces';
+import { RequestCategoryService } from 'src/app/services/RequestCategory/request-category.service';
 
 declare var $: any;
 const numCharacters: number = 300
@@ -16,73 +17,82 @@ const numCharacters: number = 300
 })
 export class AdminProductsComponent implements OnInit {
 
-  counts:number = numCharacters;
+  counts: number = numCharacters;
+  Category: any[] = [];
   /**  DECLARACIÓN DE VARIABLES  */
   Id: string = "";
-  Codigo: string = "";
+  SKU: string = "";
   Nombre: string = "";
   FechaV: string = "";
   Precio: string = "";
   Cantidad: string = "";
-  Categoria: categoryProducts = "";
-  Descripcion: string ="";
-  ListaDatos!: [Products];
+  Categoria: Category["Name"] = "";
+  Descripcion: string = "";
+  ListProducts!: [Products];
+  ListCategory!: [Category];
 
-  Category: Array<{ value: categoryProducts }> = [
-    { value: 'Blades' },
-    { value: 'Rubbers' },
-    { value: 'Balls' },
-    { value: 'Tables' },
-    { value: 'Nets' }
-  ];
-
-  constructor(private RequestProduct: RequestProductsService,
-              private Message: MessagesService,) { }
+  constructor(public RequestCategory: RequestCategoryService,
+    public RequestProduct: RequestProductsService,
+    private Message: MessagesService,) { }
 
   ngOnInit(): void {
-    this.RequestProduct.LoadAllProducts().then((res: any) => { this.ListaDatos = res.data })
+    this.LoadAllCategories()
+    this.LoadAllProducts()
   }
-
-  // destino:string = this.peticion-urlLocal
-  //path:string = '/subir/imagenproductos'
 
   /*************** MODAL *****************/
   OpenModal() {
     $('#modaldatos').modal('handleUpdate')
-    $('#modaldatos').modal('show')}
+    $('#modaldatos').modal('show')
+  }
 
   CloseModal() {
     $('#modaldatos').modal('hide')
-    this.Nuevo()}
+    this.Nuevo()
+  }
 
   /*************** BUTTON NUEVO *****************/
   Nuevo() {
-    this.Codigo = ""
+    this.SKU = ""
     this.Nombre = ""
     this.FechaV = ""
     this.Precio = ""
     this.Cantidad = ""
     this.Categoria = ""
-    this.Descripcion =""
+    this.Descripcion = ""
     this.Id = ""
-    this.counts = numCharacters;}
+    this.counts = numCharacters;
+  }
 
   /*************** COUNTS CHARACTERS ***************/
 
 
 
   /*************** CARGAR DATOS *****************/
-  CargaPorId(Id: string) {
+  LoadAllCategories() {
+    this.RequestCategory.LoadAllCategory().then((Response: any) => {
+      this.ListCategory = Response.data
+    })
+  }
+
+  LoadAllProducts() {
+    this.RequestProduct.LoadAllProducts().then((Response: any) => {
+      this.ListProducts = Response.data
+      console.log(this.ListProducts)
+    })
+  }
+
+  LoadById(Id: string) {
     this.Id = Id
     this.RequestProduct.LoadById(Id)
-      .then((Response: any | JSON) => {
+      .then((Response: any) => {
         if (Response.state == true) {
-          this.Codigo = Response.data.Codigo
+          this.SKU = Response.data.SKU
           this.Nombre = Response.data.Nombre
           this.Cantidad = Response.data.Cantidad
           this.Precio = Response.data.Precio
-          if(Response.data.Categoria != undefined) {this.Categoria = Response.data.Categoria}
-          if(Response.data.Descripcion != undefined) {this.Descripcion = Response.data.Descripcion}
+          if (Response.data.Categoria != undefined) { this.Categoria = Response.data.Categoria }
+          if (Response.data.Descripcion != undefined) { this.Descripcion = Response.data.Descripcion }
           $('#modaldatos').modal('show')
         } else {
           this.Message.load("danger", Response.data.mensaje, 5000)
@@ -90,50 +100,60 @@ export class AdminProductsComponent implements OnInit {
       })
   }
 
-  nullValue(value: any) {
-    if(value.data.Codigo != undefined) {}
-
-
-  }
   /*************** BUTTON GUARDAR *****************/
-  Guardar() {
+  Save() {
     this.RequestProduct.ProductSave({
-      Codigo: this.Codigo,
+      SKU: this.SKU,
       Nombre: NamesFormat(this.Nombre),
       Precio: this.Precio,
       Cantidad: this.Cantidad,
       Categoria: this.Categoria,
       Descripcion: this.Descripcion,
-    }).then(() => {
-      this.RequestProduct.LoadAllProducts().then((res: any) => { this.ListaDatos = res.data })
-      this.Nuevo()
+    }).then((Response: any) => {
+      if (Response.state == true) {
+        this.Message.load("success", Response.mensaje, 5000)
+        this.LoadAllProducts()
+        this.Nuevo()
+        $('#modaldatos').modal('hide')
+      }
+      else {
+        this.Message.load("danger", Response.mensaje, 5000)
+      }
     })
   }
 
   /*************** BUTTON ACTUALIZAR *****************/
-  ActualizarId() {
+  UpdateId() {
     console.log(this.Categoria)
     this.RequestProduct.UpdateById({
       _id: this.Id,
-      Codigo: this.Codigo,
+      SKU: this.SKU,
       Nombre: NamesFormat(this.Nombre),
       Precio: this.Precio.toString(),
       Cantidad: this.Cantidad.toString(),
       Categoria: this.Categoria,
       Descripcion: this.Descripcion
-    }).then(() => {
-      this.RequestProduct.LoadAllProducts().then((res: any) => { this.ListaDatos = res.data })
-      this.Nuevo()
+    }).then((Response: any) => {
+      if (Response.state == true) {
+        this.Message.load("success", Response.mensaje, 5000)
+        $('#modaldatos').modal('hide')
+        this.LoadAllProducts()
+        this.Nuevo()
+      }
+      else {
+        $('#modaldatos').modal('hide')
+        this.Message.load("danger", Response.mensaje, 5000)
+      }
     })
   }
 
   /***************  BUTTON ELIMINAR  ******************/
-  Eliminar() {
+  DeleteById() {
     this.Message.MessageDelete().then((willDelete) => {
       if (willDelete.isConfirmed) {
         this.Message.MessageOne('Deleted!', 'The product has been successfully removed.', 'center', 'success', 1000, false)
         this.RequestProduct.DeleteById(this.Id).then(() => {
-          this.RequestProduct.LoadAllProducts().then((res: any) => { this.ListaDatos = res.data })
+          this.LoadAllProducts()
           this.Nuevo()
           $('#modaldatos').modal('hide')
         })

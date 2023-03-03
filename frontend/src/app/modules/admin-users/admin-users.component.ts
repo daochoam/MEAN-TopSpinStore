@@ -23,21 +23,21 @@ export class AdminUsersComponent implements OnInit {
   Address: string = "";
   Phone: string = "";
   MaritalStatus: maritalStatus = "";
-  ListaDatos!: [Users];
+  ListUsers!: [Users];
 
   MaritalS: Array<{ value: maritalStatus }> = [
     { value: 'Soltero(a)' }, { value: 'Casado(a)' }, { value: 'Separado(a)' }, { value: 'Divorciado(a)' }, { value: 'Union Libre' }, { value: 'Viudo(a)' }
   ];
 
-  Roles: Array<{ name: string, value: number }> = [
-    { name: 'Manager', value: 1 }, { name: 'Customer', value: 2 }
+  Roles: Array<{ Id: number, Name: string }> = [
+    { Id: 1, Name: 'Manager', }, { Id: 2, Name: 'Customer' }
   ]
 
-  constructor(private RequestUser: RequestUsersService,
-    private Message: MessagesService,) { }
+  constructor(public RequestUser: RequestUsersService,
+              private Message: MessagesService,) { }
 
   ngOnInit(): void {
-    this.RequestUser.LoadAllUsers().then((res: any) => { this.ListaDatos = res.data })
+    this.LoadAllUsers()
   }
 
   /*************** MODAL *****************/
@@ -66,42 +66,58 @@ export class AdminUsersComponent implements OnInit {
     this.Address = ""
   }
 
-  CargaPorId(Id: string) {
+  LoadAllUsers() {
+    this.RequestUser.LoadAllUsers().then((Response: any) => {
+      this.ListUsers = Response.data })
+  }
+
+  LoadById(Id: string) {
     this.Id = Id
     this.RequestUser.LoadById(Id)
       .then((Response: any) => {
         if (Response.state == true) {
           /******  Required Fields  ******/
-            this.Rol = Response.data.Rol
-            this.Cedula = Response.data.Cedula
-            this.Name = Response.data.Name
-            this.Email = Response.data.Email
+          this.Rol = Response.data.Rol
+          this.Cedula = Response.data.Cedula
+          this.Name = Response.data.Name
+          this.Email = Response.data.Email
           /******  Optional Fields  ******/
-            if(Response.data.LastName != undefined) {this.LastName = Response.data.LastName}
-            if(Response.data.Age != undefined) {this.Age = Response.data.Age}
-            if(Response.data.Phone != undefined) {this.Phone = Response.data.Phone}
-            if(Response.data.Address != undefined) {this.Address = Response.data.Address}
-            $('#modaldatos').modal('show')
+          if (Response.data.LastName != undefined) { this.LastName = Response.data.LastName }
+          if (Response.data.Age != undefined) { this.Age = Response.data.Age }
+          if (Response.data.Phone != undefined) { this.Phone = Response.data.Phone }
+          if (Response.data.Address != undefined) { this.Address = Response.data.Address }
+          $('#modaldatos').modal('show')
         } else {
           this.Message.load("danger", Response.data.mensaje, 5000)
         }
       })
   }
   /*************** BUTTON GUARDAR *****************/
-  Guardar() {
+  Save() {
     this.RequestUser.UsersSave({
+      Rol: this.Rol,
       Cedula: this.Cedula,
       Name: NamesFormat(this.Name),
       LastName: NamesFormat(this.LastName),
-      Email: this.Email
-    }).then(() => {
-      this.RequestUser.LoadAllUsers().then((res: any) => { this.ListaDatos = res.data })
-      this.New()
+      Email: this.Email,
+      Age: this.Age,
+      Phone: this.Phone,
+      Address: this.Address
+    }).then((Response: any) => {
+      if (Response.state == true) {
+        this.Message.load("success", Response.mensaje, 5000)
+        this.RequestUser.LoadAllUsers()
+        this.New()
+        $('#modaldatos').modal('hide')
+      }
+      else {
+        this.Message.load("danger", Response.mensaje, 5000)
+      }
     })
   }
 
   /*************** BUTTON ACTUALIZAR *****************/
-  Actualizar() {
+  UpdateById() {
     this.RequestUser.UpdateById({
       _id: this.Id,
       Rol: this.Rol,
@@ -112,19 +128,26 @@ export class AdminUsersComponent implements OnInit {
       Age: this.Age,
       Phone: this.Phone,
       Address: this.Address,
-    }).then(() => {
-      this.RequestUser.LoadAllUsers().then((res: any) => { this.ListaDatos = res.data })
-      this.New()
+    }).then((Response: any) => {
+      if (Response.state == true) {
+        this.Message.load("success", Response.mensaje, 5000)
+        this.LoadAllUsers()
+        this.New()
+        $('#modaldatos').modal('hide')
+      }
+      else {
+        this.Message.load("danger", Response.mensaje, 5000)
+      }
     })
   }
 
   /***************  BUTTON ELIMINAR  ******************/
-  Eliminar() {
+  DeleteById() {
     this.Message.MessageDelete().then((willDelete) => {
       if (willDelete.isConfirmed) {
         this.Message.MessageOne('Deleted!', 'The product has been successfully removed.', 'center', 'success', 1000, false)
         this.RequestUser.DeleteById(this.Id).then(() => {
-          this.RequestUser.LoadAllUsers().then((res: any) => { this.ListaDatos = res.data })
+          this.LoadAllUsers()
           this.New()
           $('#modaldatos').modal('hide')
         })

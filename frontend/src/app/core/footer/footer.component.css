@@ -13,3 +13,22 @@ footer p:hover {
   text-decoration: none;
   cursor: pointer;
 }
+
+.Location{
+  position: relative;
+}
+.gps-loc{
+  position: absolute;
+  bottom: 35px;
+  right: 600px;
+  width: 100px;
+}
+
+@media (max-width: 710px) {
+  .gps-loc{
+    position: absolute;
+    bottom: 35px;
+    right: 450px;
+
+  }
+}

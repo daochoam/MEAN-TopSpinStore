@@ -30,6 +30,12 @@ export class FooterComponent {
   }
 
   MapsView(View: boolean) {
+    $(document).ready(function () {
+      $('#').click(function () {
+          var a = $(this);
+          $(this).addClass('.active');
+      });
+  });
     this.Maps = View;
   }
 

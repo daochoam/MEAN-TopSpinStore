@@ -1,7 +1,10 @@
 .gps-loc{
-  position: fixed;
-  bottom: 150px;
-  right: 500px;
   width:200;
   height:200;
+}
+@media (max-width: 710px) {
+  .gps-loc{
+    width:100;
+    height:100;
+  }
 }

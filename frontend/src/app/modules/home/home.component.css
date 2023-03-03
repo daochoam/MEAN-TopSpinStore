@@ -75,3 +75,9 @@
   border-radius: 7px;
   margin-top: 6px;
 }
+
+.New-Products{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}

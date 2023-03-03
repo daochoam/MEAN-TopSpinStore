@@ -25,7 +25,6 @@ import { Page404Component } from './modules/page404/page404.component';
 import { LoggedInComponent } from './core/logged-in/logged-in.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { HeaderComponent } from './core/header/header.component';
-import { PosterItemsComponent } from './core/poster-items/poster-items.component';
 import { LoginComponent } from './core/login/login.component';
 import { RegisterComponent } from './core/register/register.component';
 import { MenuLateralComponent } from './core/menu-lateral/menu-lateral.component';
@@ -33,6 +32,9 @@ import { MensajesComponent } from './core/mensajes/mensajes.component';
 import { JumbotronComponent } from './core/jumbotron/jumbotron.component';
 import { DetallesComponent } from './core/detalles/detalles.component';
 import { LocationComponent } from './core/location/location.component';
+import { MenuAdminComponent } from './core/menu-admin/menu-admin.component';
+import { MenuUsersComponent } from './core/menu-users/menu-users.component';
+import { AdminCategoryComponent } from './modules/admin-category/admin-category.component';
 
 
 @NgModule({
@@ -54,11 +56,13 @@ import { LocationComponent } from './core/location/location.component';
     LoginComponent,
     RegisterComponent,
     LoggedInComponent,
-    PosterItemsComponent,
     LocationComponent,
     MenuLateralComponent,
     MensajesComponent,
     DetallesComponent,
+    MenuAdminComponent,
+    MenuUsersComponent,
+    AdminCategoryComponent,
 
   ],
   imports: [

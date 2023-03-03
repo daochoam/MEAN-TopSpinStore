@@ -10,7 +10,7 @@
     <!-- Right -->
     <div>
       <span *ngFor="let item of SocialRed">
-        <a [href]=item.Link class="me-4 text-reset" target="_blank">
+        <a [id]=item.Name [href]=item.Link class="me-4 text-reset" target="_blank">
           <i class="fa-brands fa-{{item.Name}}" [title]=item.Name></i>
         </a>
       </span>
@@ -70,7 +70,10 @@
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-1">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-2">Contact</h6>
-          <p (mouseover)="MapsView(true)" (mouseout)="MapsView(false)"><i class="fa  fa-map-marker me-1"></i> Bogotá, AK 152 #48 - 25</p>
+          <div class="Location">
+            <app-location *ngIf="Maps" class="gps-loc"></app-location>
+            <p (mouseover)="MapsView(true)" (mouseout)="MapsView(false)"><i class="fa  fa-map-marker me-1"></i> Bogotá, AK 152 #48 - 25</p>
+          </div>
           <p>
             <a href="mailto:servicio-cliente@topspin-store.com.co"><i class="fa fa-envelope me-1" aria-hidden="true"></i>servicio-cliente@topspin-store.com.co</a>
           </p>
@@ -81,7 +84,5 @@
     </div>
   </section>
 </footer>
-
-<app-location class="mapView" *ngIf="Maps"></app-location>
 
 

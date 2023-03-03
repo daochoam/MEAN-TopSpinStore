@@ -8,20 +8,23 @@ import { UserComponent } from './modules/user/user.component';
 import { DetallesComponent } from './core/detalles/detalles.component';
 import { AdminUsersComponent } from './modules/admin-users/admin-users.component';
 import { AdminProductsComponent } from './modules/admin-products/admin-products.component';
+import { AdminCategoryComponent } from './modules/admin-category/admin-category.component';
 import { ProductsComponent } from './modules/products/products.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
-  { path: 'products', component:ProductsComponent, pathMatch: 'full'},
+  { path: 'products/:grupo', component:ProductsComponent, pathMatch: 'full'},
   { path: 'detalles/:identificador', component: DetallesComponent, pathMatch: 'full' },
   { path: 'admin', component: AdminComponent,
     children: [
+      { path: '', component: AdminUsersComponent, pathMatch: 'full' },
+      { path: 'category', component: AdminCategoryComponent, pathMatch: 'full'},
+      { path: 'products', component: AdminProductsComponent, pathMatch: 'full'},
       { path: 'users', component: AdminUsersComponent, pathMatch: 'full'},
-      { path: 'product', component: AdminProductsComponent, pathMatch: 'full'},
     ],
   },
-  { path: 'user', component: UserComponent, pathMatch: 'full' },
+  { path: 'users', component: UserComponent, pathMatch: 'full' },
   { path: '**', component: Page404Component },
 ];
 

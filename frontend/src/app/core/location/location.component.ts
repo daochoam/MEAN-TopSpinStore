@@ -9,7 +9,6 @@ export class LocationComponent {
 
   center = {lat:4.723082386226393, lng:-74.06217310478605};
   zoom = 0;
-  display?:google.maps.LatLngBounds;
 
 
 }

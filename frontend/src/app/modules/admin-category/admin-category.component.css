@@ -9,14 +9,15 @@
 }
 
 thead{
-  background-color: #6e1a02;
+  font-size: 20px;
+  background-color: #145d64;
   color:white;
   border-bottom: 5px solid #000c1e;
 }
 .new {
   width: 50px;
   height: 50px;
-  background: #6e1a02;
+  background: #145d64;
   text-align: center;
   padding-top: 13px;
   border-radius: 50%;
@@ -34,15 +35,19 @@ thead{
     padding: 8px;
 }
 
+.modal{
+  transition: 0.5s ease-in-out;
+}
+.modal-content {
+  border:5px solid #145d64;
+  border-radius: 3%;
+}
+
 .modal-header {
-  background: #6e1a02;
+  background: #145d64;
   color: rgb(215, 214, 214);
 }
 
-.modal-content {
-  border:5px solid  #6e1a02;
-  border-radius: 3%;
-}
 .btn-ud {
   display: flex;
   flex-direction: row-reverse;
@@ -62,7 +67,7 @@ thead{
 .btn-shut{
   color: rgb(255, 255, 255);
   font-weight: bold;
-  transition: 0.3s ease-in-out;
+  transition: 0.4s ease-in-out;
 }
 
 .btn-shut:hover, .btn-shut:focus {
@@ -78,7 +83,7 @@ thead{
 .CountChar {
   display: flex;
   width: 100%;
-  color: rgb(0, 2, 139);
+  color: #01398d;
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;

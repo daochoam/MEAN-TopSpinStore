@@ -1,28 +1,30 @@
 import { Component,OnInit } from '@angular/core';
+import { Category } from 'src/app/interfaces/store-interfaces';
+import { RequestCategoryService } from 'src/app/services/RequestCategory/request-category.service';
 import { SwitchService } from 'src/app/services/Switches/switch.service';
 
-type MenuHeader = 'Home' | 'Blades' | 'Rubbers' | 'Balls' | 'Tables & Nets' | 'Admin'
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  ListCategory!: [Category];
   loginState:Boolean = false;
 
-  HeaderMenu:Array<{ Name:MenuHeader, Router:string }> = [
-    {Name:'Home',           Router:'/home'},
-    {Name:'Blades',         Router:'/products'},
-    {Name:'Rubbers',        Router:'/products'},
-    {Name:'Balls',          Router:'/products'},
-    {Name:'Tables & Nets',  Router:'/products'},
-    {Name:'Admin',          Router:'/admin'}
-  ]
+  constructor ( public RequestCategory: RequestCategoryService,
+                private LookMenu:SwitchService){}
+  ngOnInit(): void {
+    this.LoadAllCategories()
+  }
 
-  constructor (private LookMenu:SwitchService){}
-  ngOnInit(): void {}
+  LoadAllCategories() {
+    this.RequestCategory.LoadAllCategory().then((Response: any) => {
+      this.ListCategory = Response.data
+    })
+  }
 
-  ActiveMenu(Menu:MenuHeader='Home'){
+  ActiveMenu(Menu:string='Home'){
 
   }
 
