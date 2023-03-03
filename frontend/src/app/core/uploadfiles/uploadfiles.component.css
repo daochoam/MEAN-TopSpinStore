@@ -1,0 +1,20 @@
+.container-upload{
+    width: 331px;
+    border: solid 1px;
+    padding: 9px;
+    border-radius:  12px;
+
+}
+.lblprog{
+    height: 25px;
+    margin-bottom: 7px;
+
+}
+.btnsubir{
+    width: 100px;
+
+}
+.btnsubir-icon, i{
+    width: 50px;
+
+}

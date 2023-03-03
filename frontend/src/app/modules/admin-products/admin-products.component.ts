@@ -26,7 +26,7 @@ export class AdminProductsComponent implements OnInit {
   FechaV: string = "";
   Precio: string = "";
   Cantidad: string = "";
-  Categoria: Category["Name"] = "";
+  Categoria: Category["Code"] = "";
   Descripcion: string = "";
   ListProducts!: [Products];
   ListCategory!: [Category];

@@ -8,8 +8,7 @@
         <th scope="col">Category</th>
         <th scope="col">Price</th>
         <th scope="col">Quantity</th>
-        <!-- <th scope="col">Fecha Vencimiento</th> -->
-      </tr>
+        </tr>
     </thead>
     <tbody>
       <tr *ngFor="let Product of ListProducts" (click)="LoadById(Product._id)">
@@ -82,13 +81,16 @@
                   <textarea class="Description" title="Description" placeholder="--Write something here--" [(ngModel)]="Descripcion"></textarea>
                   <label class="CountChar" [(ngModel)]="counts">{{counts-Descripcion.length}}</label>
                 </div>
-                <!-- <div class="form-group col-12 col-md-4">
-                  <label for="message-text" class="col-form-label">Fecha Vencimiento</label>
-                  <input class="form-control" [(ngModel)]="fechav">
-                </div> -->
-                <!-- <div class="col-12" *ngIf="Id != ''">
-                  <app-subirarchivos [urldestino]="destino" [path]="path" [inputName]="userFile"> </app-subirarchivos>
-                </div> -->
+                <div class="col-4" *ngIf="Id != ''">
+                  <img src="http:localhost:3000/productos/{{Id}}.png" class="defaultImage">
+                </div>
+               <div class="col-8" *ngIf="Id != ''">
+                <app-uploadfiles>
+                  [urldestino]="destino"
+                  [path]="path"
+                  [inputName]="'userFile'"
+                </app-uploadfiles>
+              </div>
           </div>
 
         </div>
@@ -104,4 +106,3 @@
       </div>
     </div>
   </div>
-

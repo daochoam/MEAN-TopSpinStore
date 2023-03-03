@@ -1,0 +1,31 @@
+<div class="container-upload">
+       <div class="progress lblprog">
+        <div class="progress-bar progress-bar-striped"       
+        role="progressbar" 
+        attr.aria-valuenow="{{progress}}" 
+        aria-valuemin="0" 
+        aria-valuemax="100"
+        [ngStyle]="{ width: progress + '%'}">
+        </div> 
+
+    </div>
+
+    <label for="Subir">
+        <div class="btn btn-primary btnsubir" *ngIf="filename ==''">Select files</div>
+        <div class="selectfile">{{filename}}</div>
+        <input type="file" id="Subir" (change)="selectfile($event)" style="display: none;">
+    </label>
+
+    <button class="btn btn-primary btnsubir-icon" (click)="upload()">
+        <i class="fa-sharp fa-solid fa-upload"></i>
+    </button>
+
+    <div class="alert alert-success" role="alert" *ngIf="message != '' && estado == true">
+        {{message}}
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="message != ''&& estado == false">
+        {{message}}
+      </div>
+      
+      
+</div>

@@ -35,7 +35,7 @@ import { LocationComponent } from './core/location/location.component';
 import { MenuAdminComponent } from './core/menu-admin/menu-admin.component';
 import { MenuUsersComponent } from './core/menu-users/menu-users.component';
 import { AdminCategoryComponent } from './modules/admin-category/admin-category.component';
-
+import { UploadfilesComponent } from './core/uploadfiles/uploadfiles.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +63,7 @@ import { AdminCategoryComponent } from './modules/admin-category/admin-category.
     MenuAdminComponent,
     MenuUsersComponent,
     AdminCategoryComponent,
+    UploadfilesComponent,
 
   ],
   imports: [
