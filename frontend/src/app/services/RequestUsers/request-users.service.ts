@@ -142,12 +142,12 @@ export class RequestUsersService {
 
   /*********************************  CLOSE SESSION  **********************************/
   CloseSession(){
-    var post = {
-      host:this.Peticion.urlLocal,
-      path:"/CloseSession",
-      payload:{}
+    var Post = {
+      Host:this.Peticion.urlLocal,
+      Path:"/CloseSession",
+      Payload:{}
     }
-    return this.Peticion.POST(post.host + post.path,post.payload)
+    return this.Peticion.POST(Post.Host + Post.Path,Post.Payload)
   }
 }
 

@@ -2,11 +2,11 @@ const { request, response } = require("express")
 
 var UsuariosController = require(__dirname + '/../api/controladores/usuarioscontroller.js').usuarios
 
-var validarSesion = function (request, response, next) {
-    if (request.session.Rol == undefined || request.session.Rol == "" || request.session.Rol == null) {
-        response.json({ state: false, mensaje: "su sesión a expirado, inicie sesión nuevamente", redireccion: true })
+var validarSesion = function(request, response,next){
+    if(request.session.Rol == undefined || request.session.Rol == "" || request.session.Rol == null){
+        response.json({state:false, mensaje:"Su sesión a expirado, Inicie sesión nuevamente",redireccion:true})
         return false
-    } else {
+    }else{
         next()
     }
 }
@@ -58,17 +58,17 @@ app.post("/Users/MenuRol", validarSesion, function (request, response) {
     if (request.session.Rol == 1) {
         response.json({
             state: true, datos: [
-                { nombre: 'Admin', destino: 'admin', color: 'primary' },
-                { nombre: 'Users', destino: 'users', icon: "user" },
-                { nombre: 'Category', destino: 'category', icon: "pen" },
-                { nombre: 'Products', destino: 'product', icon: "shop" }
+                { name: '',         destino: '/admin',    color: 'primary' },
+                { name: 'Users',    destino: '/users',    icon: "user" },
+                { name: 'Category', destino: '/category', icon: "pen" },
+                { name: 'Products', destino: '/product',  icon: "shop" }
             ]
         })
     }
     else {
         response.json({
             state: true, datos: [
-                { nombre: 'Dashboard', destino: '/admin' },
+                { nombre: '', destino: 'users' },
             ]
         })
     }

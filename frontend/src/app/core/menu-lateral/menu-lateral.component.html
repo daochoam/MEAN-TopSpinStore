@@ -9,12 +9,12 @@
             <a routerLink="/home" target=""><img src="/assets/Icons/Icon.png" width="40" height="40" class="d-inline-block align-top"
                 alt=""/></a>
         </div>
-        <ul class="list" *ngFor="let item of AdminMenu">
+        <ul class="list" *ngFor="let MenuLateral of DatosMenu">
             <li class="list__item">
                 <div class="list__button">
-                    <a [class]=item.nombre [routerLink]=item.destino routerLinkActive="Active-link" class="nav__link">
-                        <i class="fa-solid fa-{{item.icon}} fa-lg"></i>
-                        {{item.nombre}}
+                    <a [class]=MenuLateral.nombre [routerLink]=MenuLateral.destino routerLinkActive="Active-link" class="nav__link">
+                        <i class="fa-solid fa-{{MenuLateral.icon}} fa-lg"></i>
+                        {{MenuLateral.name}}
                     </a>
                 </div>
             </li>

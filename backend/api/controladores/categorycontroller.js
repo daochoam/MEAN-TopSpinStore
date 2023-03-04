@@ -1,8 +1,6 @@
 var ModelCategory = require(__dirname + '/../modelos/modelcategory.js').category
 var CategoryController = {}
 const emailValidator = require('email-validator')
-//var trimStart = require('string.prototype.trimstart')
-//var trimEnd = require('string.prototype.trimend')
 
 /**************************************************************/
 /******************           CREATE         ******************/
@@ -10,7 +8,7 @@ const emailValidator = require('email-validator')
 CategoryController.Save = function(request, response){
     var post = {
         Code:request.body.Code,
-        Name:request.body.Name.trimStart().trimEnd(),
+        Name:request.body.Name.trim(),
     }
 
     /*Validacion campo Code */
@@ -75,7 +73,7 @@ CategoryController.LoadAllCategory = function (request, response) {
 CategoryController.LoadById = function (request, response) {
     console.log('conexion')
     var post = {
-        _id: request.body._id.trimStart().trimEnd(),
+        _id: request.body._id.trim(),
     }
 
     if (post._id == "" || post._id == null || post._id == undefined) {

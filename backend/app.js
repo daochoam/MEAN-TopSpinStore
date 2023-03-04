@@ -66,5 +66,5 @@ app.listen(config.puerto, function(){
 })
 
 require(__dirname + '/../routes/routescategory.js')
-require(__dirname + '/../routes/routescategory.js')
+require(__dirname + '/../routes/routesusuarios.js')
 require(__dirname + '/../routes/routesproductos.js')

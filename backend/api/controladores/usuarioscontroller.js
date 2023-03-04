@@ -1,8 +1,6 @@
 var ModelUsuarios = require(__dirname + '/../modelos/modelusuarios.js').usuarios
 var UsuariosController = {}
 const emailValidator = require('email-validator')
-//var trimStart = require('string.prototype.trimstart')
-//var trimEnd = require('string.prototype.trimend')
 
 /**************************************************************/
 /******************           CREATE         ******************/
@@ -78,10 +76,10 @@ UsuariosController.Save = function(request, response){
 UsuariosController.Register = function (request, response) {
     console.log('conexion')
     var post = {
-        Cedula: request.body.Cedula.trimStart().trimEnd(),
-        Name: request.body.Name.trimStart().trimEnd(),
-        Email: request.body.Email.trimStart().trimEnd(),
-        Password: sha256(request.body.Password + config.Clave).trimStart().trimEnd(),
+        Cedula: request.body.Cedula.trim(),
+        Name: request.body.Name.trim(),
+        Email: request.body.Email.trim(),
+        Password: sha256(request.body.Password + config.Clave).trim(),
     }
 
     /*Validacion campo cedula */
@@ -199,7 +197,7 @@ UsuariosController.LoadAllUsers = function (request, response) {
 UsuariosController.LoadById = function (request, response) {
     console.log('conexion')
     var post = {
-        _id: request.body._id.trimStart().trimEnd(),
+        _id: request.body._id.trim(),
     }
 
     if (post._id == "" || post._id == null || post._id == undefined) {
@@ -221,7 +219,7 @@ UsuariosController.LoadById = function (request, response) {
 UsuariosController.LoadByDocument = function (request, response) {
     console.log('conexion')
     var post = {
-        Cedula: request.body.Cedula.trimStart().trimEnd(),
+        Cedula: request.body.Cedula.trim(),
     }
 
     if (post._id == "" || post._id == null || post._id == undefined) {
@@ -264,9 +262,9 @@ UsuariosController.LoadByDocument = function (request, response) {
 /****************** Update Users By Document ******************/
 UsuariosController.UpdateByDocument = function (request, response) {
     var post = {
-        Cedula: request.body.Cedula.trimStart().trimEnd(),
-        Name: request.body.Name.trimStart().trimEnd(),
-        Password: sha256(request.body.Password + config.Clave).trimStart().trimEnd(),
+        Cedula: request.body.Cedula.trim(),
+        Name: request.body.Name.trim(),
+        Password: sha256(request.body.Password + config.Clave).trim(),
     }
 
     /*Validacion campo cedula */
@@ -354,7 +352,7 @@ UsuariosController.UpdateById = function (request, response) {
 /******************   Delete Users By Id     *******************/
 UsuariosController.DeleteById = function(request, response){
     var post = {
-        _id:request.body._id.trimStart().trimEnd(),
+        _id:request.body._id.trim(),
     }
     if (post._id ==  "" || post._id == undefined || post._id == null){
         response.json({state:false,mensaje:"El campo codigo es obligatorio"})
@@ -375,7 +373,7 @@ UsuariosController.DeleteById = function(request, response){
 
 UsuariosController.DeleteByDocument = function (request, response) {
     var post = {
-        Cedula: request.body.Cedula.trimStart().trimEnd(),
+        Cedula: request.body.Cedula.trim(),
 
     }
 

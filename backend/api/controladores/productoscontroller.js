@@ -1,7 +1,5 @@
 var ModelProductos = require(__dirname + '/../modelos/modelproductos.js').productos
 var ProductosController = {}
-//var trimStart = require('string.prototype.trimstart')
-//var trimEnd = require('string.prototype.trimend')
 
 /**************************************************************/
 /******************           CREATE         ******************/
@@ -76,7 +74,7 @@ ProductosController.LoadAllProducts = function(request, response){
 
 ProductosController.LoadById = function(request, response){
     var post = {
-        Id:request.body.Id.trimStart().trimEnd(),
+        Id:request.body.Id.trim(),
     }
 
     if (post.Id ==  "" || post.Id == undefined || post.Id == null){
@@ -97,7 +95,7 @@ ProductosController.LoadById = function(request, response){
 
 ProductosController.LoadByCode = function(request, response){
     var post = {
-        Codigo:request.body.Codigo.trimStart().trimEnd(),
+        Codigo:request.body.Codigo.trim(),
     }
 
     if (post.Codigo ==  "" || post.Codigo == undefined || post.Codigo == null){
@@ -118,7 +116,7 @@ ProductosController.LoadByCode = function(request, response){
 
 ProductosController.LoadByCategory = function(request, response){
     var post = {
-        Categoria:request.body.Categoria.trimStart().trimEnd(),
+        Categoria:request.body.Categoria.trim(),
     }
 
     if (post.Categoria ==  "" || post.Categoria == undefined || post.Categoria == null){
@@ -142,12 +140,12 @@ ProductosController.LoadByCategory = function(request, response){
 /******************     Update By Id         ******************/
 ProductosController.UpdateById = function(request, response){
     var post = {
-        _id:request.body._id.trimStart().trimEnd(),
-        Codigo:request.body.Codigo.trimStart().trimEnd(),
-        Nombre:request.body.Nombre.trimStart().trimEnd(),
-        Cantidad:request.body.Cantidad.trimStart().trimEnd(),
-        Precio:request.body.Precio.trimStart().trimEnd(),
-        Categoria:request.body.Categoria.trimStart().trimEnd()
+        _id:request.body._id.trim(),
+        Codigo:request.body.Codigo.trim(),
+        Nombre:request.body.Nombre.trim(),
+        Cantidad:request.body.Cantidad.trim(),
+        Precio:request.body.Precio.trim(),
+        Categoria:request.body.Categoria.trim()
     }
 
     if (post._id ==  "" || post._id == undefined || post._id == null){
@@ -205,10 +203,10 @@ ProductosController.UpdateById = function(request, response){
 
 ProductosController.UpdateByCode = function(request, response){
     var post = {
-        Codigo:request.body.Codigo.trimStart().trimEnd(),
-        Nombre:request.body.Nombre.trimStart().trimEnd(),
-        Cantidad:request.body.Cantidad.trimStart().trimEnd(),
-        Precio:request.body.Precio.trimStart().trimEnd()
+        Codigo:request.body.Codigo.trim(),
+        Nombre:request.body.Nombre.trim(),
+        Cantidad:request.body.Cantidad.trim(),
+        Precio:request.body.Precio.trim()
     }
 
     if (post.Codigo ==  "" || post.Codigo == undefined || post.Codigo == null){
@@ -266,7 +264,7 @@ ProductosController.UpdateByCode = function(request, response){
 /******************   Delete Products By Id   ******************/
 ProductosController.DeleteById = function(request, response){
     var post = {
-        _id:request.body._id.trimStart().trimEnd(),
+        _id:request.body._id.trim(),
     }
     if (post._id ==  "" || post._id == undefined || post._id == null){
         response.json({state:false,mensaje:"El campo codigo es obligatorio"})
@@ -288,7 +286,7 @@ ProductosController.DeleteById = function(request, response){
 
 ProductosController.DeleteByCode = function(request, response){
     var post = {
-        Codigo:request.body.Codigo.trimStart().trimEnd(),
+        Codigo:request.body.Codigo.trim(),
     }
     if (post.Codigo ==  "" || post.Codigo == undefined || post.Codigo == null){
         response.json({state:false,mensaje:"El campo codigo es obligatorio"})

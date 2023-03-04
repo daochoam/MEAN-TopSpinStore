@@ -15,16 +15,15 @@ const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'products/:grupo', component:ProductsComponent, pathMatch: 'full'},
-  { path: 'detalles/:identificador', component: DetallesComponent, pathMatch: 'full' },
   { path: 'admin', component: AdminComponent,
     children: [
-      { path: '', component: AdminUsersComponent, pathMatch: 'full' },
+      { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: 'category', component: AdminCategoryComponent, pathMatch: 'full'},
       { path: 'products', component: AdminProductsComponent, pathMatch: 'full'},
       { path: 'users', component: AdminUsersComponent, pathMatch: 'full'},
     ],
   },
-  { path: 'users', component: UserComponent, pathMatch: 'full' },
+  { path: 'user', component: UserComponent, pathMatch: 'full' },
   { path: '**', component: Page404Component },
 ];
 
