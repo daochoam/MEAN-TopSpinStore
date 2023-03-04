@@ -5,10 +5,6 @@ app.post("/Products/Save", function(request, response){
     ProductosController.Save(request, response)
 })
 
-app.post("/Products/Guardarp", function(request, response){
-    ProductosController.Guardarp(request, response)
-})
-
 /**     LOADS PRODUCTS  */
 app.post("/Products/LoadAllProducts", function(request, response){
     ProductosController.LoadAllProducts(request, response)

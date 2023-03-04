@@ -22,7 +22,7 @@ export interface Users {
 
 export interface Products {
   _id?: any;
-  SKU: string;
+  Codigo: string;
   Nombre: string;
   Precio: string | number;
   Cantidad: string | number;

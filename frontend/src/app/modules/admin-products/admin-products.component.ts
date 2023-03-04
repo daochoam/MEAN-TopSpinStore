@@ -21,7 +21,7 @@ export class AdminProductsComponent implements OnInit {
   Category: any[] = [];
   /**  DECLARACIÓN DE VARIABLES  */
   Id: string = "";
-  SKU: string = "";
+  Codigo: string = "";
   Nombre: string = "";
   FechaV: string = "";
   Precio: string = "";
@@ -38,6 +38,8 @@ export class AdminProductsComponent implements OnInit {
   ngOnInit(): void {
     this.LoadAllCategories()
     this.LoadAllProducts()
+    var pathname = window.location.pathname;
+    console.log(pathname)
   }
 
   /*************** MODAL *****************/
@@ -53,7 +55,7 @@ export class AdminProductsComponent implements OnInit {
 
   /*************** BUTTON NUEVO *****************/
   Nuevo() {
-    this.SKU = ""
+    this.Codigo = ""
     this.Nombre = ""
     this.FechaV = ""
     this.Precio = ""
@@ -87,7 +89,7 @@ export class AdminProductsComponent implements OnInit {
     this.RequestProduct.LoadById(Id)
       .then((Response: any) => {
         if (Response.state == true) {
-          this.SKU = Response.data.SKU
+          this.Codigo = Response.data.Codigo
           this.Nombre = Response.data.Nombre
           this.Cantidad = Response.data.Cantidad
           this.Precio = Response.data.Precio
@@ -103,7 +105,7 @@ export class AdminProductsComponent implements OnInit {
   /*************** BUTTON GUARDAR *****************/
   Save() {
     this.RequestProduct.ProductSave({
-      SKU: this.SKU,
+      Codigo: this.Codigo,
       Nombre: NamesFormat(this.Nombre),
       Precio: this.Precio,
       Cantidad: this.Cantidad,
@@ -123,11 +125,10 @@ export class AdminProductsComponent implements OnInit {
   }
 
   /*************** BUTTON ACTUALIZAR *****************/
-  UpdateId() {
-    console.log(this.Categoria)
+  UpdateById() {
     this.RequestProduct.UpdateById({
       _id: this.Id,
-      SKU: this.SKU,
+      Codigo: this.Codigo,
       Nombre: NamesFormat(this.Nombre),
       Precio: this.Precio.toString(),
       Cantidad: this.Cantidad.toString(),

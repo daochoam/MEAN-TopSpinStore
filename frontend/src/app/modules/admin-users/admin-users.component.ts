@@ -38,6 +38,8 @@ export class AdminUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.LoadAllUsers()
+    var pathname = window.location.pathname;
+    console.log(pathname)
   }
 
   /*************** MODAL *****************/

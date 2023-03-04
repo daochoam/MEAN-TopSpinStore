@@ -34,8 +34,13 @@ ModelCategory.Save = function (post, callback) {
                 const instancia = new MyModel
                 instancia.Code = parseInt(post.Code)
                 instancia.Name = post.Name
-                instancia.save((error, creado) => {
-                    return callback({ state: true, creado })
+                instancia.save((err,created) =>{
+                    if(err){
+                        return callback({state:false,data:err})
+                    }
+                    else{
+                        return callback({state:true})
+                    }
                 })
             }
         })

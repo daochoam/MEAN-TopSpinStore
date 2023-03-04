@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const { name } = require('ejs')
 const MongoStore = require('connect-mongo')
 
+
 global.sha256 = require('sha256')
 global.app = express()
 global.config = require (__dirname + '/config.js').config
@@ -64,6 +65,6 @@ app.listen(config.puerto, function(){
     console.log('Servidor funcionando por el puerto ' + config.puerto)
 })
 
-require(__dirname + '/routes/routesusuarios.js')
-require(__dirname + '/routes/routesproductos.js')
-require(__dirname + '/routes/routescategory.js')
+require(__dirname + '/../routes/routescategory.js')
+require(__dirname + '/../routes/routescategory.js')
+require(__dirname + '/../routes/routesproductos.js')

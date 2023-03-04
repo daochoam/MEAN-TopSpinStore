@@ -46,12 +46,9 @@ app.post("/Users/DeleteById", function (request, response) {
     UsuariosController.DeleteById(request, response)
 })
 
-/**************************************************************/
-/*********************    LOGIN SESSION  **********************/
 app.post("/Users/Login", function (request, response) {
     UsuariosController.Login(request, response)
 })
-
 
 app.post("/Users/ViewCookie", function (request, response) {
     response.json({ clave: request.session })
@@ -61,17 +58,17 @@ app.post("/Users/MenuRol", validarSesion, function (request, response) {
     if (request.session.Rol == 1) {
         response.json({
             state: true, datos: [
-                { nombre: 'Admin',    destino: 'admin',    color: 'primary' },
-                { nombre: 'Users',    destino: 'users',    icon: "user"},
-                { nombre: 'Category', destino: 'category', icon: "pen"},
-                { nombre: 'Products', destino: 'product',  icon: "shop" }
+                { nombre: 'Admin', destino: 'admin', color: 'primary' },
+                { nombre: 'Users', destino: 'users', icon: "user" },
+                { nombre: 'Category', destino: 'category', icon: "pen" },
+                { nombre: 'Products', destino: 'product', icon: "shop" }
             ]
         })
     }
     else {
         response.json({
             state: true, datos: [
-                { nombre: '', destino: 'users' },
+                { nombre: 'Dashboard', destino: '/admin' },
             ]
         })
     }

@@ -8,7 +8,7 @@ var ProductosController = {}
 /******************            Save          ******************/
 ProductosController.Save = function(request, response){
     var post = {
-        SKU:request.body.SKU.trim(),
+        Codigo:request.body.Codigo,
         Nombre:request.body.Nombre.trim(),
         Cantidad:request.body.Cantidad.trim(),
         Precio:request.body.Precio.trim(),
@@ -16,8 +16,8 @@ ProductosController.Save = function(request, response){
         Descripcion:request.body.Descripcion
     }
 
-    if (post.SKU ==  "" || post.SKU == undefined || post.SKU == null){
-        response.json({state:false,mensaje:"El campo SKU es obligatorio"})
+    if (post.Codigo ==  "" || post.Codigo == undefined || post.Codigo == null){
+        response.json({state:false,mensaje:"El campo codigo es obligatorio"})
         return false
     }
     
@@ -53,13 +53,13 @@ ProductosController.Save = function(request, response){
         response.json({state:false,mensaje:"El campo Precio debe ser mayor a 0 "})
         return false
     }
-
+    console.log(post)
     ModelProductos.Save(post, function(respuesta){
         if(respuesta.state == true){
-            response.json({state:true,mensaje:respuesta.message})
+            response.json({state:true,mensaje:"Se guardo correctamente"})
         }
         else{
-            response.json({state:false,mensaje:respuesta.message})
+            response.json({state:false,mensaje:"El codigo ya existe"})
         }
     })
 
@@ -97,11 +97,11 @@ ProductosController.LoadById = function(request, response){
 
 ProductosController.LoadByCode = function(request, response){
     var post = {
-        SKU:request.body.SKU.trimStart().trimEnd(),
+        Codigo:request.body.Codigo.trimStart().trimEnd(),
     }
 
-    if (post.SKU ==  "" || post.SKU == undefined || post.SKU == null){
-        response.json({state:false,mensaje:"El campo SKU es obligatorio"})
+    if (post.Codigo ==  "" || post.Codigo == undefined || post.Codigo == null){
+        response.json({state:false,mensaje:"El campo codigo es obligatorio"})
         return false
     }
 
@@ -143,13 +143,19 @@ ProductosController.LoadByCategory = function(request, response){
 ProductosController.UpdateById = function(request, response){
     var post = {
         _id:request.body._id.trimStart().trimEnd(),
+        Codigo:request.body.Codigo.trimStart().trimEnd(),
         Nombre:request.body.Nombre.trimStart().trimEnd(),
         Cantidad:request.body.Cantidad.trimStart().trimEnd(),
         Precio:request.body.Precio.trimStart().trimEnd(),
-        Categoria:request.body.Categoria
+        Categoria:request.body.Categoria.trimStart().trimEnd()
     }
 
     if (post._id ==  "" || post._id == undefined || post._id == null){
+        response.json({state:false,mensaje:"El campo codigo es obligatorio"})
+        return false
+    }
+
+    if (post.Codigo ==  "" || post.Codigo == undefined || post.Codigo == null){
         response.json({state:false,mensaje:"El campo codigo es obligatorio"})
         return false
     }
@@ -199,14 +205,14 @@ ProductosController.UpdateById = function(request, response){
 
 ProductosController.UpdateByCode = function(request, response){
     var post = {
-        SKU:request.body.SKU.trimStart().trimEnd(),
+        Codigo:request.body.Codigo.trimStart().trimEnd(),
         Nombre:request.body.Nombre.trimStart().trimEnd(),
         Cantidad:request.body.Cantidad.trimStart().trimEnd(),
         Precio:request.body.Precio.trimStart().trimEnd()
     }
 
-    if (post.SKU ==  "" || post.SKU == undefined || post.SKU == null){
-        response.json({state:false,mensaje:"El campo SKU es obligatorio"})
+    if (post.Codigo ==  "" || post.Codigo == undefined || post.Codigo == null){
+        response.json({state:false,mensaje:"El campo codigo es obligatorio"})
         return false
     }
     
@@ -282,10 +288,10 @@ ProductosController.DeleteById = function(request, response){
 
 ProductosController.DeleteByCode = function(request, response){
     var post = {
-        SKU:request.body.SKU.trimStart().trimEnd(),
+        Codigo:request.body.Codigo.trimStart().trimEnd(),
     }
-    if (post.SKU ==  "" || post.SKU == undefined || post.SKU == null){
-        response.json({state:false,mensaje:"El campo SKU es obligatorio"})
+    if (post.Codigo ==  "" || post.Codigo == undefined || post.Codigo == null){
+        response.json({state:false,mensaje:"El campo codigo es obligatorio"})
         return false
     }
     ModelProductos.DeleteByCode(post, function(respuesta){
