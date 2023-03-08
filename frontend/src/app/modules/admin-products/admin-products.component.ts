@@ -3,13 +3,13 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MessagesService } from 'src/app/services/Messages/messages.service';
 import { RequestProductsService } from 'src/app/services/RequestProducts/request-products.service';
 
-import { Products, Category, NamesFormat, Color } from 'src/app/interfaces/store-interfaces';
+import { Products, Category, NamesFormat } from 'src/app/interfaces/store-interfaces';
 import { RequestCategoryService } from 'src/app/services/RequestCategory/request-category.service';
 import { PeticionService } from 'src/app/services/Peticion/peticion.service';
 
 declare var $: any;
 const numCharacters: number = 300
-const cpath: string ='/imagenproductos'
+
 
 @Component({
   selector: 'app-admin-products',
@@ -34,7 +34,7 @@ export class AdminProductsComponent implements OnInit {
   
   /**   PATH IMAGE  **/
   destino: any= this.peticion.urlLocal;
-  path: string = ""
+  path: string = "/imagenproductos"
 
   
 
@@ -103,7 +103,7 @@ export class AdminProductsComponent implements OnInit {
           this.Nombre = Response.data.Nombre
           this.Cantidad = Response.data.Cantidad
           this.Precio = Response.data.Precio
-          this.path = cpath + '/' + this.Id
+          this.path = this.path + '/' + this.Id
           console.log(this.path)
           if (Response.data.Categoria != undefined) { this.Categoria = Response.data.Categoria }
           if (Response.data.FechaV != undefined) { this.FechaV = Response.data.FechaV }

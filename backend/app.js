@@ -61,6 +61,10 @@ app.use(cors({
     }
 }))
 
+app.use('/Archivos', express.static(__dirname + '/files'))
+app.use('/Fotos', express.static(__dirname + '/fotos'))
+app.use('/productos', express.static(__dirname + '/productos'))
+
 app.listen(config.puerto, function(){
     console.log('Servidor funcionando por el puerto ' + config.puerto)
 })

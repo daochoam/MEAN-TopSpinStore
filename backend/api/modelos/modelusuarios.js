@@ -137,6 +137,7 @@ ModelUsuarios.LoadById = function(post,callback) {
     })
 }
 
+
 /**********  Listar Usuarios por Document  ************/
 ModelUsuarios.LoadByDocument = function (post, callback) {
     MyModel.find({ Cedula: post.Cedula }, {}, (error, documentos) => {

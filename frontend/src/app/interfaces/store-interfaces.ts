@@ -11,13 +11,6 @@ export interface Category {
   Name: string;
 }
 
-export interface Color {
-  _id?: any;
-  Code: string;
-  Name: string;
-  Value: string;
-}
-
 export interface Users {
   _id?: any;
   Cedula: string;
@@ -44,6 +37,15 @@ export interface Products {
   FechaV?: string;
   Descripcion?: string;
 }
+
+export interface Market {
+  _id?:any
+  User_id?: any;
+  Product_id?: any;
+  Quantity?: string|number;
+
+}
+
 
 export function NamesFormat(word: string | undefined) {
   if (typeof word == undefined || typeof word == null || word == "") {
