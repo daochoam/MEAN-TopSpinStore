@@ -153,7 +153,7 @@ UsuariosController.Register = function (request, response) {
     post.Codigo = Aleatorio(1000, 9999)
 
      /*npm i nodemailer --save  paquete para envio de emails */
-    /*contraseña: ibqgyemzeipyvsyn*/
+    /*contraseña: qovvijijfstyfqfv*/
 const nodemailer = require('nodemailer')
 
 let transporter = nodemailer.createTransport({
@@ -162,8 +162,8 @@ let transporter = nodemailer.createTransport({
    secure:false,
    requireTLS:true,
    auth:{
-    user:"topspinstore2023@gmail.com",
-    pass:"ibqgyemzeipyvsyn"
+    user:"topspinstore23@gmail.com",
+    pass:"qovvijijfstyfqfv"
    },
    tls: {
     rejectUnauthorized:false
@@ -171,7 +171,7 @@ let transporter = nodemailer.createTransport({
 })
 
 let mailOptions = {
-    from:"topspinstore2023@gmail.com",
+    from:"topspinstore23@gmail.com",
     to:post.Email,
     subject:"Verifica tu cuenta codigo: " + post.Codigo,
     html:"<div><a href='http://localhost:3000/Activar/"+post.Email+"/"+post.Codigo+"'>Click aqui para activar</a></div>",
@@ -179,7 +179,6 @@ let mailOptions = {
 
 transporter.sendMail(mailOptions,(error,info)=>{
     if(error){
-        console.log(error,mensaje)
         response.json({state:'error'})
     }else{
         ModelUsuarios.Register(post, function (respuesta) {
@@ -193,8 +192,6 @@ transporter.sendMail(mailOptions,(error,info)=>{
         })
     }
 });
-
-    
 
 }
 
@@ -292,6 +289,7 @@ UsuariosController.LoadAllUsers = function (request, response) {
 }
 
 /******************     Load Users By Id    ******************/
+
 UsuariosController.LoadById = function (request, response) {
     console.log('conexion')
     var post = {

@@ -57,7 +57,6 @@ app.post("/Users/Login", function (request, response) {
 
 app.post("/Users/ViewCookie", function (request, response) {
     if (request.session._id != undefined) {
-        console.log(request.session._id)
         response.json({ state: true, clave: request.session })
     } else {
         response.json({ state: false, message: 'Your session has expired, please log in again' })
@@ -88,11 +87,11 @@ app.post("/Users/MenuRol", validarSesion, function (request, response) {
         response.json({
             state: true, Data: {
                 MenuRol: [
-                    { name: '', destino: 'user', color: 'primary' },
-                    { name: 'Account', destino: 'data', icon: "user" },
-                    { name: 'Pay', destino: 'pay', icon: "credit-card" },
-                    { name: 'Shop', destino: 'shop', icon: "shop" }],
-
+                    { Name: '',        destino: 'user', icon: "user" },
+                    { Name: 'Account', destino: 'data', icon: "user" },
+                    { Name: 'Pay',     destino: 'pay',  icon: "wallet" },
+                    { Name: 'Shop',    destino: 'shop', icon: "cart-shopping" }
+                ],
                 MenuLog: [
                     { Name: "Payment methods", destino: 'pay', Icon: "wallet" },
                     { Name: "Shipping addresses", destino: '', Icon: "truck-fast" },

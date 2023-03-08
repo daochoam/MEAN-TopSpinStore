@@ -3,10 +3,10 @@
     <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <!-- <th scope="col">Imagen</th> -->
+          <th scope="col"></th>
+          <th scope="col">Imagen</th>
           <th scope="col">SKU</th>
           <th scope="col">Name</th>
-          <th scope="col">Category</th>
           <th scope="col">Price</th>
           <th scope="col">Quantity</th>
           <th scope="col">Amount</th>
@@ -14,19 +14,32 @@
       </thead>
 
       <tbody>
-        <!-- <tr -->
-          <!-- *ngFor="let Market of ListMarket" (click)="LoadById(Market._id)"> -->
-          <!-- <td><img src="http:localhost:3000/productos/{{Product._id}}.png" + class="imgproductos"></td> -->
-          <!-- <td>{{ Market.Codigo }}</td>
-          <td>{{ Market.Nombre }}</td>
-          <td>{{ Market.Precio | currency }}</td>
-          <td>{{ Market.Cantidad }}</td> -->
-          <!-- <td>{{ }}</td> -->
-          <!-- <td>{{item.fechav}}</td> -->
-        <!-- </tr> -->
+         <tr *ngFor="let Market of ListMarket">
+          <td><i class="fa-solid fa-trash" (click)="DeleteItem(Market._id)"></i></td>
+           <td><img src="http:localhost:3000/productos/{{Market.Product_id}}.png" + class="imgproductos"></td>
+           <td>{{ Market.Products.Codigo }}</td>
+          <td>{{ Market.Products.Nombre }}</td>
+          <td>{{ Market.Products.Precio| currency }}</td>
+          <td>
+            <div>
+              <span *ngIf="Market.Quantity == 1" ><i class="fa-solid fa-trash" (click)="DeleteItem(Market._id)"></i></span>
+              <span *ngIf=" Market.Quantity>1"><i class="fa-sharp fa-regular fa-minus fa-lg" (click)="SubMyMartket(Market._id)"></i></span>
+            </div>
+            <input type="Quantity" [(ngModel)]=Market.Quantity>
+            <div>
+            <span *ngIf="Market.Quantity< Market.Products.Cantidad">
+              <i class="fa-sharp fa-regular fa-plus fa-lg" (click)="AddMyMartket(Market._id)"></i>
+            </span></div>
+          </td>
+           <td>{{Amount}}</td>
+         </tr>
       </tbody>
     </table>
   </div>
-
+  <div class="button">
+    <div class="new" title="Add Product">
+      <i class="fa-sharp fa-regular fa-plus fa-lg"></i>
+    </div>
+  </div>
 </div>
 

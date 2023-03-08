@@ -25,15 +25,14 @@ const MyModel = mongoose.model('Market', MarketSchema)
 ModelMarket.AddMarket = function (post, callback) {
     MyModel.find({ User_id: post.User_id, Product_id: post.Product_id }, {}, (error, Data) => {
         if (Data.length > 0) {
-            console.log(Data)
             MyModel.findByIdAndUpdate(
-                Data._id , {
-                Quantity: post.Quantity
+                Data[0]._id, {
+                Quantity: Data[0].Quantity+1
             }, (error, data) => {
                 if (error) {
-                    return callback({ state: false, message: '1' })
+                    return callback({ state: false, message: error })
                 } else {
-                    return callback({ state: true, message: 'Product added successfully' })
+                    return callback({ state: true, message: 'Unit added successfully' })
                 }
             })
         }
@@ -41,13 +40,14 @@ ModelMarket.AddMarket = function (post, callback) {
             const instancia = new MyModel
             instancia.User_id = post.User_id
             instancia.Product_id = post.Product_id
-            instancia.Quantity = post.Quantity
+            instancia.Quantity = 1
             instancia.save((err, created) => {
                 if (err) {
-                    return callback({ state: false, message: '2'})
+                    console.log(post)
+                    return callback({ state: false, message: error })
                 }
                 else {
-                    return callback({ state: true, message:'Product added successfully' })
+                    return callback({ state: true, message: 'Product added successfully' })
                 }
             })
         }
@@ -72,7 +72,7 @@ ModelMarket.LoadMyMarket = function (post, callback) {
                 _id: 1,
                 Product_id: 1,
                 Quantity: 1,
-                Products: { Codigo: 1, Nombre: 1, Precio: 1 }
+                Products: { Codigo: 1, Nombre: 1, Precio: 1 , Cantidad: 1}
             }
         }
     ], (error, Datos) => {
@@ -87,14 +87,14 @@ ModelMarket.LoadMyMarket = function (post, callback) {
 /**************************************************************/
 /******************        UPDATE            ******************/
 ModelMarket.UpdateQuantity = function (post, callback) {
-    MyModel.findByIdAndUpdate(post._id,{
+    MyModel.findByIdAndUpdate(post._id, {
         Quantity: post.Quantity
-    },(err,doc)=>{
+    }, (err, doc) => {
         if (err) {
             return callback({ state: false, mensaje: err })
         }
         else {
-            return callback({ state: true, message:"Quantity upadate sucessfully" })
+            return callback({ state: true, message: "Quantity upadate sucessfully" })
         }
     })
 }
@@ -107,26 +107,58 @@ ModelMarket.DeleteItem = function (post, callback) {
             return callback({ state: false, data: error })
         }
         else {
-            return callback({ state: true })
+            return callback({ state: true, message: 'Product has been removed satisfactorily' })
+        }
+    })
+}
+
+
+/******************     DELETE ONE ITEM         ******************/
+ModelMarket.DeleteItem = function (post, callback) {
+    MyModel.findByIdAndDelete(post._id, (error, eliminado) => {
+        if (error) {
+            return callback({ state: false, data: error })
+        }
+        else {
+            return callback({ state: true, message: 'Product has been removed satisfactorily' })
+        }
+    })
+}
+
+ModelMarket.SubMyMarket = function (post, callback) {
+    MyModel.findById(_post_id, {}, (error, Data) => {
+        if (error) {
+            return callback({ state: false, data: error })
+        }
+        else {
+            if (Data.find(element => element.Quantity == 1)) {
+                MyModel.findByIdAndDelete(post._id, (error, eliminado) => {
+                    if (error) {
+                        return callback({ state: false, data: error })}
+                    else {
+                        return callback({ state: true, message: 'Product has been removed satisfactorily' })}
+                })
+            }
+            else {
+                MyModel.findByIdAndUpdate(post._id, {
+                    Quantity: Data[0].Quantity-1
+                }, (err, doc) => {
+                    if (err) {
+                        return callback({ state: false, mensaje: err })}
+                    else {
+                        return callback({ state: true})}
+                })
+            }
         }
     })
 }
 
 ModelMarket.DeleteAllItems = function (post, callback) {
-    MyModel.find({ Codigo: post.Codigo }, {}, (error, documentos) => {
+    MyModel.deleteMany({User_id: post.User_id},{}, (error, documentos) => {
         if (documentos.length == 0)
             return callback({ state: false, error })
         else {
-            {
-                MyModel.findOneAndDelete(post.Cedula, (error, eliminado) => {
-                    if (error) {
-                        return callback({ state: false, data: error })
-                    }
-                    else {
-                        return callback({ state: true })
-                    }
-                })
-            }
+            return callback({ state: true, message: 'Cart successfully deleted' })
         }
     })
 }

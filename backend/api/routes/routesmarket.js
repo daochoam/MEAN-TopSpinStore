@@ -23,3 +23,7 @@ app.post("/Market/DeleteItem", function(request, response){
 app.post("/Market/DeleteAllItems", function(request, response){
     MarketController.DeleteAllItems(request, response)
 })
+
+app.post("/Market/SubMyMarket", function(request, response){
+    MarketController.SubMyMarket(request, response)
+})

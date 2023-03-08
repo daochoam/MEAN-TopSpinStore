@@ -41,25 +41,14 @@
   </div>
 </div>
 
-<div
-  class="modal fade"
-  id="modaldatos"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div  class="modal fade"  id="modaldatos"  tabindex="-1"  aria-labelledby="exampleModalLabel"  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-body">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="exampleModalLabel" title="Register Product">
           Product
         </h3>
-        <div
-          type="button"
-          class="btn-shut"
-          title="close"
-          (click)="CloseModal()"
-        >
+        <div  type="button"  class="btn-shut"  title="close"  (click)="CloseModal()">
           <h1>&times;</h1>
         </div>
       </div>
@@ -69,15 +58,7 @@
             <div class="row">
               <div class="form-group col-12 col-md-4">
                 <label class="col-form-label">SKU:</label>
-                <input
-                  *ngIf="Id == ''"
-                  type="SKU"
-                  class="form-control"
-                  title="SKU"
-                  [(ngModel)]="Codigo"
-                  placeholder="SKU"
-                  required
-                />
+                <input  *ngIf="Id == ''"  type="SKU"  class="form-control"  title="SKU"  [(ngModel)]="Codigo"  placeholder="SKU"  required/>
                 <input  *ngIf="Id != ''"  type="text"  class="form-control"  title="SKU"  [(ngModel)]="Codigo"  placeholder="SKU"  disabled/>
               </div>
               <div class="form-group col-12 col-md-8">
@@ -115,16 +96,6 @@
                 </mat-form-field>
               </div>
             </div>
-            <div class="form-group col-sm-12 col-md-12">
-              <label class="col-form-label">Description:</label>
-              <textarea
-                class="Description"
-                title="Description"
-                placeholder="--Write something here--"
-                [(ngModel)]="Descripcion"
-              ></textarea>
-              <label class="CountChar" [(ngModel)]="counts">{{counts - Descripcion.length}}</label>
-            </div>
 
             <div class="col-4" *ngIf="Id != ''">
               <img  src="http://localhost:3000/productos/{{Id}}.png"  class="defaultImage"/>
@@ -135,13 +106,14 @@
               <app-uploadfiles  [urldestino]="destino"  [path]="path"  [inputName]="'userfile'"></app-uploadfiles>
             </div>
 
-            <!-- <div class="col-4" *ngIf="Id != ''">
-              <img src="http:localhost:3000/productos/{{Id}}.png" class="defaultImage">
+            <div class="form-group col-sm-12 col-md-12">
+              <label class="col-form-label">Description:</label>
+              <textarea  class="Description"  title="Description"  placeholder="--Write something here--"  [(ngModel)]="Descripcion"></textarea>
+              <label class="CountChar" [(ngModel)]="counts">{{counts - Descripcion.length}}</label>
             </div>
-           <div class="col-8" *ngIf="Id != ''">
-            
-            
-          </div> -->
+
+
+
           </div>
         </div>
       </div>

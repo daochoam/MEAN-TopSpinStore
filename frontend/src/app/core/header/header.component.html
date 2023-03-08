@@ -16,6 +16,7 @@
             </li>
             <li class="nav-item" *ngFor="let Category of ListCategory" (click)="ActiveMenu(Category.Name)">
               <a class="nav-link" routerLink="/products/{{Category.Code}}">{{Category.Name}}</a>
+            </li>
             <li class="nav-item login">
               <a class="nav-link" (click)="LoginShow()">Login</a>
             </li>
@@ -23,7 +24,6 @@
           <div class="d-flex" title="login" role="login">
             <div class="Login-Success" id="Login-Success"></div>
             <img class="Photo btn-login" (click)="LoginShow()"  (dblclick)="PrivateZone()" src="/assets/Icons/avatar.svg">
-            <!-- <app-ico-login class="btn-login" (click)="LoginShow()" (dblclick)="PrivateZone()"></app-ico-login> -->
           </div>
         </div>
       </div>

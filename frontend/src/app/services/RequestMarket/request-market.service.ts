@@ -11,55 +11,61 @@ export class RequestMarketService {
 
 
 
-  AddMarket(Payload:Market) {
+  AddMarket(Paylod:{User_id:Market['User_id'], Product_id: Market['Product_id']}) {
     var Post = {
       Host: this.Peticion.urlLocal,
       Path: '/Market/AddMarket',
-      Payload: Payload,
+      Payload: Paylod,
     }
     console.log(Post)
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
-  // UpdateQuantity({Id:Market["_id"], Quantity:Market["Quantity"]}) {
-  //   var Post = {
-  //     Host: this.Peticion.urlLocal,
-  //     Path: '/Market/UpdateQuantity',
-  //     Payload: {
-  //       _id: Id,
-  //       Quantity: Quantity}
-  //   }
-  //   return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
-  // }
-
-  LoadMyMarket(Id: string) {
+  UpdateQuantity(Payload: {User_id:Market['User_id'], Id: Market['_id'], Quantity: Market['Quantity'] }) {
     var Post = {
       Host: this.Peticion.urlLocal,
-      Path: '/Market/LoadMyMarket',
-      Payload: { Id: Id }
+      Path: '/Market/UpdateQuantity',
+      Payload: Payload
     }
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
-  DeleteItem(Payload: Market) {
+  LoadMyMarket(User_id:Market['User_id']) {
+    var Post = {
+      Host: this.Peticion.urlLocal,
+      Path: '/Market/LoadMyMarket',
+      Payload: { User_id }
+    }
+
+    return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
+  }
+
+  DeleteItem(Payload: {_id: Market['_id'], User_id:Market['User_id']}) {
 
     var Post = {
       Host: this.Peticion.urlLocal,
       Path: '/Market/DeleteItem',
       Payload: Payload
     }
-    console.log(Payload)
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
-  DeleteAllItem(Payload: Market) {
+  DeleteAllItem(Payload:{User_id:Market['User_id']}) {
 
     var Post = {
       Host: this.Peticion.urlLocal,
       Path: '/Market/DeleteAllItem',
+      Payload: { }
+    }
+    return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
+  }
+
+  SubMyMartket(Payload:{User_id:Market['User_id'],_id:Market['_id']}) {
+    var Post = {
+      Host: this.Peticion.urlLocal,
+      Path: '/Market/SubMyMartket',
       Payload: Payload
     }
-    console.log(Payload)
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 }

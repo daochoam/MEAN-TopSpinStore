@@ -121,36 +121,35 @@ ul {
 { name: 'Pay', destino: 'pay', icon: "credit-card" },
 { name: 'Shop', destino: 'shop', icon: "shop" }], */
 
+/* ROL 2 */
 .Account:hover{
-
-}
-
-.Pay:hover{
-
-}
-
-.Shop:hover{
-
-}
-
-.fa-user:hover{
-
-}
-
-.fa-credit-card:hover{
-
-}
-
-.fa-shop:hover{
-
-}
-
-.Users:hover {
   color: #6e1a02
 }
 
-.Colors:hover {
+.Pay:hover{
   color: #4c4b4b;
+}
+
+.Shop:hover{
+  color: #145d64
+}
+
+.fa-user:hover{
+  color: #6e1a02
+}
+
+.fa-wallet:hover{
+  color: #4c4b4b;
+}
+
+.fa-shop:hover{
+  color: #145d64
+}
+
+
+/* ROL 1 */
+.Users:hover {
+  color: #6e1a02
 }
 
 .Category:hover {
@@ -163,10 +162,6 @@ ul {
 
 .fa-user:hover {
   color: #6e1a02
-}
-
-.fa-palette:hover {
-  color: #4c4b4b;
 }
 
 .fa-truck:hover {

@@ -47,7 +47,11 @@ ModelUsuarios.Save = function (post, callback) {
                 const instancia = new MyModel
                 instancia.Cedula = parseInt(post.Cedula)
                 instancia.Name =  post.Name
+                instancia.LastName= post.LastName,
                 instancia.Email = post.Email.toLowerCase()
+                instancia.Age= parseInt(post.Age),
+                instancia.Phone= parseInt(post.Phone),
+                instancia.Address= post.Address,
                 instancia.Rol = post.Rol
                 instancia.save((err,created) =>{
                     if(err){

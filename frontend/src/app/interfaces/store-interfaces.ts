@@ -18,6 +18,7 @@ export interface Users {
   Name: string;
   LastName?: string;
   Email: string;
+  State?: number;
   Password?: string;
   Age?: string;
   Address?: string;
@@ -39,13 +40,12 @@ export interface Products {
 }
 
 export interface Market {
-  _id?:any
-  User_id?: any;
-  Product_id?: any;
-  Quantity?: string|number;
-
-}
-
+  _id:any
+  User_id: any;
+  Product_id: any;
+  Quantity: string|number;
+  Products: Products
+  }
 
 export function NamesFormat(word: string | undefined) {
   if (typeof word == undefined || typeof word == null || word == "") {
