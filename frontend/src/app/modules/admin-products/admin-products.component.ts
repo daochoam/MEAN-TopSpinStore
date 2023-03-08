@@ -1,14 +1,16 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-
 import { MessagesService } from 'src/app/services/Messages/messages.service';
 import { RequestProductsService } from 'src/app/services/RequestProducts/request-products.service';
 
-import { Products, Category, NamesFormat } from 'src/app/interfaces/store-interfaces';
+import { Products, Category, NamesFormat, Color } from 'src/app/interfaces/store-interfaces';
 import { RequestCategoryService } from 'src/app/services/RequestCategory/request-category.service';
+import { PeticionService } from 'src/app/services/Peticion/peticion.service';
 
 declare var $: any;
 const numCharacters: number = 300
+const cpath: string ='/imagenproductos'
+
 @Component({
   selector: 'app-admin-products',
   templateUrl: './admin-products.component.html',
@@ -18,7 +20,6 @@ const numCharacters: number = 300
 export class AdminProductsComponent implements OnInit {
 
   counts: number = numCharacters;
-  Category: any[] = [];
   /**  DECLARACIÓN DE VARIABLES  */
   Id: string = "";
   Codigo: string = "";
@@ -28,12 +29,21 @@ export class AdminProductsComponent implements OnInit {
   Cantidad: string = "";
   Categoria: Category["Code"] = "";
   Descripcion: string = "";
-  ListProducts!: [Products];
-  ListCategory!: [Category];
+  ListProducts: [Products] = [{Codigo: "", Nombre: "", Precio: "", Cantidad: ""}];
+  ListCategory: [Category] = [{Code: "", Name: ""}];
+  
+  /**   PATH IMAGE  **/
+  destino: any= this.peticion.urlLocal;
+  path: string = ""
 
-  constructor(public RequestCategory: RequestCategoryService,
+  
+
+  constructor(private peticion:PeticionService,
+    public RequestCategory: RequestCategoryService,
     public RequestProduct: RequestProductsService,
     private Message: MessagesService,) { }
+
+
 
   ngOnInit(): void {
     this.LoadAllCategories()
@@ -55,14 +65,14 @@ export class AdminProductsComponent implements OnInit {
 
   /*************** BUTTON NUEVO *****************/
   Nuevo() {
+    this.Id = ""
     this.Codigo = ""
     this.Nombre = ""
-    this.FechaV = ""
     this.Precio = ""
     this.Cantidad = ""
     this.Categoria = ""
+    this.FechaV = ""
     this.Descripcion = ""
-    this.Id = ""
     this.counts = numCharacters;
   }
 
@@ -80,12 +90,12 @@ export class AdminProductsComponent implements OnInit {
   LoadAllProducts() {
     this.RequestProduct.LoadAllProducts().then((Response: any) => {
       this.ListProducts = Response.data
-      console.log(this.ListProducts)
     })
   }
 
   LoadById(Id: string) {
     this.Id = Id
+    console.log(this.path)
     this.RequestProduct.LoadById(Id)
       .then((Response: any) => {
         if (Response.state == true) {
@@ -93,7 +103,10 @@ export class AdminProductsComponent implements OnInit {
           this.Nombre = Response.data.Nombre
           this.Cantidad = Response.data.Cantidad
           this.Precio = Response.data.Precio
+          this.path = cpath + '/' + this.Id
+          console.log(this.path)
           if (Response.data.Categoria != undefined) { this.Categoria = Response.data.Categoria }
+          if (Response.data.FechaV != undefined) { this.FechaV = Response.data.FechaV }
           if (Response.data.Descripcion != undefined) { this.Descripcion = Response.data.Descripcion }
           $('#modaldatos').modal('show')
         } else {
@@ -110,6 +123,7 @@ export class AdminProductsComponent implements OnInit {
       Precio: this.Precio,
       Cantidad: this.Cantidad,
       Categoria: this.Categoria,
+      FechaV: this.FechaV,
       Descripcion: this.Descripcion,
     }).then((Response: any) => {
       if (Response.state == true) {
@@ -133,6 +147,7 @@ export class AdminProductsComponent implements OnInit {
       Precio: this.Precio.toString(),
       Cantidad: this.Cantidad.toString(),
       Categoria: this.Categoria,
+      FechaV: this.FechaV,
       Descripcion: this.Descripcion
     }).then((Response: any) => {
       if (Response.state == true) {

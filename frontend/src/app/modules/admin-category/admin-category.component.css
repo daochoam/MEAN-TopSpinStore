@@ -1,32 +1,63 @@
 .ventanaflotante {
   position: absolute;
+  display: flex;
+  flex-direction: row;
   background: whitesmoke;
-  top: 50px;
-  left: 184px;
-  width: calc(98% - 175px);
-  height: calc(100vh - 60px);
-  padding: 10px 10px 10px 10px;
+  top: 75px;
+  left: 190px;
+  height: auto;
+  width: calc(98% - 170px);
+  padding: 5px 5px 5px 5px;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
-thead{
-  font-size: 20px;
-  background-color: #145d64;
-  color:white;
-  border-bottom: 5px solid #000c1e;
+.info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: baseline;
+  max-height: 780px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+.button {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .new {
   width: 50px;
   height: 50px;
-  background: #145d64;
+  background:#145d64;
   text-align: center;
   padding-top: 13px;
   border-radius: 50%;
   color: white;
-  position: absolute;
-  bottom: 32px;
+  bottom: 50px;
   right: 30px;
   cursor: pointer;
+  transition: 0.2s ease-in-out;
 }
+
+.new:hover{
+  transform: scale(1.1);
+  background: rgb(30, 57, 2);
+}
+
+thead{
+  position: sticky;
+  top: 0;
+  font-size: 20px;
+  background-color:#145d64;
+  color:white;
+  border-bottom: 5px solid #000c1e;
+}
+
 .imgproductos{
     width: 60px;
     height: 60px;
@@ -84,7 +115,7 @@ thead{
 .CountChar {
   display: flex;
   width: 100%;
-  color: #01398d;
+  color:#145d64;
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
@@ -96,3 +127,24 @@ thead{
   max-height:10rem;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 8px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #145d64;
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background:#145d64;
+}

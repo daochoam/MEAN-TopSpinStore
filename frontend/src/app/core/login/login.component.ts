@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserSession } from 'src/app/interfaces/store-interfaces';
 import { MessagesService } from 'src/app/services/Messages/messages.service';
 import { RequestUsersService } from 'src/app/services/RequestUsers/request-users.service';
 import { SwitchService } from 'src/app/services/Switches/switch.service';
@@ -12,7 +13,8 @@ declare var $: any;
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  RegisterState!: Boolean;
+  RegisterState: Boolean = false;
+
   /*  LOGIN FORM MESSAGES */
   msn_Register: string = ""
   /*  INPUT FIELDS */
@@ -22,11 +24,12 @@ export class LoginComponent implements OnInit {
   msn_Email: string = ""
   msn_Password: string = ""
   /**/
+  UserSession: [UserSession] = [{_id:"", Name: ""}]
 
   constructor(
     // Services Calls
     private router: Router,
-    private RegSwitch: SwitchService,
+    private LoginSwitch: SwitchService,
     private RequestUsers: RequestUsersService,
     private Messages: MessagesService,
     private Validate: ValidateUserService,
@@ -34,13 +37,13 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.RegSwitch.$LookUpRegister.subscribe((req) => this.RegisterState = req)
+    this.LoginSwitch.$LookUpRegister.subscribe((req) => this.RegisterState = req)
   }
 
   /* OPEN REGISTER FORM */
   OpenRegister(): void {
     this.RegisterState = true;
-  }
+    }
 
   /* CLEAR FIELDS */
   ClearFields(): void {
@@ -60,20 +63,26 @@ export class LoginComponent implements OnInit {
       this.RequestUsers.Login({ Email: this.Email, Password: this.Password }).then((respuesta: any) => {
         if (respuesta.state == true) {
           this.Messages.load('success', respuesta.mensaje, 5000)
-          this.router.navigate(['/admin'])
-        }
+          this.router.navigate([])}
         else {
-          this.Messages.load('danger', respuesta.mensaje, 5000)
-        }
+          this.Messages.load('danger', respuesta.mensaje, 5000)}
       })
+      this.LoginSwitch.$LookUpLogin.emit(false)
     }
   }
 
   VerCookies() {
-    this.RequestUsers.ViewCookie().then(
-      (respuesta: any) => {
-        console.log(respuesta)
+    this.RequestUsers.ViewCookie().then((response:any) =>{
+      if(response.state==true){
+        this.UserSession=[{
+          _id:response.clave._id,
+          Name:response.clave.Name,
+          Rol: response.clave.Rol
+        }]
+      }else{
+        this.UserSession=[{  _id: undefined,  Name: undefined,  Rol: undefined}]
       }
-    )
+    })
   }
+
 }

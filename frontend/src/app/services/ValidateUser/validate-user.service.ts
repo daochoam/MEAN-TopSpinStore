@@ -80,7 +80,15 @@ export class ValidateUserService {
       SpecialCharacters: /[!-/:-@\[-`\{-~¿¡°]/,
       // Acent Characters:
       AcentCharacters: /[À-ÿ]/,
+    },
+    CreditCard:{
+      VISA : /^4[0-9]{3}-?[0-9]{4}-?[0-9]{4}-?[0-9]{4}$/,
+      MASTERCARD : /^5[1-5][0-9]{2}-?[0-9]{4}-?[0-9]{4}-?[0-9]{4}$/,
+      AMEX : /^3[47][0-9-]{16}$/,
+      CABAL : /^(6042|6043|6044|6045|6046|5896){4}[0-9]{12}$/,
+      NARANJA :   /^(589562|402917|402918|527571|527572|0377798|0377799)[0-9]*$/,
     }
+
   }
 
   /*****************************************************************************************/
@@ -104,12 +112,12 @@ export class ValidateUserService {
     }
     else {
       if (!this.Form.CC.Numbers.test(Id.trim()) == true) {
-        msn += "The ID number contain non-numeric characters."
+        msn += "Remove non-Numeric characters."
       }
 
       if (this.Form.CC.Numbers.test(Id.trim()) == true && (8 > Id.trim().length || Id.trim().length > 12)) {
         if (msn != "") { msn += "\n" }
-        msn += "The ID number must contain 8 to 12 digits."
+        msn += "Write 8 to 20 numerical digits."
       }
     }
     if (msn == "") {
@@ -139,7 +147,7 @@ export class ValidateUserService {
     else {
       // The field contain many spaces between names.
       if (this.Form.Name.MultiSpace.test(Name.trim()) == true) {
-        msn += `The ${Type} contain many spaces between names.`
+        msn += `Delete multi-spaces between ${Type}s.`
       }
 
       // The field must not contain numbers.
@@ -151,19 +159,19 @@ export class ValidateUserService {
       // The field must not contain name(s) of more than 15 characters.
       if (Math.max(...Name.trim().split(' ').map(p => p.length)) > 15) {
         if (msn != "") { msn += "\n" }
-        msn += `The ${Type} contain at least a word of more than 15 characters.`
+        msn += `Delete words longer than 15 characters.`
       }
 
       // The field must not contain name(s) of less than 3 characters.
       if (Math.min(...Name.trim().split(' ').map(p => p.length)) < 3) {
         if (msn != "") { msn += "\n" }
-        msn += `The ${Type} contain at least a word of less than 3 characters.`
+        msn += `Remove words of less than 3 characters`
       }
 
       // The name must not contain special characters..
       if (this.Form.Name.SpecialCharacters.test(Name.trim()) == true) {
         if (msn != "") { msn += "\n" }
-        msn += `The ${Type} contain special characters.`
+        msn += `Remove special characters from the ${Type}.`
       }
     }
 
@@ -201,41 +209,41 @@ export class ValidateUserService {
         // The email must contain @ symbol.
         if (Email.match(this.Form.Email.Symbol)?.length != 1) {
           if (msn != "") { msn += "\n" }
-          msn += "The Email must contain one @ symbol."
+          msn += "Add only one @ symbol."
         }
 
         // Only the use of '._-@' is supported..
         if (this.Form.Email.SpecialCharacters.test(Email.trim()) == true) {
-          msn += "The username email only supports '._-' characters."
+          msn += "Username email only supports '._-' characters."
         }
 
         // The email contain spaces.
         if (this.Form.Email.Spaces.test(Email.trim()) == true) {
           if (msn != "") { msn += "\n" }
-          msn += "The Email musn't contain spaces."
+          msn += "Remove spaces."
         }
 
         // Only the use of '._-@' is supported..
         if (this.Form.Email.CapitaLetter.test(Email.trim()) == true) {
-          msn += "The mustn't contain capital letters."
+          msn += "Remove capital letters."
         }
 
         // The email must not start with a special characters.
         if (this.Form.Email.InitSCharacter.test(Email.trim()) == true) {
           if (msn != "") { msn += "\n" }
-          msn += "The Email musn't start with a special character."
+          msn += "Remove special characters at start."
         }
 
         // The email must not end with a period.
         if (this.Form.Email.CharArroba.test(Email.trim()) == true) {
           if (msn != "") { msn += "\n" }
-          msn += "The Email musn't end with special characters."
+          msn += "remove special characters at end."
         }
 
         // The email must not start with a special characters.
         if (this.Form.Email.MultiSCharacter.test(Email.trim()) == true) {
           if (msn != "") { msn += "\n" }
-          msn += "The Email musn't contain consecutive special characters."
+          msn += "Remove consecutive special characters."
         }
       }}
     if (msn == "") {
@@ -271,43 +279,43 @@ export class ValidateUserService {
       else if (Validate=='Save'){
       // The field contain spaces.
       if (this.Form.Password.Spaces.test(Password.trim()) == true) {
-        msn += "The Password mustn't contain spaces.";
+        msn += "Remove spaces.";
       }
 
       // The field contain acent characters.
       if (8 > Password.trim().length || Password.trim().length > 20) {
         if (msn != "") { msn += "\n" }
-        msn += "The Password mustn't contain 8 to 20 characters.";
+        msn += "Write 8 to 20 characters.";
       }
 
       // The field contain acent characters.
       if (this.Form.Password.AcentCharacters.test(Password.trim()) == true) {
         if (msn != "") { msn += "\n" }
-        msn += "The Password mustn't contain acent characters.";
+        msn += "Remove acent characters.";
       }
 
       // The field contain 1 capial letter.
       if (this.Form.Password.CapitaLetter.test(Password.trim()) == false) {
         if (msn != "") { msn += "\n" }
-        msn += "The Password must contain at least 1 capital letter."
+        msn += "Add at least 1 capital letter."
       }
 
       // The field contain 1 lowercase letter.
       if (this.Form.Password.LowercaseLetter.test(Password.trim()) == false) {
         if (msn != "") { msn += "\n" }
-        msn += "The Password must contain at least 1 lowercase letter."
+        msn += "Add at least 1 lowercase letter."
       }
 
       // The field contain 1 number.
       if (this.Form.Password.Numbers.test(Password.trim()) == false) {
         if (msn != "") { msn += "\n" }
-        msn += "The Password must contain at least 1 number."
+        msn += "Add at least 1 number."
       }
 
       // The field contain 1 special character.
       if (this.Form.Password.SpecialCharacters.test(Password.trim()) == false) {
         if (msn != "") { msn += "\n" }
-        msn += "The Password must contain at least 1 special character."
+        msn += "Add at least 1 special character."
       }
     }}
 
@@ -361,18 +369,12 @@ export class ValidateUserService {
     }
     else {
       if (!this.Form.Phone.Numbers.test(Phone.trim()) == true) {
-        msn += "TThe Phone mustn't contain non-numeric characters."
+        msn += "Remove non-Numeric characters."
       }
 
-      if (this.Form.Phone.Numbers.test(Phone.trim()) == true && (Phone.trim().length != 10)) {
+      if (this.Form.Phone.Numbers.test(Phone.trim()) == true && (7 >= Phone.trim().length ||  Phone.trim().length <= 15)) {
         if (msn != "") { msn += "\n" }
-        msn += "TThe Phone must contain 10 digits."
-      }
-
-
-      if (this.Form.Phone.PhoneCol.test(Phone.trim()) == false) {
-        if (msn != "") { msn += "\n" }
-        msn += "The number entered doesn't contain a valid phone number in Colombia."
+        msn += "Write 7 to 20 numerical digits."
       }
     }
 

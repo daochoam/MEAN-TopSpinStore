@@ -1,6 +1,8 @@
 var ModelProductos = require(__dirname + '/../modelos/modelproductos.js').productos
 var ProductosController = {}
 
+var FechaActual = new Date()
+
 /**************************************************************/
 /******************           CREATE         ******************/
 /******************            Save          ******************/
@@ -11,6 +13,8 @@ ProductosController.Save = function(request, response){
         Cantidad:request.body.Cantidad.trim(),
         Precio:request.body.Precio.trim(),
         Categoria:request.body.Categoria,
+        Color: request.body.Color,
+        Poster: request.body.Poster,
         Descripcion:request.body.Descripcion
     }
 
@@ -57,7 +61,7 @@ ProductosController.Save = function(request, response){
             response.json({state:true,mensaje:"Se guardo correctamente"})
         }
         else{
-            response.json({state:false,mensaje:"El codigo ya existe"})
+            response.json({state:false,mensaje:respuesta.message});
         }
     })
 
@@ -114,48 +118,20 @@ ProductosController.LoadByCode = function(request, response){
     })
 }
 
-ProductosController.LoadByCategory = function(request, response){
-    var post = {
-        Categoria:request.body.Categoria.trim(),
-    }
-
-    if (post.Categoria ==  "" || post.Categoria == undefined || post.Categoria == null){
-        response.json({state:false,mensaje:"El campo Categoria es obligatorio"})
-        return false
-    }
-
-    
-    ModelProductos.LoadByCategory(post,function(respuesta){
-        if(respuesta.state == true){
-            response.json({state:respuesta.state ,data:respuesta.data})
-        }
-        else{
-            response.json({state:false,mensaje:"La categoria no existe"})
-        }
-    })
-}
-
 /**************************************************************/
 /******************        UPDATE            ******************/
 /******************     Update By Id         ******************/
 ProductosController.UpdateById = function(request, response){
     var post = {
-        _id:request.body._id.trim(),
-        Codigo:request.body.Codigo.trim(),
+        _id: request.body._id,
+        Codigo: request.body.Codigo,
         Nombre:request.body.Nombre.trim(),
         Cantidad:request.body.Cantidad.trim(),
         Precio:request.body.Precio.trim(),
-        Categoria:request.body.Categoria.trim()
-    }
-
-    if (post._id ==  "" || post._id == undefined || post._id == null){
-        response.json({state:false,mensaje:"El campo codigo es obligatorio"})
-        return false
-    }
-
-    if (post.Codigo ==  "" || post.Codigo == undefined || post.Codigo == null){
-        response.json({state:false,mensaje:"El campo codigo es obligatorio"})
-        return false
+        Categoria:request.body.Categoria,
+        Color: request.body.Color,
+        Poster: request.body.Poster,
+        Descripcion:request.body.Descripcion
     }
     
     if (post.Nombre ==  "" || post.Nombre == undefined || post.Nombre == null){
@@ -189,13 +165,13 @@ ProductosController.UpdateById = function(request, response){
         return false
     }
     console.log(post)
-    ModelProductos.UpdateById(post, function(respuesta){
-        console.log(respuesta)
-        if(respuesta.state == true){
-            response.json({state:true,mensaje:"se actualizó correctamente"})
+    ModelProductos.UpdateById(post, function(res){
+        console.log(res)
+        if(res.state == true){
+            response.json({state:true,mensaje:res.message})
         }
         else{
-            response.json({state:false,mensaje:"El codigo no exixte"})
+            response.json({state:false,mensaje:res.message})
         }
     })
 

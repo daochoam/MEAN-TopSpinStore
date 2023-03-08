@@ -1,13 +1,14 @@
 .Form {
   position: relative;
   width: 325px;
-  height: 270px;
+  min-height: 270px;
+  max-height: 320px;
   background: var(--app-backgrond);
   border-radius: 0% 0% 0% 10%;
   padding: 2% 2% 2% 2%;
   margin: 0px 3px 0 0;
   z-index: 10;
-  animation: open_slide 0.15s;
+  animation: open_slide 0.3s;
 }
 
 .btn-text{
@@ -50,7 +51,7 @@
   }
 
   to {
-      height: 260px;
+      height: 270px;
   }
 
 }

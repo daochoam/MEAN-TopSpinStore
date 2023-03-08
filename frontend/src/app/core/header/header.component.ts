@@ -1,6 +1,8 @@
-import { Component,OnInit } from '@angular/core';
-import { Category } from 'src/app/interfaces/store-interfaces';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Category, UserSession } from 'src/app/interfaces/store-interfaces';
 import { RequestCategoryService } from 'src/app/services/RequestCategory/request-category.service';
+import { RequestUsersService } from 'src/app/services/RequestUsers/request-users.service';
 import { SwitchService } from 'src/app/services/Switches/switch.service';
 
 @Component({
@@ -9,14 +11,25 @@ import { SwitchService } from 'src/app/services/Switches/switch.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  ListCategory!: [Category];
-  loginState:Boolean = false;
+  /**  DECLARACIÓN DE VARIABLES  */
+  LoginState: boolean = false;
+  LoggedIn: boolean = false;
 
-  constructor ( public RequestCategory: RequestCategoryService,
-                private LookMenu:SwitchService){}
-  ngOnInit(): void {
+  ListCategory: [Category] = [{ Code: "", Name: "" }];
+  UserSession: [UserSession] = [{ _id: "", Name: "" }]
+
+
+  constructor(private router: Router,
+    public RequestCategory: RequestCategoryService,
+    public RequestUser: RequestUsersService,
+    private LoginSwitch: SwitchService) { }
+
+  ngOnInit() {
     this.LoadAllCategories()
+    this.LoginSwitch.$LookUpLogin.subscribe((req) => this.LoginState = req)
+    this.LoginSwitch.$LookUpLoggedIn.subscribe((req) => this.LoggedIn = req)
   }
+
 
   LoadAllCategories() {
     this.RequestCategory.LoadAllCategory().then((Response: any) => {
@@ -24,30 +37,67 @@ export class HeaderComponent implements OnInit {
     })
   }
 
-  ActiveMenu(Menu:string='Home'){
+  ActiveMenu(Menu: string = 'Home') {
 
   }
 
   /* Hide dropdown when another dropdown is activated */
-  LoginShow():void{
-    this.loginState=!this.loginState
+  LoginShow(): void {
+    this.VerCookies()
+    console.log(this.UserSession)
+    console.log(this.LoginState)
+    console.log(this.LoggedIn)
+    if (this.UserSession[0]._id == "" || this.UserSession[0]._id == undefined || this.UserSession[0]._id == null) {
+      if (this.LoginState == false) { this.LoginState = true }
+      else if (this.LoginState == true) { this.LoginState = false }
+    } else if (this.UserSession[0]._id != "" || this.UserSession[0]._id == undefined || this.UserSession[0]._id == null) {
+      if (this.LoggedIn == false) { this.LoggedIn = true }
+      else if (this.LoggedIn == true) { this.LoggedIn = false }
+    }
     /* Minimize the header when activating the Login */
     let navDisplay: HTMLElement = document.getElementsByClassName('navbar-toggler')[0] as HTMLElement;
-    if ( navDisplay.getAttribute('aria-expanded') == 'true') {
+    if (navDisplay.getAttribute('aria-expanded') == 'true') {
+      navDisplay.click();
+    };
+  }
+
+  NavShow(): void {
+    /* Minimize the header when activating the Login */
+    let navDisplay: HTMLElement = document.getElementsByClassName('navbar-toggler')[0] as HTMLElement;
+    if (navDisplay.getAttribute('aria-expanded') == 'true') {
+      if (this.UserSession[0]._id == "" || this.UserSession[0]._id == undefined || this.UserSession[0]._id == null) {
+        this.LoginState = false
+      }
+      else if (this.UserSession[0]._id != "" || this.UserSession[0]._id != undefined || this.UserSession[0]._id != null) {
+        this.LoggedIn = false
+      }
       navDisplay.click();
     }
   }
 
-  NavShow():void{
-    /* Minimize the header when activating the Login */
-    let navDisplay: HTMLElement = document.getElementsByClassName('navbar-toggler')[0] as HTMLElement;
-    if ( navDisplay.getAttribute('aria-expanded') == 'true') {
-      navDisplay.click();
-      this.loginState=false;
+  PrivateZone() {
+    this.VerCookies()
+    if (this.UserSession[0]._id != "" || this.UserSession[0]._id == undefined || this.UserSession[0]._id == null) {
+      this.LoggedIn = false
+      if (this.UserSession[0].Rol == 1) { this.router.navigate(['admin']) }
+      else if (this.UserSession[0].Rol == 2) { this.router.navigate(['user']) }
     }
   }
 
-  PrivateZone():void {
+
+
+  VerCookies() {
+    this.RequestUser.ViewCookie().then((response: any) => {
+      if (response.state == true) {
+        this.UserSession = [{
+          _id: response.clave._id,
+          Name: response.clave.Name,
+          Rol: response.clave.Rol
+        }]
+      } else {
+        this.UserSession = [{ _id: undefined, Name: undefined, Rol: undefined }]
+      }
+    })
   }
 
 }

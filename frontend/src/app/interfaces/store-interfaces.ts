@@ -1,9 +1,21 @@
 export type maritalStatus = 'Soltero(a)' | 'Casado(a)' | 'Separado(a)' | 'Divorciado(a)' | 'Union Libre' | 'Viudo(a)' | ''
 
+export interface UserSession {
+  _id: any|undefined;
+  Name: string|undefined;
+  Rol?: string|number|undefined;
+}
 export interface Category {
   _id?: any;
   Code: string;
   Name: string;
+}
+
+export interface Color {
+  _id?: any;
+  Code: string;
+  Name: string;
+  Value: string;
 }
 
 export interface Users {
@@ -29,8 +41,8 @@ export interface Products {
   Poster?: string;
   Categoria?: string;
   Color?: string;
-  Descripcion?: string;
   FechaV?: string;
+  Descripcion?: string;
 }
 
 export function NamesFormat(word: string | undefined) {

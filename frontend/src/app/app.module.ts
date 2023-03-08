@@ -11,6 +11,7 @@ import { InterceptorInterceptor } from './Interceptors/interceptor.interceptor';
 
 // Angular Material
 import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 // Modules Components
 import { HomeComponent } from './modules/home/home.component';
@@ -34,6 +35,8 @@ import { DetallesComponent } from './core/detalles/detalles.component';
 import { LocationComponent } from './core/location/location.component';
 import { AdminCategoryComponent } from './modules/admin-category/admin-category.component';
 import { UploadfilesComponent } from './core/uploadfiles/uploadfiles.component';
+import { UserPayComponent } from './modules/user-pay/user-pay.component';
+import { UserShopComponent } from './modules/user-shop/user-shop.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +63,8 @@ import { UploadfilesComponent } from './core/uploadfiles/uploadfiles.component';
     DetallesComponent,
     AdminCategoryComponent,
     UploadfilesComponent,
+    UserPayComponent,
+    UserShopComponent,
 
   ],
   imports: [
@@ -69,7 +74,8 @@ import { UploadfilesComponent } from './core/uploadfiles/uploadfiles.component';
     BrowserAnimationsModule,
     GoogleMapsModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

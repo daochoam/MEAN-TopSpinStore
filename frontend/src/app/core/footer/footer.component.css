@@ -1,6 +1,9 @@
 footer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   align-self: flex-end;
-  min-height: 200px;
+  min-height: 180px;
   width: 100%;
   color: rgba(155, 155, 155, 0.727);
   background: var(--app-backgrond);

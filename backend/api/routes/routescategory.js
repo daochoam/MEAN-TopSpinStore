@@ -1,4 +1,4 @@
-var CategoryController = require(__dirname + '/../api/controladores/categorycontroller').category
+var CategoryController = require(__dirname + '/../controladores/categorycontroller').category
 
 /**     SAVE Category  */
 app.post("/Category/Save", function(request, response){

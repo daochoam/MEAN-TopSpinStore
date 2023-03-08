@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserSession } from 'src/app/interfaces/store-interfaces';
 import { RequestUsersService } from 'src/app/services/RequestUsers/request-users.service';
+import { SwitchService } from 'src/app/services/Switches/switch.service';
 
 
 @Component({
@@ -9,32 +11,29 @@ import { RequestUsersService } from 'src/app/services/RequestUsers/request-users
   styleUrls: ['./menu-lateral.component.css']
 })
 export class MenuLateralComponent implements OnInit {
+  LoginState:Boolean = false;
+  UserSession: [UserSession] = [{_id:"", Name: ""}]
   DatosMenu: any[] = [];
 
   constructor(private Router: Router,
-    private RequestUser: RequestUsersService) { }
+              private RequestUser: RequestUsersService,
+              private LoginSwitch:SwitchService){}
 
-  ngOnInit(): void {
+  ngOnInit(){
+    this.LoginSwitch.$LookUpLoggedIn.subscribe((req) => this.LoginState = req)
+    this.UserSession = this.RequestUser.UserLoggedIn
     this.LoadMenuBackend()
   }
-  AdminMenu = [
-    { nombre: 'Users', destino: 'users', icon: "user" },
-    { nombre: 'Categories', destino: 'category', icon: "truck" },
-    { nombre: 'Products', destino: 'products', icon: "shop" },
-  ]
 
   LoadMenuBackend() {
     this.RequestUser.NavigatePermit().then(
       (Response: any) => {
-        this.DatosMenu = Response.datos
+        this.DatosMenu = Response.Data.MenuRol
       })
   }
 
-  CerrarSesion() {
-    this.RequestUser.CloseSession().then(
-      (respuesta: any) => {
-        this.Router.navigate(['/'])
-      })
+  LoginPrivateZoneShow():void{
+    this.LoginState = !this.LoginState;
   }
 
 }

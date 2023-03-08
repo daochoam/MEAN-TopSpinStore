@@ -14,7 +14,7 @@ export class AdminCategoryComponent implements OnInit {
   Id: string = "";
   Code: string = "";
   Name: string = "";
-  ListCategory!: [Category];
+  ListCategory: [Category] = [{Code: "", Name: ""}];
 
 
   constructor(public RequestCategory: RequestCategoryService,

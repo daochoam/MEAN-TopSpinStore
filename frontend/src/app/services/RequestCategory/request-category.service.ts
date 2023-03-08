@@ -12,7 +12,7 @@ export class RequestCategoryService {
 
   constructor(private Peticion: PeticionService, private Message: MessagesService) { }
 
-  /*********************************  SAVE USERS  **********************************/
+  /*********************************  SAVE CATEGORY  **********************************/
   CategorySave(Payload:Category) {
     var Post = {
       Host: this.Peticion.urlLocal,
@@ -22,7 +22,7 @@ export class RequestCategoryService {
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
-  /*********************************  LOAD USERS  **********************************/
+  /*********************************  LOAD CATEGORY  **********************************/
   LoadAllCategory() {
     var Post = {
       Host: this.Peticion.urlLocal,
@@ -41,7 +41,7 @@ export class RequestCategoryService {
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
-  /*********************************  UPDATE USERS  **********************************/
+  /*********************************  UPDATE CATEGORY  **********************************/
   UpdateById(Payload:Category) {
     var Post = {
       Host: this.Peticion.urlLocal,
@@ -52,7 +52,7 @@ export class RequestCategoryService {
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
-  /*********************************  DELETE USERS  **********************************/
+  /*********************************  DELETE CATEGORY  **********************************/
   DeleteById(_id: string) {
     var Post = {
       Host: this.Peticion.urlLocal,

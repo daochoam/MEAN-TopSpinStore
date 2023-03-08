@@ -1,5 +1,4 @@
 var ModelUsuarios = {}
-const { response } = require('express');
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 //var trimStart = require('string.prototype.trimstart')
@@ -26,13 +25,46 @@ var UsuariosSchema = new Schema({
     Age: Number | null,
     Phone: Number | null,
     Address: String,
-    Credicards: []
+    Estado:Number,
+    Codigo:String,
+    Credicards:{type: mongoose.Schema.Types.ObjectId, ref: 'CreditCard'},
 })
 
 const MyModel = mongoose.model('Users', UsuariosSchema)
 
 /**************************************************************/
 /******************           CREATE         ******************/
+ModelUsuarios.Save = function (post, callback) {
+    MyModel.find({Email:post.Email.toLowerCase()}, {}, (error, documentos) => {
+        if (documentos.length > 0) {
+            return callback({ state: false, data: error })
+        }
+        MyModel.find({ Cedula: post.Cedula }, {}, (error, documentos) => {
+            if (documentos.length > 0) {
+                return callback({ state: false, data: error })
+            }
+            else {
+                const instancia = new MyModel
+                instancia.Cedula = parseInt(post.Cedula)
+                instancia.Name =  post.Name
+                instancia.Email = post.Email.toLowerCase()
+                instancia.Rol = post.Rol
+                instancia.save((err,created) =>{
+                    if(err){
+                        return callback({state:false,data:err})
+                    }
+                    else{
+                        return callback({state:true})
+                    }
+                })
+            }
+
+        })
+    })
+}
+
+
+/******************           Register         ******************/
 ModelUsuarios.Register = function (post, callback) {
     MyModel.find({Email:post.Email.toLowerCase()}, {}, (error, documentos) => {
         if (documentos.length > 0) {
@@ -48,7 +80,9 @@ ModelUsuarios.Register = function (post, callback) {
                 instancia.Name =  post.Name
                 instancia.Email = post.Email.toLowerCase()
                 instancia.Password = post.Password
-                instancia.Rol = '2'
+                instancia.Rol = "2"
+                instancia.Estado = "0"
+                instancia.Codigo = post.Codigo
                 instancia.save((err,created) =>{
                     if(err){
                         return callback({state:false,data:err})
@@ -199,6 +233,49 @@ ModelUsuarios.DeleteById = function(post, callback){
         }
         else {
             return callback({ state: true })
+        }
+    })
+}
+
+
+
+
+/******************************************************************************************/
+/************************Validacion de activacion por email *******************************/
+
+ModelUsuarios.ValidarEstado = function(post,callback) {
+    MyModel.find({Email:post.Email},{Estado:1},(error, documentos) =>{
+        if(error){
+            return callback({state:false, data:error})
+        }else{
+            return callback({state:true, data:documentos})
+        }
+    })
+}
+
+
+ModelUsuarios.Activar = function(post,callback) {
+    MyModel.find({Email:post.Email, Codigo:post.Codigo},{Estado:1},(error, documentos) =>{
+        if(error){
+            return callback({state:false, data:error})
+        }else{
+            return callback({state:true, data:documentos})
+        }
+    
+    })
+}
+
+ModelUsuarios.ActualizarEstado = function(post, callback){
+    
+    MyModel.findByIdAndUpdate(post.id,{
+        Estado:1,
+    },(error,doc)=>{
+        if (error) {
+            console.log(error)
+            return callback({state: false, mensaje: error })
+        }
+        else {
+            return callback({state: true })
         }
     })
 }

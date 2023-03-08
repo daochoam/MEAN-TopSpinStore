@@ -1,4 +1,4 @@
-var ProductosController = require(__dirname + '/../api/controladores/productoscontroller.js').productos
+var ProductosController = require(__dirname + '/../controladores/productoscontroller.js').productos
 
 /**     SAVE PRODUCTS  */
 app.post("/Products/Save", function(request, response){

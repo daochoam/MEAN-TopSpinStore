@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Users } from 'src/app/interfaces/store-interfaces';
+import { Users, UserSession } from 'src/app/interfaces/store-interfaces';
 import { MessagesService } from '../Messages/messages.service';
 import { PeticionService } from '../Peticion/peticion.service';
 
@@ -9,6 +9,7 @@ declare var $: any
   providedIn: 'root'
 })
 export class RequestUsersService {
+  UserLoggedIn: [UserSession] = [{_id: "", Name: ""}]
 
   constructor(private Peticion: PeticionService, private Message: MessagesService) { }
 
@@ -28,13 +29,7 @@ export class RequestUsersService {
       Path: '/Users/Register',
       Payload: Payload,
     }
-    this.Peticion.POST(Post.Host + Post.Path, Post.Payload).then((Response: any) => {
-      if (Response.state == true) {
-        this.Message.MessageOne(`Welcome ${Payload.Name}`, Response.mensaje, 'center', 'success', 2500)
-      } else {
-        this.Message.MessageOne('Oops...', Response.mensaje, 'center', 'error', 2500)
-      }
-    })
+    return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
   /*********************************  LOAD USERS  **********************************/

@@ -4,6 +4,7 @@ import { SwitchService } from 'src/app/services/Switches/switch.service';
 import { ValidateUserService } from 'src/app/services/ValidateUser/validate-user.service';
 
 import { NamesFormat } from 'src/app/interfaces/store-interfaces';
+import { MessagesService } from 'src/app/services/Messages/messages.service';
 
 declare var $: any;
 @Component({
@@ -33,6 +34,7 @@ export class RegisterComponent implements OnInit {
     // Services Calls
     private RegSwitch: SwitchService,
     private RequestUsers: RequestUsersService,
+    private Message:MessagesService,
     private Validate: ValidateUserService,
   ) { }
 
@@ -72,10 +74,17 @@ export class RegisterComponent implements OnInit {
         Name: NamesFormat(this.Name),
         Email: this.Email,
         Password: this.Password
+      }).then((Response: any) => {
+        if (Response.state == true) {
+          this.Message.MessageOne(`Welcome ${NamesFormat(this.Name)}`, Response.mensaje, 'center', 'success', 2500)
+          this.ClearFields();
+          this.RegSwitch.$LookUpRegister.emit(false)
+          this.RegSwitch.$LookUpLogin.emit(false)
+        } else {
+          this.Message.MessageOne('Oops...', Response.mensaje, 'center', 'error', 2500)
+          this.ClearFields();
+        }
       })
-      /** CLEAR FIELDS **/
-      this.ClearFields();
-      this.RegSwitch.$LookUpRegister.emit(false)
     }
   }
 }

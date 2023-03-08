@@ -65,6 +65,8 @@ app.listen(config.puerto, function(){
     console.log('Servidor funcionando por el puerto ' + config.puerto)
 })
 
-require(__dirname + '/../routes/routescategory.js')
-require(__dirname + '/../routes/routesusuarios.js')
-require(__dirname + '/../routes/routesproductos.js')
+require(__dirname + '/api/routes/routescategory')
+require(__dirname + '/api/routes/routesproductos')
+require(__dirname + '/api/routes/routesusuarios')
+require(__dirname + '/api/routes/routesmarket')
+require(__dirname + '/api/routes/routesimagenes.js')

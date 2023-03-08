@@ -1,21 +1,35 @@
 <div class="Form">
-  <div class="Form-Photo">
-      <div class="Top"><p class="Name">Name LastName</p></div>
-      <img class="Photo" src="/assets/Icons/avatar.svg">
-      <div class="icon" title="Change picture"><i class="fa-solid fa-table-tennis-paddle-ball fa-lg"></i></div>
-  </div>
-  <div class="Set-user">
-    <div class="Fields" *ngFor="let item of SetUser">
-      <a [title] = item.Title><i class="fa-solid fa-{{item.Icon}} fa-lg"></i></a>
-    </div>
-  </div>
-  <div class="Form-Info">
-    <div class="container">
-      <div class="Fields" *ngFor="let item of LoggedForm">
-        <a [title] = item.Title><i class="fa-solid fa-{{item.Icon}} fa-lg"></i>
-        <label [id]= item.Id  title="Password"></label></a>
+  <div  class="logged-header">
+    <div class="Form-Photo">
+      <div class="Top">
+        <p class="Name">{{ UserSession[0].Name }}</p>
+      </div>
+      <img class="Photo" src="/assets/Icons/avatar.svg" />
+      <div class="icon" title="Change picture">
+        <i class="fa-solid fa-table-tennis-paddle-ball fa-lg"></i>
       </div>
     </div>
   </div>
-    <div class="btn btn-1" title="Logout">Logout</div>
+  <div class="container">
+    <div class="Set-user">
+      <div class="Fields" *ngFor="let item of DataLoggedIn">
+        <span *ngIf="UserSession[0].Rol==2 || (UserSession[0].Rol==1 && item.Icon!='cart-shopping')">
+          <a [title]="item.Title">
+            <i class="fa-solid fa-{{ item.Icon }} fa-lg"></i>
+          </a>
+        </span>
+      </div>
+    </div>
+    <div class="Form-Info" *ngIf="UserSession[0].Rol==2">
+        <div class="Fields" *ngFor="let item of LoggedForm">
+          <a [title]="item.Title"
+            ><i class="fa-solid fa-{{ item.Icon }} fa-lg"></i>
+            <label title="{{item.Title}}">{{item.Data}}</label
+          ></a>
+        </div>
+    </div>
+  </div>
+  <div class="logged-footer">
+    <div class="btn btn-1" (click)="LogOut()" title="Logout">Logout</div>
+  </div>
 </div>

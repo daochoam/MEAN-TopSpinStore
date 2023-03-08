@@ -1,4 +1,5 @@
-<div class="ventanaflotante">
+<div class="row ventanaflotante">
+  <div class="info ">
   <table class="table table-striped table-hover">
     <thead>
       <tr>
@@ -32,10 +33,12 @@
       </tr>
     </tbody>
   </table>
-
-  <div class="new" title="Add User" (click)="OpenModal()">
-    <i class="fa-sharp fa-regular fa-plus fa-lg"></i>
-  </div>
+</div>
+<div class=" button">
+    <div class="new" title="Add User" (click)="OpenModal()">
+      <i class="fa-sharp fa-regular fa-plus fa-lg"></i>
+    </div>
+</div>
 </div>
 
 <div class="modal fade" id="modaldatos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -90,17 +93,6 @@
                 <label class="col-form-label">Age:</label>
                 <input class="form-control" title="Age" [(ngModel)]="Age" placeholder="Age" />
               </div>
-              <!-- <div class="Category form-group col-6 col-md-6">
-                  <mat-form-field appearance="fill">
-                    <mat-label>Marital Status:</mat-label>
-                    <mat-select [(ngModel)]="MaritalStatus" title="Marital Status" placeholder="Marital Status">
-                      <option label=" -- Marital Status -- "></option>
-                      <mat-option *ngFor="let item of MaritalS" [value]="item.value">
-                        {{item.value}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div> -->
             </div>
             <!-- PHONE -->
             <div class="form-group col-12 col-md-12">

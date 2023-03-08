@@ -18,8 +18,8 @@
   left: calc(50% - 160px);
   top: calc(50% - 400px);
   flex-direction: column;
-  width: 100%;
-  max-width: 370px;
+  min-width: 350px;
+  max-width: 420px;
   height: auto;
   justify-content: center;
   align-items: center;
@@ -30,6 +30,7 @@
   margin: 1% auto;
   padding: 0.5%;
   animation: fly 0.8s;
+  box-shadow: 1px 1px 1px 1px #fff;
 }
 
 .Form .Register .Reg-btns{
@@ -80,7 +81,7 @@
 .Warm{
   width: 100%;
   height: auto;
-  font-size: 110%;
+  font-size: 120%;
   border-color: #fff;
   color: rgb(225, 75, 75)
 }

@@ -2,14 +2,22 @@ var ModelUsuarios = require(__dirname + '/../modelos/modelusuarios.js').usuarios
 var UsuariosController = {}
 const emailValidator = require('email-validator')
 
+function Aleatorio(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
 /**************************************************************/
 /******************           CREATE         ******************/
 /******************          Save Users      ******************/
-UsuariosController.Save = function(request, response){
+UsuariosController.Save = function (request, response) {
     var post = {
-        Cedula:request.body.Cedula,
-        Name:request.body.Name.trim(),
-        Email:request.body.Email.trim(),
+        Cedula: request.body.Cedula,
+        Name: request.body.Name.trim(),
+        Email: request.body.Email.trim(),
+        Age: request.body.Age,
+        Phone: request.body.Phone,
+        Address: request.body.Address,
+        CreditCard: request.body.CreditCards_id,
     }
 
     /*Validacion campo cedula */
@@ -60,13 +68,13 @@ UsuariosController.Save = function(request, response){
         return false
     }
 
-    ModelUsuarios.Save(post, function(respuesta){
+    ModelUsuarios.Save(post, function (respuesta) {
         console.log(respuesta)
-        if(respuesta.state == true){
-            response.json({state:true,mensaje:"Se guardo correctamente"})
+        if (respuesta.state == true) {
+            response.json({ state: true, mensaje: "Se guardo correctamente" })
         }
-        else{
-            response.json({state:false,mensaje:"El codigo ya existe"})
+        else {
+            response.json({ state: false, mensaje: "El codigo ya existe" })
         }
     })
 
@@ -142,16 +150,100 @@ UsuariosController.Register = function (request, response) {
         return false
     }
 
-    ModelUsuarios.Register(post, function (respuesta) {
-        console.log(respuesta)
-        if (respuesta.state == true) {
-            response.json({ state: true, mensaje: "You have been successfully Registered" })
-        }
-        else {
-            response.json({ state: false, mensaje: "The Cedula or Email is already Registered" })
+    post.Codigo = Aleatorio(1000, 9999)
+
+     /*npm i nodemailer --save  paquete para envio de emails */
+    /*contraseña: ibqgyemzeipyvsyn*/
+const nodemailer = require('nodemailer')
+
+let transporter = nodemailer.createTransport({
+   host:"smtp.gmail.com", 
+   port:587,
+   secure:false,
+   requireTLS:true,
+   auth:{
+    user:"topspinstore2023@gmail.com",
+    pass:"ibqgyemzeipyvsyn"
+   },
+   tls: {
+    rejectUnauthorized:false
+   }
+})
+
+let mailOptions = {
+    from:"topspinstore2023@gmail.com",
+    to:post.Email,
+    subject:"Verifica tu cuenta codigo: " + post.Codigo,
+    html:"<div><a href='http://localhost:3000/Activar/"+post.Email+"/"+post.Codigo+"'>Click aqui para activar</a></div>",
+}
+
+transporter.sendMail(mailOptions,(error,info)=>{
+    if(error){
+        console.log(error,mensaje)
+        response.json({state:'error'})
+    }else{
+        ModelUsuarios.Register(post, function (respuesta) {
+            
+            if (respuesta.state == true) {
+                response.json({ state:true, mensaje: "You have been successfully Registered" })
+            }
+            else {
+                response.json({ state: false, mensaje: "The Cedula or Email is already Registered" })
+            }
+        })
+    }
+});
+
+    
+
+}
+
+/**************************************************************/
+/****************Activacion de cuenta por email****************/
+UsuariosController.Activar = function (request, response) {
+    var post = {
+        Email: request.params.Email,
+        Codigo: request.params.Codigo
+
+    }
+
+    if (post.Email == "" || post.Email == null || post.Email == undefined) {
+        response.json({ state: false, mensaje: "El campo email es obligatorio" })
+        return false
+    }
+
+    if (emailValidator.validate(post.Email) == false) {
+        response.json({ state: false, mensaje: "El campo Email no es correcto" })
+        return false
+    }
+
+    if (post.Codigo == "" || post.Codigo == null || post.Codigo == undefined) {
+        response.json({ state: false, mensaje: "El Codigo de activacion es obligatorio" })
+        return false
+    }
+
+    ModelUsuarios.Activar(post, function (verestado) {
+
+        if (verestado.data.length == 0) {
+            response.json({ state: false, mensaje: "El email o el codigo son invalidos" })
+
+        } else {
+            if (verestado.data[0].Estado == 1) {
+                response.json({ state: true, mensaje: "La cuenta ya fué activada" })
+            } else {
+                post.id = verestado.data[0]._id
+                ModelUsuarios.ActualizarEstado(post, function (res) {
+                    if (res.state == true) {
+                        response.send("<div>Cuenta activada correcyamente</div>")
+                    } else {
+                        response.json({ state: false, mensaje: "Se presento un error al activar" })
+                    }
+                })
+            }
         }
     })
 }
+
 
 /**************************************************************/
 /******************           READ           ******************/
@@ -173,17 +265,23 @@ UsuariosController.Login = function (request, response) {
         return false
     }
 
-    ModelUsuarios.Login(post, function (respuesta) {
-        console.log(respuesta)
-        if (respuesta.state == true) {
-            request.session._id = respuesta.data[0]._id
-            request.session.Name = respuesta.data[0].Name
-            request.session.Rol = respuesta.data[0].Rol
-            response.json({ state: true, mensaje: "Welcome" })
-        } else {
-            response.json({ state: false, mensaje: "Invalid email or password" })
-        }
-    })
+    ModelUsuarios.ValidarEstado(post, function (Estado) {
+        console.log(Estado)
+        if (Estado.data[0].Estado == 0) {
+            response.json({ state: false, mensaje: "Debe activar su cuenta por medio de su email " })
+        } else
+            ModelUsuarios.Login(post, function (respuesta) {
+                console.log(respuesta)
+                if (respuesta.state == true) {
+                    request.session._id = respuesta.data[0]._id
+                    request.session.Name = respuesta.data[0].Name
+                    request.session.Rol = respuesta.data[0].Rol
+                    response.json({ state: true, mensaje: "Welcome" })
+                } else {
+                    response.json({ state: false, mensaje: "Invalid email or password" })
+                }
+            })
+        })
 }
 
 /******************       Load All User      ******************/
