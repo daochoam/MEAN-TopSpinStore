@@ -31,14 +31,14 @@ export class AdminProductsComponent implements OnInit {
   Descripcion: string = "";
   ListProducts: [Products] = [{Codigo: "", Nombre: "", Precio: "", Cantidad: ""}];
   ListCategory: [Category] = [{Code: "", Name: ""}];
-  
+
   /**   PATH IMAGE  **/
-  destino: any= this.peticion.urlLocal;
+  destino: any= this.Peticion.urlLocal;
   path: string = "/imagenproductos"
 
-  
 
-  constructor(private peticion:PeticionService,
+
+  constructor(private Peticion:PeticionService,
     public RequestCategory: RequestCategoryService,
     public RequestProduct: RequestProductsService,
     private Message: MessagesService,) { }
@@ -48,8 +48,6 @@ export class AdminProductsComponent implements OnInit {
   ngOnInit(): void {
     this.LoadAllCategories()
     this.LoadAllProducts()
-    var pathname = window.location.pathname;
-    console.log(pathname)
   }
 
   /*************** MODAL *****************/
@@ -76,10 +74,6 @@ export class AdminProductsComponent implements OnInit {
     this.counts = numCharacters;
   }
 
-  /*************** COUNTS CHARACTERS ***************/
-
-
-
   /*************** CARGAR DATOS *****************/
   LoadAllCategories() {
     this.RequestCategory.LoadAllCategory().then((Response: any) => {
@@ -95,7 +89,6 @@ export class AdminProductsComponent implements OnInit {
 
   LoadById(Id: string) {
     this.Id = Id
-    console.log(this.path)
     this.RequestProduct.LoadById(Id)
       .then((Response: any) => {
         if (Response.state == true) {
@@ -104,7 +97,6 @@ export class AdminProductsComponent implements OnInit {
           this.Cantidad = Response.data.Cantidad
           this.Precio = Response.data.Precio
           this.path = this.path + '/' + this.Id
-          console.log(this.path)
           if (Response.data.Categoria != undefined) { this.Categoria = Response.data.Categoria }
           if (Response.data.FechaV != undefined) { this.FechaV = Response.data.FechaV }
           if (Response.data.Descripcion != undefined) { this.Descripcion = Response.data.Descripcion }

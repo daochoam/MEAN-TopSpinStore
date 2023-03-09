@@ -14,9 +14,14 @@
 
       <tbody>
         <tr
-          *ngFor="let Product of ListProducts"  (click)="LoadById(Product._id)">
+          *ngFor="let Product of ListProducts"
+          (click)="LoadById(Product._id)"
+        >
           <td>
-            <img src="http://localhost:3000/productos/{{Product._id}}.png" class="imgproducto">
+            <img
+              src="http://localhost:3000/productos/{{ Product._id }}.png"
+              class="imgproducto"
+            />
           </td>
           <td>{{ Product.Codigo }}</td>
           <td>{{ Product.Nombre }}</td>
@@ -48,7 +53,12 @@
         <h3 class="modal-title" id="exampleModalLabel" title="Register Product">
           Product
         </h3>
-        <div  type="button"  class="btn-shut"  title="close"  (click)="CloseModal()">
+        <div
+          type="button"
+          class="btn-shut"
+          title="close"
+          (click)="CloseModal()"
+        >
           <h1>&times;</h1>
         </div>
       </div>
@@ -56,27 +66,11 @@
         <div class="row">
           <div class="modal-body">
             <div class="row">
-              <div class="form-group col-12 col-md-4">
+              <div class="form-group col-12 col-md-6">
                 <label class="col-form-label">SKU:</label>
-                <input  *ngIf="Id == ''"  type="SKU"  class="form-control"  title="SKU"  [(ngModel)]="Codigo"  placeholder="SKU"  required/>
+                <input *ngIf="Id == ''" type="SKU" class="form-control" title="SKU" [(ngModel)]="Codigo" placeholder="SKU" required/>
                 <input  *ngIf="Id != ''"  type="text"  class="form-control"  title="SKU"  [(ngModel)]="Codigo"  placeholder="SKU"  disabled/>
               </div>
-              <div class="form-group col-12 col-md-8">
-                <label for="message-text" class="col-form-label">Name:</label>
-                <input  class="form-control"  title="Name"  [(ngModel)]="Nombre"  placeholder="Name"/>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-12 col-md-6">
-                <label class="col-form-label">Price:</label>
-                <input  class="form-control"  title="Price"  [(ngModel)]="Precio"  placeholder="Price"/>
-              </div>
-              <div class="form-group col-12 col-md-6">
-                <label class="col-form-label">Quantity:</label>
-                <input  class="form-control"  title="Quantity"  [(ngModel)]="Cantidad"  placeholder="Quantity"/>
-              </div>
-            </div>
-            <div class="row">
               <div class="Category form-group col-12 col-md-6">
                 <mat-form-field appearance="fill">
                   <mat-label>Category:</mat-label>
@@ -96,36 +90,102 @@
                 </mat-form-field>
               </div>
             </div>
-
-            <div class="col-4" *ngIf="Id != ''">
-              <img  src="http://localhost:3000/productos/{{Id}}.png"  class="defaultImage"/>
+            <div class="form-group col-12 col-md-12">
+              <label for="message-text" class="col-form-label">Name:</label>
+              <input
+                class="form-control"
+                title="Name"
+                [(ngModel)]="Nombre"
+                placeholder="Name"
+              />
+            </div>
+            <div class="row">
+              <div class="form-group col-12 col-md-6">
+                <label class="col-form-label">Price:</label>
+                <input
+                  class="form-control"
+                  title="Price"
+                  [(ngModel)]="Precio"
+                  placeholder="Price"
+                />
+              </div>
+              <div class="form-group col-12 col-md-6">
+                <label class="col-form-label">Quantity:</label>
+                <input
+                  class="form-control"
+                  title="Quantity"
+                  [(ngModel)]="Cantidad"
+                  placeholder="Quantity"
+                />
+              </div>
             </div>
 
-            <!-- Carga de imagenes-->
-            <div class="col-8" *ngIf="Id != ''">
-              <app-uploadfiles  [urldestino]="destino"  [path]="path"  [inputName]="'userfile'"></app-uploadfiles>
-            </div>
-
+            <!-- DESCRIPCION -->
             <div class="form-group col-sm-12 col-md-12">
               <label class="col-form-label">Description:</label>
-              <textarea  class="Description"  title="Description"  placeholder="--Write something here--"  [(ngModel)]="Descripcion"></textarea>
-              <label class="CountChar" [(ngModel)]="counts">{{counts - Descripcion.length}}</label>
+              <textarea
+                class="Description"
+                title="Description"
+                placeholder="--Write something here--"
+                [(ngModel)]="Descripcion"
+              ></textarea>
+              <label class="CountChar" [(ngModel)]="counts">{{
+                counts - Descripcion.length
+              }}</label>
             </div>
 
+            <!-- UPLOAD IMAGES -->
 
+            <div class="form-group col-sm-12 col-md-12">
+              <div class="upload">
+                <div class="row">
+                  <!-- Carga de imagenes-->
+                 <div class="col-8" *ngIf="Id != ''">
+                  <app-uploadfiles
+                    [urldestino]="destino"
+                    [path]="path"
+                    [inputName]="'userfile'"
+                  ></app-uploadfiles>
+                </div>
+                <!-- Imagen -->
+                 <div class="col-4" *ngIf="Id != ''">
+                   <img
+                     src="http://localhost:3000/productos/{{ Id }}.png"
+                     class="defaultImage"
+                   />
+                 </div>
+                </div>
+              </div>
+            </div>
 
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button  *ngIf="Id === ''"  type="button"  class="btn btn-primary"  title="Save"  (click)="Save()">
+        <button
+          *ngIf="Id === ''"
+          type="button"
+          class="btn btn-primary"
+          title="Save"
+          (click)="Save()"
+        >
           Save
         </button>
         <div class="row btn-ud" *ngIf="Id !== ''">
-          <button  type="button"  class="btn btn-primary"  title="Update"  (click)="UpdateById()">
+          <button
+            type="button"
+            class="btn btn-primary"
+            title="Update"
+            (click)="UpdateById()"
+          >
             Update
           </button>
-          <button  type="button"  class="btn btn-danger"  title="Delete"  (click)="DeleteById()">
+          <button
+            type="button"
+            class="btn btn-danger"
+            title="Delete"
+            (click)="DeleteById()"
+          >
             Delete
           </button>
         </div>

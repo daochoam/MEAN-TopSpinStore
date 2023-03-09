@@ -22,6 +22,7 @@ export class AdminUsersComponent implements OnInit {
   Age: string = "";
   Address: string = "";
   Phone: string = "";
+  State: number = 0;
   MaritalStatus: maritalStatus = "";
   ListUsers!: [Users];
 
@@ -33,13 +34,15 @@ export class AdminUsersComponent implements OnInit {
     { Id: 1, Name: 'Manager', }, { Id: 2, Name: 'Customer' }
   ]
 
+  States: Array<{ Id: number, Name: string }> = [
+    { Id: 0, Name: 'Pending Activation...', }, { Id: 1, Name: 'Active' }
+  ]
+
   constructor(public RequestUser: RequestUsersService,
               private Message: MessagesService,) { }
 
   ngOnInit(): void {
     this.LoadAllUsers()
-    var pathname = window.location.pathname;
-    console.log(pathname)
   }
 
   /*************** MODAL *****************/
@@ -62,6 +65,7 @@ export class AdminUsersComponent implements OnInit {
     this.Name = ""
     this.LastName = ""
     this.Email = ""
+    this.State = 0
     this.Age = ""
     this.MaritalStatus = ''
     this.Phone = ""
@@ -83,6 +87,7 @@ export class AdminUsersComponent implements OnInit {
           this.Cedula = Response.data.Cedula
           this.Name = Response.data.Name
           this.Email = Response.data.Email
+          this.State = Response.data.State
           /******  Optional Fields  ******/
           if (Response.data.LastName != undefined) { this.LastName = Response.data.LastName }
           if (Response.data.Age != undefined) { this.Age = Response.data.Age }

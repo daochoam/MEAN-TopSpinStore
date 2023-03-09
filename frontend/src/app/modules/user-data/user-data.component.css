@@ -1,36 +1,82 @@
 .ventanaflotante{
   position: absolute;
+  display: flex;
+  flex-direction: row;
   background: whitesmoke;
-  top: 90px;
-  left: 195px;
-  width: calc(98% - 175px);
-  height: calc(100vh - 60px);
-  padding: 10px 10px 10px 10px;
+  top: 70px;
+  left: 190px;
+  height: calc(100vh - 75px);
+  width: calc(98% - 170px);
+  padding: 5px 5px 5px 5px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.container{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border-left: 12px solid #6e1a02;
+}
+
+.data {
+  display: flex;
+  flex-direction: row;
+}
+
+.Card-Title{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  font-size: 120%;
+  width: 100%;
+  background: #6e1a02;
+  color: white;
+  flex-direction: column;
+  justify-content: center;
+  align-content: stretch;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 
 
-.Field_Cards {
-  position: absolute;
-  max-width: 80vw;
-  height: auto;
-  top: 90px;
-  left: 200px;
-  border-bottom: 4px solid rgb(91, 89, 89);
-  border-left: 8px solid rgb(91, 89, 89);
+.Info {
+  display: flex;
+  max-height: 750px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.Photo {
+  display: flex;
+  border: 4px solid #6e1a02;
+  height: 250px;
+  width: 250px;
+  border-radius: 50%;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.Info-Photo{
+  width: 100%;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  align-content: stretch;
-  justify-content: center;
-  align-items: baseline;
+  align-content: flex-start;
+  justify-content: flex-start;
+  position: relative;
+  top: 40px;
+  height: 100%;
+  align-items: flex-start;
 }
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  margin:0.5%;
-  padding: 0.1%;
-}
+
 
 
 input.Input-1{
@@ -40,8 +86,8 @@ input.Input-1{
   border-radius:      3px;
   background:         none;
   border: none;
-  border-bottom:      2px solid rgb(91, 89, 89);
-  border-right:       2px solid rgb(91, 89, 89);
+  border-bottom:      2px solid #6e1a02;
+  border-right:       2px solid #6e1a02;
   transition:         .2s ease-in-out;
   width:              100%;
   margin-bottom:      10px;
@@ -55,11 +101,7 @@ input.Input-1:focus{
   background: white;
 }
 
-.Card-Title{
-  width: 100%;
-  background:  rgb(91, 89, 89);
-  color: white;
-}
+
 .Field_Cards label {
   display: inline-block;
   width: 100%;
@@ -79,9 +121,13 @@ input.Input-1:focus{
 }
 
 .button{
+  position: absolute;
+  bottom: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 200px;
+  height: 100px;
   align-items: flex-end;
   justify-content: space-evenly;
   align-content: stretch;

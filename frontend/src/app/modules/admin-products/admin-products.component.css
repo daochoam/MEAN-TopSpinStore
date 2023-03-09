@@ -126,9 +126,14 @@ thead{
   max-height:10rem;
 }
 .defaultImage{
-
   width: 100%;
+}
 
+.upload{
+  border: 2px solid #01398d;
+  border-radius: 8px;
+  margin: 5px;
+  padding: 10px;
 }
 img.imgproducto {
   height: 70px;

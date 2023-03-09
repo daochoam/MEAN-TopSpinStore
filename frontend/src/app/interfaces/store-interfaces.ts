@@ -1,7 +1,7 @@
 export type maritalStatus = 'Soltero(a)' | 'Casado(a)' | 'Separado(a)' | 'Divorciado(a)' | 'Union Libre' | 'Viudo(a)' | ''
 
 export interface UserSession {
-  _id: any|undefined;
+  User_id: any|undefined;
   Name: string|undefined;
   Rol?: string|number|undefined;
 }
@@ -14,7 +14,7 @@ export interface Category {
 export interface Users {
   _id?: any;
   Cedula: string;
-  Rol: number;
+  Rol?: number;
   Name: string;
   LastName?: string;
   Email: string;

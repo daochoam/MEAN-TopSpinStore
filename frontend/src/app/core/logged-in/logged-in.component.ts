@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { RequestUsersService } from 'src/app/services/RequestUsers/request-users.service';
 import { SwitchService } from 'src/app/services/Switches/switch.service';
 import { MessagesService } from 'src/app/services/Messages/messages.service';
+import { PeticionService } from 'src/app/services/Peticion/peticion.service';
 
 declare var $: any
 @Component({
@@ -14,9 +15,7 @@ declare var $: any
 export class LoggedInComponent implements OnInit {
   /**  DECLARACIÓN DE VARIABLES  */
   Name: UserSession["Name"] = ""
-  UserSession: [UserSession] = [{ _id: "", Name: "" }]
-  LoggedForm: any[] = []
-  SetUser: any[] = []
+  UserSession: [UserSession] = [{ User_id: "", Name: "" }]
 
   Id: string = "";
   Rol: number = 2;
@@ -27,54 +26,51 @@ export class LoggedInComponent implements OnInit {
   Address: string = "";
   Phone: string = "";
   DataLoggedIn: any;
+  /**   PATH IMAGE  **/
+  destino: any= this.Peticion.urlLocal;
+  path: string = "/imagenfotos"
+  LoggedForm: any;
 
   constructor(private Router: Router,
-    private RequestUser: RequestUsersService,
+    private RequestUsers: RequestUsersService,
+    private Peticion: PeticionService,
     private LoggedSwitch: SwitchService,
     private Message: MessagesService,
   ) { }
 
   ngOnInit(): void {
     this.VerCookies()
-    this.LoadById(this.UserSession[0]._id)
+    this.LoadById(this.UserSession[0].User_id)
   }
 
+    /*************** MODAL *****************/
+    OpenModal() {
+      $('#modaldatos').modal('show')
+    }
+
+    CloseModal() {
+      $('#modaldatos').modal('hide')
+    }
+
   LogOut(): void {
-    this.RequestUser.CloseSession().then(() => {
+    this.RequestUsers.CloseSession().then(() => {
         this.Router.navigate(['/'])
       })
-    this.UserSession = [{ _id: "", Name: "" , Rol: ""}]
+    this.UserSession = [{ User_id: "", Name: "" , Rol: ""}]
     this.LoggedSwitch.$LookUpLoggedIn.emit(false)
   }
 
   ConfigLoggedIn() {
     if (this.UserSession[0].Rol == 2) {
-      this.RequestUser.NavigatePermit().then(
+      this.RequestUsers.NavigatePermit().then(
         (Response: any) => {
           this.DataLoggedIn = Response.Data.MenuLog
         })
-
-
-
-
-
-      this.LoggedForm = [
-        { Title: "Payment methods", Icon: "wallet", Data: '' },
-        { Title: "Shipping addresses", Icon: "truck-fast", Data: this.Address },
-      ]
-      this.SetUser = [
-        { Title: "Set password", Icon: "key" },
-        { Title: "Manage account", Icon: "gear" },
-        { Title: "Shopping cart", Icon: "cart-shopping" },
-      ]
-    } else {
-      this.LoggedForm = [{ Title: "", Icon: "", Data: "" }]
-      this.SetUser = [{ Title: "", Icon: "" }]
     }
   }
 
   LoadById(Id: string) {
-    this.RequestUser.LoadById(Id)
+    this.RequestUsers.LoadById(Id)
       .then((Response: any) => {
         if (Response.state == true) {
           /******  Required Fields  ******/
@@ -91,15 +87,15 @@ export class LoggedInComponent implements OnInit {
   }
 
   VerCookies() {
-    this.RequestUser.ViewCookie().then((response: any) => {
+    this.RequestUsers.ViewCookie().then((response: any) => {
       if (response.state == true) {
         this.UserSession = [{
-          _id: response.clave._id,
+          User_id: response.clave.User_id,
           Name: response.clave.Name,
           Rol: response.clave.Rol
         }]
       } else {
-        this.UserSession = [{ _id: '', Name: '', Rol: '' }]
+        this.UserSession = [{ User_id: '', Name: '', Rol: '' }]
       }
     })
   }

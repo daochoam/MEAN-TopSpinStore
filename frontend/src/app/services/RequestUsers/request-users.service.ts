@@ -9,7 +9,7 @@ declare var $: any
   providedIn: 'root'
 })
 export class RequestUsersService {
-  UserLoggedIn: [UserSession] = [{_id: "", Name: ""}]
+  UserLoggedIn: [UserSession] = [{User_id: "", Name: ""}]
 
   constructor(private Peticion: PeticionService, private Message: MessagesService) { }
 
@@ -51,15 +51,6 @@ export class RequestUsersService {
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
-  LoadByDocument(Cedula: string) {
-    var Post = {
-      Host: this.Peticion.urlLocal,
-      Path: '/Users/LoadByDocument',
-      Payload: { Cedula: Cedula }
-    }
-    return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
-  }
-
   LoadById(Id: string) {
     var Post = {
       Host: this.Peticion.urlLocal,
@@ -79,38 +70,12 @@ export class RequestUsersService {
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
-  UpdateByDocument(Payload: Users) {
-    var Post = {
-      Host: this.Peticion.urlLocal,
-      Path: '/Users/LoadByDocument',
-      Payload: Payload
-    }
-    return this.Peticion.POST(Post.Host + Post.Path, Post.Payload).then((Response: any) => {
-      if (Response.state == true) {
-        this.Message.load("success", Response.mensaje, 5000)
-        $('#modaldatos').modal('hide')
-      }
-      else {
-        this.Message.load("danger", Response.mensaje, 5000)
-      }
-    })
-  }
-
   /*********************************  DELETE USERS  **********************************/
   DeleteById(_id: string) {
     var Post = {
       Host: this.Peticion.urlLocal,
       Path: '/Users/DeleteById',
       Payload: { _id: _id }
-    }
-    return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
-  }
-
-  DeleteByDocument(Cedula: string) {
-    var Post = {
-      Host: this.Peticion.urlLocal,
-      Path: '/Users/DeleteByDocument',
-      Payload: { Cedula: Cedula }
     }
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }

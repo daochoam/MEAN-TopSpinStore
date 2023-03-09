@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   msn_Email: string = ""
   msn_Password: string = ""
   /**/
-  UserSession: [UserSession] = [{_id:"", Name: ""}]
+  UserSession: [UserSession] = [{User_id:"", Name: ""}]
 
   constructor(
     // Services Calls
@@ -72,15 +72,15 @@ export class LoginComponent implements OnInit {
   }
 
   VerCookies() {
-    this.RequestUsers.ViewCookie().then((response:any) =>{
-      if(response.state==true){
-        this.UserSession=[{
-          _id:response.clave._id,
-          Name:response.clave.Name,
+    this.RequestUsers.ViewCookie().then((response: any) => {
+      if (response.state == true) {
+        this.UserSession = [{
+          User_id: response.clave.User_id,
+          Name: response.clave.Name,
           Rol: response.clave.Rol
         }]
-      }else{
-        this.UserSession=[{  _id: undefined,  Name: undefined,  Rol: undefined}]
+      } else {
+        this.UserSession = [{ User_id: '', Name: '', Rol: '' }]
       }
     })
   }

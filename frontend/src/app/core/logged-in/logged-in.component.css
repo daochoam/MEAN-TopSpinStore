@@ -3,7 +3,7 @@
   position: fixed;
   width: 250px;
   height: auto;
-  z-index: 1000;
+  z-index: 100;
   right: 20px;
   top: 60px;
   padding: 0%;
@@ -102,7 +102,7 @@
   top: 125px;
   right: 75px;
   background: antiquewhite;
-  z-index: 1000;
+  z-index: 100;
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -194,6 +194,27 @@
   color: #590303;;
   transform: translateY(-2px);
   transform: scale(1.02);
+}
+
+.upload{
+  border: 2px solid #01398d;
+  border-radius: 8px;
+  margin: 5px;
+  padding: 10px;
+}
+
+/* MODAL */
+.modal{
+  transition: 0.2s ease-in-out;
+}
+.modal-content {
+  border:5px solid var(--app-backgrond);
+  border-radius: 3%;
+}
+
+.modal-header {
+  background:var(--app-backgrond);
+  color: rgb(215, 214, 214);
 }
 
 @keyframes rotation {

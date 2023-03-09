@@ -30,7 +30,7 @@ export class UserShopComponent implements OnInit {
     Precio: "",
     Cantidad: ""
   }];
-  UserSession: [UserSession] = [{ _id: "", Name: "" }]
+  UserSession: [UserSession] = [{ User_id: "", Name: "" }]
 
   constructor(private RequestUser: RequestUsersService,
     private RequestMarket: RequestMarketService,
@@ -43,7 +43,7 @@ export class UserShopComponent implements OnInit {
   LoadMyMartket() {
     this.VerCookies()
     this.RequestMarket.LoadMyMarket({
-      User_id: this.UserSession[0]._id
+      User_id: this.UserSession[0].User_id
     }).then((response: any) => {
       if(response.state==true){
         this.ListMarket=response.data
@@ -54,7 +54,7 @@ export class UserShopComponent implements OnInit {
   DeleteItem(Id: string) {
     this.VerCookies()
     this.RequestMarket.DeleteItem({
-      User_id: this.UserSession[0]._id,
+      User_id: this.UserSession[0].User_id,
       _id: Id,
     }).then((response: any) => {
       if (response.state == true) {
@@ -65,14 +65,14 @@ export class UserShopComponent implements OnInit {
   SubMyMartket(Id: string) {
     this.VerCookies()
     this.RequestMarket.SubMyMartket({
-      User_id: this.UserSession[0]._id,
+      User_id: this.UserSession[0].User_id,
       _id: Id,
     }).then((response: any) => { })
   }
   AddMyMartket(Product_id: string) {
     this.VerCookies()
     this.RequestMarket.AddMarket({
-      User_id: this.UserSession[0]._id,
+      User_id: this.UserSession[0].User_id,
       Product_id: Product_id,
     }).then((response: any) => { })
   }
@@ -81,12 +81,12 @@ export class UserShopComponent implements OnInit {
     this.RequestUser.ViewCookie().then((response: any) => {
       if (response.state == true) {
         this.UserSession = [{
-          _id: response.clave._id,
+          User_id: response.clave.User_id,
           Name: response.clave.Name,
           Rol: response.clave.Rol
         }]
       } else {
-        this.UserSession = [{ _id: '', Name: '', Rol: '' }]
+        this.UserSession = [{ User_id: '', Name: '', Rol: '' }]
       }
     })
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Category, NamesFormat } from 'src/app/interfaces/store-interfaces';
 import { MessagesService } from 'src/app/services/Messages/messages.service';
+import { PeticionService } from 'src/app/services/Peticion/peticion.service';
 import { RequestCategoryService } from 'src/app/services/RequestCategory/request-category.service';
 
 declare var $: any
@@ -16,8 +17,11 @@ export class AdminCategoryComponent implements OnInit {
   Name: string = "";
   ListCategory: [Category] = [{Code: "", Name: ""}];
 
+  destino: any= this.Peticion.urlLocal;
+  path: string = "/imagenproductos"
 
   constructor(public RequestCategory: RequestCategoryService,
+    private Peticion:PeticionService,
     private Message: MessagesService,) { }
 
   ngOnInit(): void {
@@ -57,6 +61,7 @@ export class AdminCategoryComponent implements OnInit {
         if (Response.state == true) {
           this.Code = Response.data.Code
           this.Name = Response.data.Name
+          this.path = this.path + '/' + this.Id
           $('#modaldatos').modal('show')
         } else {
           this.Message.load("danger", Response.data.mensaje, 5000)

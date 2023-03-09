@@ -270,7 +270,7 @@ UsuariosController.Login = function (request, response) {
             ModelUsuarios.Login(post, function (respuesta) {
                 console.log(respuesta)
                 if (respuesta.state == true) {
-                    request.session._id = respuesta.data[0]._id
+                    request.session.User_id = respuesta.data[0]._id
                     request.session.Name = respuesta.data[0].Name
                     request.session.Rol = respuesta.data[0].Rol
                     response.json({ state: true, mensaje: "Welcome" })

@@ -9,6 +9,7 @@
         <th scope="col">Name</th>
         <th scope="col">Lastname</th>
         <th scope="col">Email</th>
+        <th scope="col">State</th>
         <th scope="col">Age</th>
         <th scope="col">Phone</th>
         <th scope="col">Address</th>
@@ -27,6 +28,11 @@
         <td>{{ User.Name }}</td>
         <td>{{ User.LastName }}</td>
         <td>{{ User.Email }}</td>
+        <td>
+          <div *ngFor="let States of States">
+            <span *ngIf="User.State==States.Id"> {{States.Name}} </span>
+          </div>
+        </td>
         <td>{{ User.Age }}</td>
         <td>{{ User.Phone }}</td>
         <td>{{ User.Address }}</td>
@@ -72,6 +78,7 @@
                 </mat-form-field>
               </div>
             </div>
+            
             <!-- NAME -->
             <div class="form-group col-12 col-md-12">
               <label for="message-text" class="col-form-label">Name:</label>

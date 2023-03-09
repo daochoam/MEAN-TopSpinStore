@@ -8,7 +8,7 @@ var FechaActual = new Date()
 /******************       ADD MARKET         ******************/
 // MarketController.AddMarket = function(request, response){
 //     var post = {
-//         User_id:request.session._id,
+//         User_id:request.session.User_id,
 //         Product_id:request.body.Product_id,
 //     }
 
@@ -40,15 +40,15 @@ MarketController.AddMarket = function(request, response){
         Product_id:request.body.Product_id,
     }
 
-    // if (post.User_id ==  "" || post.User_id == undefined || post.User_id == null){
-    //     response.json({state:false,mensaje:"The User field is required"})
-    //     return false
-    // }
+    if (post.User_id ==  "" || post.User_id == undefined || post.User_id == null){
+        response.json({state:false,mensaje:"The User field is required"})
+        return false
+    }
     
-    // if (post.Product_id ==  "" || post.Product_id == undefined || post.Product_id == null){
-    //     response.json({state:false,mensaje:"The Product field is required"})
-    //     return false
-    // }
+    if (post.Product_id ==  "" || post.Product_id == undefined || post.Product_id == null){
+        response.json({state:false,mensaje:"The Product field is required"})
+        return false
+    }
 
     console.log(post)
     ModelMarket.AddMarket(post, function(res){
@@ -64,13 +64,34 @@ MarketController.AddMarket = function(request, response){
 /**************************************************************/
 /******************           READ           ******************/
 /******************    Load All Products     ******************/
+MarketController.LoadMyMarket = function(request, response){
+    var post = {
+        User_id:request.session.User_id,
+        Product_id:request.body.Product_id,
+    }
+
+    if (post.User_id ==  "" || post.User_id == undefined || post.User_id == null){
+        response.json({state:false,mensaje:"El campo codigo es obligatorio"})
+        return false
+    }
+    
+    ModelMarket.LoadMyMarket(post,function(respuesta){
+        if(respuesta.state == true){
+            response.json({state:respuesta.state ,data:respuesta.data})
+        }
+        else{
+            response.json({state:false,mensaje:"El codigo no existe"})
+        }
+    })
+}
+
 // MarketController.LoadMyMarket = function(request, response){
 //     var post = {
-//         User_id:request.session._id,
+//         User_id:request.body.User_id,
 //     }
 
 //     if (post.User_id ==  "" || post.User_id == undefined || post.User_id == null){
-//         response.json({state:false,mensaje:"El campo codigo es obligatorio"})
+//         response.json({state:false,mensaje:"El campo user es obligatorio"})
 //         return false
 //     }
     
@@ -83,32 +104,12 @@ MarketController.AddMarket = function(request, response){
 //         }
 //     })
 // }
-
-MarketController.LoadMyMarket = function(request, response){
-    var post = {
-        User_id:request.session.User_id,
-    }
-
-    // if (post.User_id ==  "" || post.User_id == undefined || post.User_id == null){
-    //     response.json({state:false,mensaje:"El campo user es obligatorio"})
-    //     return false
-    // }
-    
-    ModelMarket.LoadMyMarket(post,function(respuesta){
-        if(respuesta.state == true){
-            response.json({state:respuesta.state ,data:respuesta.data})
-        }
-        else{
-            response.json({state:false,mensaje:"El codigo no existe"})
-        }
-    })
-}
 /**************************************************************/
 /******************        UPDATE            ******************/
 /******************     Update By Id         ******************/
 MarketController.UpdateQuantity = function(request, response){
     var post = {
-        _id: request.body._id,
+        _id: request.session.User_id,
         Quantity: request.body.Quantity
     }
     ModelMarket.UpdateQuantity(post, function(res){
@@ -175,7 +176,7 @@ MarketController.UpdateQuantity = function(request, response){
     // }
 MarketController.SubMyMarket = function(request, response){
     var post = {
-        User_id:request.User_id,
+        User_id:request.session.User_id,
         _id:request.body._id.trim(),
     }
     if (post.User_id ==  "" || post.User_id == undefined || post.User_id == null){
@@ -201,7 +202,7 @@ MarketController.SubMyMarket = function(request, response){
 
 MarketController.DeleteItem = function(request, response){
     var post = {
-        User_id:request.User_id,
+        User_id:request.seseeion.User_id,
         _id:request.body._id.trim(),
     }
 
@@ -244,7 +245,7 @@ MarketController.DeleteItem = function(request, response){
 
 MarketController.DeleteAllItems = function(request, response){
     var post = {
-        User_id:request.User_id,
+        User_id:request.session.User_id,
     }
     if (post.User_id ==  "" || post.User_id == undefined || post.User_id == null){
         response.json({state:false,mensaje:"The User field is required"})

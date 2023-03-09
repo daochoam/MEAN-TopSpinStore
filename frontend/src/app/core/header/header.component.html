@@ -14,7 +14,7 @@
             <li class="nav-item" >
               <a class="nav-link" routerLink="/home">Home</a>
             </li>
-            <li class="nav-item" *ngFor="let Category of ListCategory" (click)="ActiveMenu(Category.Name)">
+            <li class="nav-item" *ngFor="let Category of ListCategory">
               <a class="nav-link" routerLink="/products/{{Category.Code}}">{{Category.Name}}</a>
             </li>
             <li class="nav-item login">

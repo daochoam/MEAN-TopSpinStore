@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserSession } from 'src/app/interfaces/store-interfaces';
 import { PeticionService } from 'src/app/services/Peticion/peticion.service';
@@ -26,7 +26,7 @@ export class ProductsComponent implements OnInit {
   route:string = ""
   Datos: any[] = []
   Description: boolean=false;
-  UserSession: [UserSession] = [{ _id: "", Name: "" }]
+  UserSession: [UserSession] = [{ User_id: "", Name: "" }]
 
 
   constructor(public Peticion: PeticionService,
@@ -54,9 +54,9 @@ export class ProductsComponent implements OnInit {
 
   AddMyMartket(Product_id: string) {
     this.VerCookies()
-    console.log(this.UserSession[0]._id)
+    console.log(this.UserSession[0].User_id)
     this.RequestMarket.AddMarket({
-      User_id: this.UserSession[0]._id,
+      User_id: this.UserSession[0].User_id,
       Product_id: Product_id
     }).then((response: any) => { })
   }
@@ -65,12 +65,12 @@ export class ProductsComponent implements OnInit {
     this.RequestUser.ViewCookie().then((response: any) => {
       if (response.state == true) {
         this.UserSession = [{
-          _id: response.clave._id,
+          User_id: response.clave.User_id,
           Name: response.clave.Name,
           Rol: response.clave.Rol
         }]
       } else {
-        this.UserSession = [{ _id: '', Name: '', Rol: '' }]
+        this.UserSession = [{ User_id: '', Name: '', Rol: '' }]
       }
     })
   }

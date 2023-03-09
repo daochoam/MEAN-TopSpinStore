@@ -28,7 +28,7 @@
     </div>
   </nav>
 
-  <span *ngIf="UserSession[0]._id ==''">
+  <span *ngIf="UserSession[0].User_id ==''">
     <app-logged-in *ngIf=LoginState ></app-logged-in>
   </span>
 

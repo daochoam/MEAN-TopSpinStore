@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { FormsModule } from '@angular/forms';
@@ -37,6 +37,8 @@ import { AdminCategoryComponent } from './modules/admin-category/admin-category.
 import { UploadfilesComponent } from './core/uploadfiles/uploadfiles.component';
 import { UserPayComponent } from './modules/user-pay/user-pay.component';
 import { UserShopComponent } from './modules/user-shop/user-shop.component';
+import { UserDataComponent } from './modules/user-data/user-data.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { UserShopComponent } from './modules/user-shop/user-shop.component';
     AdminUsersComponent,
     AdminProductsComponent,
     Page404Component,
+    UserDataComponent,
 
     // Cores
     FooterComponent,
@@ -75,6 +78,11 @@ import { UserShopComponent } from './modules/user-shop/user-shop.component';
     GoogleMapsModule,
     FormsModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+  ],
+  exports: [
+    MatSelectModule,
     MatDatepickerModule
   ],
   providers: [{
@@ -82,6 +90,7 @@ import { UserShopComponent } from './modules/user-shop/user-shop.component';
     useClass: InterceptorInterceptor,
     multi: true
   }],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

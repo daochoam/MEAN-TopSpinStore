@@ -16,19 +16,23 @@ export class HeaderComponent implements OnInit {
   LoggedIn: boolean = false;
 
   ListCategory: [Category] = [{ Code: "", Name: "" }];
-  UserSession: [UserSession] = [{ _id: "", Name: "" }]
+  UserSession: [UserSession] = [{ User_id: "", Name: "" }]
+
 
 
   constructor(private router: Router,
     public RequestCategory: RequestCategoryService,
-    public RequestUser: RequestUsersService,
+    public RequestUsers: RequestUsersService,
     private LoginSwitch: SwitchService) { }
 
   ngOnInit() {
+    this.VerCookies()
     this.LoadAllCategories()
     this.LoginSwitch.$LookUpLogin.subscribe((req) => this.LoginState = req)
     this.LoginSwitch.$LookUpLoggedIn.subscribe((req) => this.LoggedIn = req)
   }
+
+
 
 
   LoadAllCategories() {
@@ -37,20 +41,13 @@ export class HeaderComponent implements OnInit {
     })
   }
 
-  ActiveMenu(Menu: string = 'Home') {
-
-  }
-
   /* Hide dropdown when another dropdown is activated */
   LoginShow(): void {
     this.VerCookies()
-    console.log(this.UserSession)
-    console.log(this.LoginState)
-    console.log(this.LoggedIn)
-    if (this.UserSession[0]._id == "" || this.UserSession[0]._id == undefined || this.UserSession[0]._id == null) {
+    if (this.UserSession[0].User_id == "" || this.UserSession[0].User_id == undefined || this.UserSession[0].User_id == null) {
       if (this.LoginState == false) { this.LoginState = true }
       else if (this.LoginState == true) { this.LoginState = false }
-    } else if (this.UserSession[0]._id != "" || this.UserSession[0]._id == undefined || this.UserSession[0]._id == null) {
+    } else if (this.UserSession[0].User_id != "" || this.UserSession[0].User_id == undefined || this.UserSession[0].User_id == null) {
       if (this.LoggedIn == false) { this.LoggedIn = true }
       else if (this.LoggedIn == true) { this.LoggedIn = false }
     }
@@ -65,10 +62,10 @@ export class HeaderComponent implements OnInit {
     /* Minimize the header when activating the Login */
     let navDisplay: HTMLElement = document.getElementsByClassName('navbar-toggler')[0] as HTMLElement;
     if (navDisplay.getAttribute('aria-expanded') == 'true') {
-      if (this.UserSession[0]._id == "" || this.UserSession[0]._id == undefined || this.UserSession[0]._id == null) {
+      if (this.UserSession[0].User_id == "" || this.UserSession[0].User_id == undefined || this.UserSession[0].User_id == null) {
         this.LoginState = false
       }
-      else if (this.UserSession[0]._id != "" || this.UserSession[0]._id != undefined || this.UserSession[0]._id != null) {
+      else if (this.UserSession[0].User_id != "" || this.UserSession[0].User_id != undefined || this.UserSession[0].User_id != null) {
         this.LoggedIn = false
       }
       navDisplay.click();
@@ -77,7 +74,7 @@ export class HeaderComponent implements OnInit {
 
   PrivateZone() {
     this.VerCookies()
-    if (this.UserSession[0]._id != "" || this.UserSession[0]._id == undefined || this.UserSession[0]._id == null) {
+    if (this.UserSession[0].User_id != "" || this.UserSession[0].User_id == undefined || this.UserSession[0].User_id == null) {
       this.LoggedIn = false
       if (this.UserSession[0].Rol == 1) { this.router.navigate(['admin']) }
       else if (this.UserSession[0].Rol == 2) { this.router.navigate(['user']) }
@@ -87,15 +84,15 @@ export class HeaderComponent implements OnInit {
 
 
   VerCookies() {
-    this.RequestUser.ViewCookie().then((response: any) => {
+    this.RequestUsers.ViewCookie().then((response: any) => {
       if (response.state == true) {
         this.UserSession = [{
-          _id: response.clave._id,
+          User_id: response.clave.User_id,
           Name: response.clave.Name,
           Rol: response.clave.Rol
         }]
       } else {
-        this.UserSession = [{ _id: undefined, Name: undefined, Rol: undefined }]
+        this.UserSession = [{ User_id: undefined, Name: undefined, Rol: undefined }]
       }
     })
   }

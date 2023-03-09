@@ -28,25 +28,15 @@ app.post("/Users/LoadAllUsers", function (request, response) {
     UsuariosController.LoadAllUsers(request, response)
 })
 
-app.post("/Users/LoadByDocument", function (request, response) {
-    UsuariosController.LoadByDocument(request, response)
-})
-
 app.post("/Users/LoadById", function (request, response) {
     UsuariosController.LoadById(request, response)
 })
 
-app.post("/Users/UpdateByDocument", function (request, response) {
-    UsuariosController.UpdateByDocument(request, response)
-})
 
 app.post("/Users/UpdateById", function (request, response) {
     UsuariosController.UpdateById(request, response)
 })
 
-app.post("/Users/DeleteByDocument", function (request, response) {
-    UsuariosController.DeleteByDocument(request, response)
-})
 app.post("/Users/DeleteById", function (request, response) {
     UsuariosController.DeleteById(request, response)
 })
@@ -56,7 +46,7 @@ app.post("/Users/Login", function (request, response) {
 })
 
 app.post("/Users/ViewCookie", function (request, response) {
-    if (request.session._id != undefined) {
+    if (request.session.User_id != undefined) {
         response.json({ state: true, clave: request.session })
     } else {
         response.json({ state: false, message: 'Your session has expired, please log in again' })

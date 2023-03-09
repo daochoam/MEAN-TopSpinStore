@@ -12,7 +12,7 @@ import { SwitchService } from 'src/app/services/Switches/switch.service';
 })
 export class MenuLateralComponent implements OnInit {
   LoginState:Boolean = false;
-  UserSession: [UserSession] = [{_id:"", Name: ""}]
+  UserSession: [UserSession] = [{User_id:"", Name: ""}]
   DatosMenu: any[] = [];
 
   constructor(private Router: Router,
