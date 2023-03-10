@@ -1,23 +1,6 @@
 # TOPSPIN STORE (MEAN)
 
-The project describes an e-commerce WEB application of table tennis sports products.
-
-### Update 26/02/23:
-+ Back -> Created Products By Id, Correction Load, Created Load Category
-+ Create Service Request Product
-+ Create Service Request Users
-+ Create Service ValidateUsers
-+ Create Service ValidateProducts (in Construction)
-+ Create Service Messages (Unified Yefferson Mensajes)
-+ Create Interface Store
-* Order Project
->>> Products -> Page to show the products in their different categories
->>> Admin -> Private Zone Admin -> AdminUsers AdminProducts AdminAdmins (No create)
->>>>>>> AdminProducts 100% functional
->>> Users -> Private Zone Users (in Construction)
-- Delete Empty Components
-
-Note: Do not create components in the src/app/modules folder, or add them to app routing if they are not project pages.
+The project consists of an ecommerce page of table tennis sports products, the page presents an initial information home, two private areas, users and administrator, and access to the shopping cart of the store items.
 
 ## Backend
 
