@@ -67,7 +67,6 @@ export class AdminUsersComponent implements OnInit {
     this.Email = ""
     this.State = 0
     this.Age = ""
-    this.MaritalStatus = ''
     this.Phone = ""
     this.Address = ""
   }
@@ -87,7 +86,6 @@ export class AdminUsersComponent implements OnInit {
           this.Cedula = Response.data.Cedula
           this.Name = Response.data.Name
           this.Email = Response.data.Email
-          this.State = Response.data.State
           /******  Optional Fields  ******/
           if (Response.data.LastName != undefined) { this.LastName = Response.data.LastName }
           if (Response.data.Age != undefined) { this.Age = Response.data.Age }
@@ -125,6 +123,7 @@ export class AdminUsersComponent implements OnInit {
 
   /*************** BUTTON ACTUALIZAR *****************/
   UpdateById() {
+
     this.RequestUser.UpdateById({
       _id: this.Id,
       Rol: this.Rol,

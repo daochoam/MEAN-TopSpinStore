@@ -11,7 +11,7 @@ export class RequestMarketService {
 
 
 
-  AddMarket(Paylod:{User_id:Market['User_id'], Product_id: Market['Product_id']}) {
+  AddMarket(Paylod:{User_id:string, Product_id: Market['Product_id']}) {
     var Post = {
       Host: this.Peticion.urlLocal,
       Path: '/Market/AddMarket',
@@ -21,7 +21,7 @@ export class RequestMarketService {
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
-  UpdateQuantity(Payload: {User_id:Market['User_id'], Id: Market['_id'], Quantity: Market['Quantity'] }) {
+  UpdateQuantity(Payload: {User_id:string, Id: Market['_id'], Quantity: Market['Quantity'] }) {
     var Post = {
       Host: this.Peticion.urlLocal,
       Path: '/Market/UpdateQuantity',
@@ -30,7 +30,7 @@ export class RequestMarketService {
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
-  LoadMyMarket(User_id:Market['User_id']) {
+  LoadMyMarket(User_id:string) {
     var Post = {
       Host: this.Peticion.urlLocal,
       Path: '/Market/LoadMyMarket',
@@ -40,7 +40,7 @@ export class RequestMarketService {
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
-  DeleteItem(Payload: {_id: Market['_id'], User_id:Market['User_id']}) {
+  DeleteItem(Payload: {_id: Market['_id'], User_id:string}) {
 
     var Post = {
       Host: this.Peticion.urlLocal,
@@ -50,7 +50,7 @@ export class RequestMarketService {
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
-  DeleteAllItem(Payload:{User_id:Market['User_id']}) {
+  DeleteAllItem(Payload:{User_id:string}) {
 
     var Post = {
       Host: this.Peticion.urlLocal,
@@ -60,7 +60,7 @@ export class RequestMarketService {
     return this.Peticion.POST(Post.Host + Post.Path, Post.Payload)
   }
 
-  SubMyMartket(Payload:{User_id:Market['User_id'],_id:Market['_id']}) {
+  SubMyMartket(Payload:{User_id:string,_id:Market['_id']}) {
     var Post = {
       Host: this.Peticion.urlLocal,
       Path: '/Market/SubMyMartket',

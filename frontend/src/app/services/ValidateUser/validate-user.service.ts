@@ -357,12 +357,8 @@ export class ValidateUserService {
    * state: false (error) || true (success)
    * message: "<error description>" (state:false) || "" (state:true)
    */
-  ValidatePhone(Phone: string | number): { state: boolean, message: string } {
+  ValidatePhone(Phone: string): { state: boolean, message: string } {
     var msn: string = ""
-
-    if (typeof (Phone) == "number") {
-      Phone = Phone.toString();
-    }
 
     if (Phone.trim() == "" || Phone.trim() == null || Phone.trim() == undefined) {
       msn += 'The Phone is required.'
@@ -370,11 +366,6 @@ export class ValidateUserService {
     else {
       if (!this.Form.Phone.Numbers.test(Phone.trim()) == true) {
         msn += "Remove non-Numeric characters."
-      }
-
-      if (this.Form.Phone.Numbers.test(Phone.trim()) == true && (7 >= Phone.trim().length ||  Phone.trim().length <= 15)) {
-        if (msn != "") { msn += "\n" }
-        msn += "Write 7 to 20 numerical digits."
       }
     }
 

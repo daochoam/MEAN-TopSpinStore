@@ -54,7 +54,6 @@ export class ProductsComponent implements OnInit {
 
   AddMyMartket(Product_id: string) {
     this.VerCookies()
-    console.log(this.UserSession[0].User_id)
     this.RequestMarket.AddMarket({
       User_id: this.UserSession[0].User_id,
       Product_id: Product_id

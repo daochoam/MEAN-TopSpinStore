@@ -105,7 +105,9 @@ li {
 
 .logo {
   height: 56px;
-  margin-bottom: 18px;
+  width: auto;
+  margin: 15px 0px 0px 15px;
+  /* margin-bottom: 18px; */
 }
 
 img.d-inline-block.align-top {

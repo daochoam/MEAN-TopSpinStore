@@ -13,17 +13,16 @@ export interface Category {
 
 export interface Users {
   _id?: any;
-  Cedula: string;
-  Rol?: number;
+  Cedula?: string|number;
+  Rol?: string|number;
   Name: string;
   LastName?: string;
   Email: string;
-  State?: number;
+  Estado?: number;
   Password?: string;
   Age?: string;
   Address?: string;
   Phone?: string;
-  MaritalStatus?: maritalStatus;
 }
 
 export interface Products {
@@ -41,7 +40,6 @@ export interface Products {
 
 export interface Market {
   _id:any
-  User_id: any;
   Product_id: any;
   Quantity: string|number;
   Products: Products

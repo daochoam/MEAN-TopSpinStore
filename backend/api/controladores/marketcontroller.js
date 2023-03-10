@@ -67,7 +67,6 @@ MarketController.AddMarket = function(request, response){
 MarketController.LoadMyMarket = function(request, response){
     var post = {
         User_id:request.session.User_id,
-        Product_id:request.body.Product_id,
     }
 
     if (post.User_id ==  "" || post.User_id == undefined || post.User_id == null){

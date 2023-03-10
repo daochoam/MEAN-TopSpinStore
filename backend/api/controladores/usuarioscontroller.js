@@ -162,8 +162,8 @@ let transporter = nodemailer.createTransport({
    secure:false,
    requireTLS:true,
    auth:{
-    user:"topspinstore23@gmail.com",
-    pass:"qovvijijfstyfqfv"
+    user:"tsstoreibero@gmail.com",
+    pass:"hcocpkbmghwxhupb"
    },
    tls: {
     rejectUnauthorized:false
@@ -171,7 +171,7 @@ let transporter = nodemailer.createTransport({
 })
 
 let mailOptions = {
-    from:"topspinstore23@gmail.com",
+    from:"tsstoreibero@gmail.com",
     to:post.Email,
     subject:"Verifica tu cuenta codigo: " + post.Codigo,
     html:"<div><a href='http://localhost:3000/Activar/"+post.Email+"/"+post.Codigo+"'>Click aqui para activar</a></div>",
@@ -226,12 +226,12 @@ UsuariosController.Activar = function (request, response) {
 
         } else {
             if (verestado.data[0].Estado == 1) {
-                response.json({ state: true, mensaje: "La cuenta ya fué activada" })
+                response.send("<div style=background-color:#74E5FE;><a href="+"http://localhost:4200/"+"><button>click aquí</button></a> La cuenta ya fue activada</div>")
             } else {
                 post.id = verestado.data[0]._id
                 ModelUsuarios.ActualizarEstado(post, function (res) {
                     if (res.state == true) {
-                        response.send("<div>Cuenta activada correcyamente</div>")
+                        response.send("<div style=background-color:#84F7B8;><a href="+"http://localhost:4200/"+"><button>click aquí</button></a>!Bienvenido, Cuenta activada correctamente</div>")
                     } else {
                         response.json({ state: false, mensaje: "Se presento un error al activar" })
                     }
@@ -422,11 +422,11 @@ UsuariosController.UpdateById = function (request, response) {
         Name: request.body.Name.trim(),
         LastName: request.body.LastName.trim(),
         Email: request.body.Email.trim(),
+        Password: request.body.Password.trim(),
         Age: request.body.Age,
         Phone: request.body.Phone,
         Address: request.body.Address.trim(),
     }
-
     /*Validacion campo _id */
     if (post._id == "" || post._id == null || post._id == undefined) {
         response.json({ state: false, mensaje: "El campo Id es obligatorio" })
@@ -443,6 +443,34 @@ UsuariosController.UpdateById = function (request, response) {
     })
 }
 
+UsuariosController.UpdateById = function (request, response) {
+    var post = {
+        _id: request.body._id,
+        Rol: request.body.Rol,
+        Cedula: request.body.Cedula,
+        Name: request.body.Name.trim(),
+        LastName: request.body.LastName.trim(),
+        Email: request.body.Email.trim(),
+        Password: request.body.Password.trim(),
+        Age: request.body.Age,
+        Phone: request.body.Phone,
+        Address: request.body.Address.trim(),
+    }
+    /*Validacion campo _id */
+    if (post._id == "" || post._id == null || post._id == undefined) {
+        response.json({ state: false, mensaje: "El campo Id es obligatorio" })
+        return false}
+
+    ModelUsuarios.UpdateById(post, function (respuesta) {
+        console.log(respuesta)
+        if (respuesta.state == true) {
+            response.json({ state: true, mensaje: "se actualizó correctamente" })
+        }
+        else {
+            response.json({ state: false, mensaje: "El usuario no ha sido registrado" })
+        }
+    })
+}
 /***************************************************************/
 /******************         DELETE            ******************/
 /******************   Delete Users By Id     *******************/

@@ -37,6 +37,10 @@ app.post("/Users/UpdateById", function (request, response) {
     UsuariosController.UpdateById(request, response)
 })
 
+app.post("/Users/UpdateSession", function (request, response) {
+    UsuariosController.UpdateSession(request, response)
+})
+
 app.post("/Users/DeleteById", function (request, response) {
     UsuariosController.DeleteById(request, response)
 })

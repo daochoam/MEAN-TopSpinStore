@@ -1,8 +1,6 @@
 var ModelUsuarios = {}
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
-//var trimStart = require('string.prototype.trimstart')
-//var trimEnd = require('string.prototype.trimend')
 
 var UsuariosSchema = new Schema({
     Rol:Number,
@@ -141,54 +139,8 @@ ModelUsuarios.LoadById = function(post,callback) {
     })
 }
 
-
-/**********  Listar Usuarios por Document  ************/
-ModelUsuarios.LoadByDocument = function (post, callback) {
-    MyModel.find({ Cedula: post.Cedula }, {}, (error, documentos) => {
-        if (documentos.length > 0) {
-            if (error) {
-                return callback({ state: false, data: error })
-            }
-            else {
-                return callback({ state: true, data: documentos })
-            }
-        } else {
-            return callback({ state: false })
-        }
-    })
-}
-
-/***************************************************************/
-/******************        UPDATE             ******************/
-ModelUsuarios.UpdateByDocument = function (post, callback) {
-    MyModel.find({ Cedula: post.Cedula }, {}, (error, documentos) => {
-        if (error)
-            return callback({ state: true, error })
-        else {
-            if (documentos.length > 0) {
-                MyModel.findByIdAndUpdate(documentos[0]._id, {
-                    Name: post.Name.trimStart().trimEnd(),
-                    Password: post.Password.trimStart().trimEnd(),
-                }, (error, usuariomodificado) => {
-                    if (error) {
-                        console.log(error)
-                        return callback({ state: false, mensaje: error })
-                    }
-                    else {
-                        return callback({ state: true })
-                    }
-                })
-            }
-            else {
-                return callback({ state: false })
-            }
-        }  // return callback({cantidad:documentos.length})
-    })
-}
-
 /*Actualizar Usuarios por Id*/
 ModelUsuarios.UpdateById = function(post, callback){
-    console.log(post.Age)
     MyModel.findByIdAndUpdate(post._id,{
         Rol: parseInt(post.Rol),
         Cedula: parseInt(post.Cedula),

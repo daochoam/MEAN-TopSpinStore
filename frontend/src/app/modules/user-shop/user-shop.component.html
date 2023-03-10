@@ -14,7 +14,21 @@
       </thead>
 
       <tbody>
+        <tr
+          *ngFor="let Market of ListMarket" >
+
+          <td>{{ Market.Products.Nombre }}</td>
+          <td>{{ Market.Market_id }}</td>
+
+          <td>{{ Market.Precio | currency }}</td>
+          <td>{{ Market.Cantidad }}</td>
+          <!-- <td>{{item.fechav}}</td> -->
+        </tr>
+      </tbody>
+
+      <!-- <tbody>
          <tr *ngFor="let Market of ListMarket">
+          {{ListMarket[0]}}
           <td><i class="fa-solid fa-trash" (click)="DeleteItem(Market._id)"></i></td>
            <td><img src="http:localhost:3000/productos/{{Market.Product_id}}.png" + class="imgproductos"></td>
            <td>{{ Market.Products.Codigo }}</td>
@@ -32,14 +46,14 @@
             </span></div>
           </td>
            <td>{{Amount}}</td>
+           <div class="button">
+            <div class="new" title="Add Product">
+              <i class="fa-sharp fa-regular fa-plus fa-lg"></i>
+            </div>
+          </div>
          </tr>
-      </tbody>
+      </tbody> -->
     </table>
-  </div>
-  <div class="button">
-    <div class="new" title="Add Product">
-      <i class="fa-sharp fa-regular fa-plus fa-lg"></i>
-    </div>
   </div>
 </div>
 

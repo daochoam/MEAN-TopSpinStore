@@ -3,11 +3,13 @@
   <app-jumbotron></app-jumbotron>
   <div class="MenuView">
     <div class="row">
-      <div class="col-sm-6 col-md-3" *ngFor="let Category of ListCategory">
-          <img  class="img-responsive"  src="./assets/Icons/{{Category.Name}}.png"  alt="Blades"  routerLink="/products/{{Category.Code}}">
+      <div class="col-sm-6 col-md-3" *ngFor="let Category of ListCategory; let j = index " routerLink="/products/{{Category.Code}}">
+        <span *ngIf="j<8">
+        <img src="http://localhost:3000/productos/{{Category._id}}.png"  class="img-responsive">
           <div class="text-center btn_blade Title" routerLink="/products/{{Category.Code}}">
             {{Category.Name}}
           </div>
+        </span>
       </div>
     </div>
   </div>

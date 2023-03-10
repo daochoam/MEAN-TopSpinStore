@@ -29,8 +29,8 @@
         <td>{{ User.LastName }}</td>
         <td>{{ User.Email }}</td>
         <td>
-          <div *ngFor="let States of States">
-            <span *ngIf="User.State==States.Id"> {{States.Name}} </span>
+          <div *ngFor="let StateU of States">
+            <span *ngIf="User.Estado===StateU.Id"> {{StateU.Name}} </span>
           </div>
         </td>
         <td>{{ User.Age }}</td>
@@ -78,7 +78,7 @@
                 </mat-form-field>
               </div>
             </div>
-            
+
             <!-- NAME -->
             <div class="form-group col-12 col-md-12">
               <label for="message-text" class="col-form-label">Name:</label>

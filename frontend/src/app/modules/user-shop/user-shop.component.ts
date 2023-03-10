@@ -10,26 +10,9 @@ import { RequestUsersService } from 'src/app/services/RequestUsers/request-users
   styleUrls: ['./user-shop.component.css']
 })
 export class UserShopComponent implements OnInit {
-  Amount: string = ""
-  ListMarket: [Market] = [{
-    _id: "",
-    User_id: "",
-    Product_id: "",
-    Quantity: 0,
-    Products: {
-      Codigo: "",
-      Nombre: "",
-      Precio: "",
-      Cantidad: ""
-    }
-  }];
 
-  ListProducts: [Products] = [{
-    Codigo: "",
-    Nombre: "",
-    Precio: "",
-    Cantidad: ""
-  }];
+  Amount: string = ""
+  ListMarket: any[] = []
   UserSession: [UserSession] = [{ User_id: "", Name: "" }]
 
   constructor(private RequestUser: RequestUsersService,
@@ -37,16 +20,28 @@ export class UserShopComponent implements OnInit {
     private Message: MessagesService) { }
 
   ngOnInit() {
-
+      this.RequestUser.ViewCookie().then((response: any) => {
+        if (response.state == true) {
+          this.RequestMarket.LoadMyMarket(response.clave.UserId).then((Market: any) => {
+            console.log(Market.data)
+            this.ListMarket = Market.data;
+          })
+        } else {
+          this.UserSession = [{ User_id: '', Name: '', Rol: '' }]
+        }
+      })
   }
 
   LoadMyMartket() {
-    this.VerCookies()
-    this.RequestMarket.LoadMyMarket({
-      User_id: this.UserSession[0].User_id
-    }).then((response: any) => {
-      if(response.state==true){
-        this.ListMarket=response.data
+    this.RequestUser.ViewCookie().then((response: any) => {
+      if (response.state == true) {
+        this.RequestMarket.LoadMyMarket(response.clave.UserId).then((Market: any) => {
+          console.log(Market.data)
+          this.ListMarket = Market.data;
+          console.log(this.ListMarket[0].Quantity)
+        })
+      } else {
+        this.UserSession = [{ User_id: '', Name: '', Rol: '' }]
       }
     })
   }

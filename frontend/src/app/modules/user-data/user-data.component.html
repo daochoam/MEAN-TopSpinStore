@@ -5,38 +5,22 @@
         <div class="data row">
           <div class="Info col-8">
             <div class="row">
-              <div class="col-12 col-md-4">
+              <div class="col-12 col-md-12">
                 <label for="">Cedula:</label>
-                <input
-                  class="Input-1"
-                  type="text"
-                  title="Cedula"
-                  placeholder="ID number"
-                  [(ngModel)]="Cedula"
-                  disabled
-                />
+                <input  class="Input-1"  type="Nume"  title="Cedula"  placeholder="ID number"  [(ngModel)]="Cedula"  disabled/>
+                <div class="Warm"><pre>{{msn_CC}}</pre></div>
               </div>
             </div>
             <div class="row">
-              <div class="col-12 col-md-6">
+              <div class="col-12 col-md-12">
                 <label for="">Name:</label>
-                <input
-                  class="Input-1"
-                  type="text"
-                  title="Name"
-                  placeholder="Name"
-                  [(ngModel)]="Name"
-                />
+                <input  class="Input-1"  type="text"  title="Name"  placeholder="Name"  [(ngModel)]="Name"/>
+                <div class="Warm"><pre>{{msn_Name}}</pre></div>
               </div>
-              <div class="col-12 col-md-8">
+              <div class="col-12 col-md-12">
                 <label for="">Lastname:</label>
-                <input
-                  class="Input-1"
-                  type="text"
-                  title="Lastname"
-                  [(ngModel)]="LastName"
-                  placeholder="Lastname"
-                />
+                <input class="Input-1" type="text" title="Lastname" [(ngModel)]="LastName" placeholder="Lastname"/>
+                <div class="Warm"><pre>{{msn_LastName}}</pre></div>
               </div>
             </div>
             <div class="row">
@@ -49,6 +33,7 @@
                   placeholder="Email"
                   [(ngModel)]="Email"
                 />
+                <div class="Warm"><pre>{{msn_Email}}</pre></div>
               </div>
             </div>
             <div class="row">
@@ -61,6 +46,7 @@
                   placeholder="Password"
                   [(ngModel)]="Password"
                 />
+                <div class="Warm"><pre>{{msn_Password}}</pre></div>
               </div>
               <div class="col-12 col-md-12">
                 <label for="">Confirm Password:</label>
@@ -71,6 +57,7 @@
                   placeholder="Confirm Password"
                   [(ngModel)]="ConfirmPassword"
                 />
+                <div class="Warm"><pre>{{msn_ConfirmPassword}}</pre></div>
               </div>
             </div>
             <div class="row">
@@ -81,7 +68,9 @@
                   type="text"
                   title="Age"
                   placeholder="Age"
+                  [(ngModel)]="Age"
                 />
+                <div class="Warm"><pre>{{msn_Age}}</pre></div>
               </div>
             </div>
             <div class="row">
@@ -92,7 +81,9 @@
                   type="text"
                   title="Phone"
                   placeholder="Phone"
+                  [(ngModel)]="Phone"
                 />
+                <div class="Warm"><pre>{{msn_Phone}}</pre></div>
               </div>
               <div class="col-12 col-md-6">
                 <label for="">Address:</label>
@@ -103,16 +94,19 @@
                   placeholder="Address"
                   [(ngModel)]="Address"
                 />
+                <div class="Warm"><pre>{{msn_Address}}</pre></div>
               </div>
+
             </div>
+
           </div>
-          <div class="Photo col-4"></div>
-        </div>
     </div>
-    <span class="button">
-      <button type="button" class="btn btn-primary" title="Save">Save</button>
-    </span>
   </div>
+  <div class="button col-12 col-md-12">
+
+    <div type="button" class="btn btn-primary" title="Save" (click)="UpdateById()">Save</div>
+
+</div>
 </div>
 
 
