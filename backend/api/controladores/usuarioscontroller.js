@@ -451,7 +451,7 @@ UsuariosController.UpdateById = function (request, response) {
         Name: request.body.Name.trim(),
         LastName: request.body.LastName.trim(),
         Email: request.body.Email.trim(),
-        Password: request.body.Password.trim(),
+        Password: request.body.Password,
         Age: request.body.Age,
         Phone: request.body.Phone,
         Address: request.body.Address.trim(),

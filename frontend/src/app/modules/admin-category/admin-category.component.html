@@ -58,11 +58,7 @@
                 <div class="row">
                   <!-- Carga de imagenes-->
                  <div class="col-8" *ngIf="Id != ''">
-                  <app-uploadfiles
-                    [urldestino]="destino"
-                    [path]="path"
-                    [inputName]="'userfile'"
-                  ></app-uploadfiles>
+                  <app-uploadfiles  [urldestino]="destino"  [path]="path"  [inputName]="'userfile'"></app-uploadfiles>
                 </div>
                 <!-- Imagen -->
                  <div class="col-4" *ngIf="Id != ''">

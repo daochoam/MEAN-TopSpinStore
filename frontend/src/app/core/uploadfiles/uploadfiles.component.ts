@@ -14,9 +14,6 @@ export class UploadfilesComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    console.log(this.urldestino)
-    console.log(this.path)
-    console.log(this.inputName)
   }
 
   SelectedFiles: any
