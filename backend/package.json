@@ -7,8 +7,22 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
-  "author": "dyoc",
+  "repository": {
+    "type": "git",
+    "url": "git+https://https://github.com/daochoam/TopSpinStore-MEAN"
+  },
+  "keywords": [
+    "User",
+    "Products",
+    "Market",
+    "CreditCard"
+  ],
+  "author": "Daniel Francisco Ochoa Morón",
   "license": "ISC",
+  "bugs": {
+    "url": "https://https://github.com/daochoam/TopSpinStore-MEAN/issues"
+  },
+  "homepage": "https://https://github.com/daochoam/TopSpinStore-MEAN#readme",
   "dependencies": {
     "body-parser": "^1.20.1",
     "connect-mongo": "^4.6.0",
