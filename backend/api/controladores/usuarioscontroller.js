@@ -263,8 +263,7 @@ UsuariosController.Login = function (request, response) {
     }
 
     ModelUsuarios.ValidarEstado(post, function (Estado) {
-        console.log(Estado)
-        if (Estado.data[0].Estado == 0) {
+        if (Estado.data[0].Estado == 0 || Estado.data[0].Estado == null || Estado.data[0].Estado == undefined) {
             response.json({ state: false, mensaje: "Debe activar su cuenta por medio de su email " })
         } else
             ModelUsuarios.Login(post, function (respuesta) {

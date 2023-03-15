@@ -44,7 +44,8 @@ var session = require('express-session')({
     cookie:{path:'/',httpOnly:true,maxAge:config.tiemposession},
     name:config.cookiename,
     rolling:true,
-    store: MongoStore.create({mongoUrl:'mongodb://127.0.0.1:27017/' + config.db +'cookie'})
+    //store: MongoStore.create({mongoUrl:'mongodb://127.0.0.1:27017/' + config.db +'cookie'})
+    store: MongoStore.create({mongoUrl:'mongodb+srv://mean-vercel:Mean_Vercel_1985@topspinstore.givcvtj.mongodb.net/?retryWrites=true&w=majority'})
 })
 
 app.use(session);
