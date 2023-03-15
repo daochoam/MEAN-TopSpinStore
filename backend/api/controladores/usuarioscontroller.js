@@ -266,9 +266,10 @@ UsuariosController.Login = function (request, response) {
         if (Estado.data[0].Estado == null || Estado.data[0].Estado == undefined) {
             response.json({ state: false, mensaje: "El usuario aun no ha realizado su registro " })
         }
-        if (Estado.data[0].Estado == 0) {
+        else if (Estado.data[0].Estado == 0) {
             response.json({ state: false, mensaje: "Debe activar su cuenta por medio de su email " })
-        } else
+        } 
+        else
             ModelUsuarios.Login(post, function (respuesta) {
                 console.log(respuesta)
                 if (respuesta.state == true) {
